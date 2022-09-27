@@ -2,6 +2,15 @@
 
 /* Your own custom base styles */
 
+@layer base {
+  button {
+    @apply px-3.5 py-1.5 text-xs rounded-full bg-primary-500 text-primary-100;
+  }
+  button:hover {
+    @apply bg-primary-300;
+  }
+}
+
 /* Start purging... */
 @tailwind components;
 /* Stop purging. */
@@ -13,3 +22,9 @@
 /* Stop purging. */
 
 /* Your own custom utilities */
+html,
+body {
+  background: #070d11;
+  height: 100%;
+  width: 100%;
+}
