@@ -1,4 +1,3 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 type Props = {};
 
@@ -19,7 +18,7 @@ const BaseNav = (props: Props) => {
           </div>
         </nav>
       </header>
-      <main className="w-full h-full p-2 mt-14 bg-primary-500">
+      <main className="w-full h-[calc(100vh_-_56px)] fixed bottom-0 ">
         <Outlet />
       </main>
     </>

@@ -1,15 +1,13 @@
-import { Routes, Route } from "react-router-dom";
-
-import BaseNav from "./layouts/BaseNav";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./screens/Home";
 
 function App() {
   return (
     <Routes>
-      <Route element={<BaseNav />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-      </Route>
+      {/* BaseNav: add a route below to include prelogin layout*/}
+
+      <Route path="/" element={<Home />} />
+      <Route path="/home" element={<Navigate to="/" />} />
     </Routes>
   );
 }

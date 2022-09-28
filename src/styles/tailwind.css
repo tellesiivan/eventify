@@ -4,7 +4,7 @@
 
 @layer base {
   button {
-    @apply px-3.5 py-1.5 text-xs rounded-full bg-primary-500 text-primary-100;
+    @apply px-3.5 py-1.5 text-xs rounded-full bg-primary-500 text-base-white;
   }
   button:hover {
     @apply bg-primary-300;
