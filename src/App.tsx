@@ -1,15 +1,7 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import Home from "./screens/Home";
+import NavRoutes from "./routes";
 
 function App() {
-  return (
-    <Routes>
-      {/* BaseNav: add a route below to include prelogin layout*/}
-
-      <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Navigate to="/" />} />
-    </Routes>
-  );
+  return <NavRoutes />;
 }
 
 export default App;
