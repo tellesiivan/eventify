@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SignInForm from "../auth/SignInForm";
-import { ButtonWithIcon } from "../components/shared";
+import LoginForm from "../auth/LoginForm";
+import { default as SignUpForm } from "../auth/SignUpForm";
 import { IsMobileView } from "../utils/index";
 
 import {
@@ -11,9 +11,9 @@ import {
   Heading,
   HStack,
   Image,
+  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
 
 enum ActiveStates {
   LOGIN = "Login",
@@ -31,6 +31,10 @@ const formOpts: FormOpt[] = [
 
 const Home = () => {
   const isMobile = IsMobileView();
+  const alignVstack = useBreakpointValue(
+    { md: "center", lg: "start" },
+    { ssr: false }
+  );
   const [activeForm, setActiveForm] = useState<ActiveStates>(
     ActiveStates.LOGIN
   );
@@ -53,53 +57,46 @@ const Home = () => {
         alignItems="center"
         padding={3}
       >
-        <VStack align="start">
-          <Box mb={10}>
+        <VStack align={alignVstack}>
+          <Box mb={12}>
             <Heading as="h2" size="3xl" color="white">
               Happening now.
             </Heading>
           </Box>
-          <Box>
-            <HStack alignItems="center" spacing={3}>
-              <ButtonGroup
-                _hover={{ backgroundColor: "none" }}
-                variant="unstyled"
-                color="white"
-              >
-                {formOpts.map((opt) => (
-                  <Button
-                    key={opt.label}
-                    onClick={() => setActiveForm(opt.label)}
-                    as="h1"
-                    fontSize="md"
-                    color={`${opt.label === activeForm ? "razz.500" : "white"}`}
-                    className="cursor-pointer"
-                  >
-                    {opt.label}
-                  </Button>
-                ))}
-              </ButtonGroup>
-            </HStack>
-          </Box>
-          <Box bg="primary.400" p={6} rounded="xl" minWidth="96" maxWidth={96}>
-            {activeForm === ActiveStates.LOGIN && (
-              <VStack width="full" spacing={6}>
-                <ButtonWithIcon
-                  Text="Continue with Google"
-                  Icon={<FcGoogle />}
-                  isLoading={false}
-                />
-                <Box
-                  width="full"
-                  height="0.25"
-                  bg="primary.100"
-                  rounded="full"
-                />
 
-                <SignInForm />
-              </VStack>
-            )}
-          </Box>
+          <VStack align={alignVstack} spacing={1}>
+            <ButtonGroup
+              _hover={{ backgroundColor: "none" }}
+              variant="unstyled"
+              color="white"
+            >
+              {formOpts.map((opt) => (
+                <Button
+                  key={opt.label}
+                  onClick={() => setActiveForm(opt.label)}
+                  as="h1"
+                  fontSize="md"
+                  color={`${opt.label === activeForm ? "razz.500" : "white"}`}
+                  className="cursor-pointer"
+                >
+                  {opt.label}
+                </Button>
+              ))}
+            </ButtonGroup>
+            <Box
+              bg="primary.400"
+              p={6}
+              rounded="xl"
+              minWidth="96"
+              maxWidth={96}
+            >
+              {activeForm === ActiveStates.LOGIN ? (
+                <LoginForm />
+              ) : (
+                <SignUpForm />
+              )}
+            </Box>
+          </VStack>
         </VStack>
       </Flex>
     </HStack>

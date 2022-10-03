@@ -4,6 +4,7 @@ type ButtonIconProps = {
   Icon: React.ReactElement;
   Text: string;
   isLoading?: boolean;
+  onSubmit: () => void;
 };
 
 /**
@@ -11,17 +12,24 @@ type ButtonIconProps = {
  * @param Icon needs to be passed from react-icons
  * @param Text a string that will be displayed inside the button
  */
-const ButtonIcon = ({ Icon, Text, isLoading = true }: ButtonIconProps) => {
+const ButtonIcon = ({
+  Icon,
+  Text,
+  isLoading = true,
+  onSubmit,
+}: ButtonIconProps) => {
   return (
     <Button
       alignItems="center"
       display="flex"
       leftIcon={Icon}
+      onClick={onSubmit}
       isLoading={isLoading}
       colorScheme="teal"
       variant="unstyled"
       width="full"
       p={2}
+      height="12"
       rounded="xl"
       bg="black"
       fontSize="sm"
