@@ -19,7 +19,11 @@ type InitialValues = {
   password: string;
 };
 
-export default function LoginForm() {
+type LoginFormProps = {
+  socialLogin: () => void;
+};
+
+export default function LoginForm({ socialLogin }: LoginFormProps) {
   const initialValues: InitialValues = {
     email: "",
     password: "",
@@ -51,12 +55,12 @@ export default function LoginForm() {
           return (
             <VStack spacing={6}>
               <ButtonWithIcon
-                onSubmit={() => console.log("LoginForm submit")}
                 Text="Continue with Google"
                 Icon={<FcGoogle />}
                 isLoading={false}
+                onClickAction={socialLogin}
               />
-              <Box width="full" height="0.25" bg="primary.200" rounded="full" />
+              <Box width="full" height="0.25" bg="primary.600" rounded="full" />
               <Form className="w-full">
                 <VStack spacing={4} align="flex-start">
                   <FormControl>
@@ -74,7 +78,7 @@ export default function LoginForm() {
                       placeholder="Your email..."
                       _placeholder={{
                         opacity: 1,
-                        color: "gray.500",
+                        color: "gray.700",
                         fontSize: "xs",
                       }}
                       onChange={handleChange}
@@ -102,7 +106,7 @@ export default function LoginForm() {
                       placeholder="Password..."
                       _placeholder={{
                         opacity: 1,
-                        color: "gray.500",
+                        color: "gray.700",
                         fontSize: "xs",
                       }}
                       onChange={handleChange}
@@ -119,11 +123,11 @@ export default function LoginForm() {
                     <Button
                       disabled={!(isValid && dirty)}
                       type="submit"
-                      bg="razz.600"
+                      bg="ichw.600"
                       onClick={() => handleSubmit()}
-                      color="white"
+                      color="primary.600"
                       width="full"
-                      _hover={{ bg: "razz.500" }}
+                      _hover={{ bg: "ichw.500" }}
                       rounded="xl"
                     >
                       Login

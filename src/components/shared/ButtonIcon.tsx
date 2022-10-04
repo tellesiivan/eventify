@@ -4,7 +4,7 @@ type ButtonIconProps = {
   Icon: React.ReactElement;
   Text: string;
   isLoading?: boolean;
-  onSubmit: () => void;
+  onClickAction?: () => void;
 };
 
 /**
@@ -16,14 +16,14 @@ const ButtonIcon = ({
   Icon,
   Text,
   isLoading = true,
-  onSubmit,
+  onClickAction,
 }: ButtonIconProps) => {
   return (
     <Button
       alignItems="center"
       display="flex"
       leftIcon={Icon}
-      onClick={onSubmit}
+      onClick={onClickAction}
       isLoading={isLoading}
       colorScheme="teal"
       variant="unstyled"

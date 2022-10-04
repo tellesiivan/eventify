@@ -54,12 +54,11 @@ export default function SignUpForm() {
           return (
             <VStack spacing={6}>
               <ButtonWithIcon
-                onSubmit={() => console.log("SignUpForm submit")}
                 Text="Sign up with Google"
                 Icon={<FcGoogle />}
                 isLoading={false}
               />
-              <Box width="full" height="0.25" bg="primary.200" rounded="full" />
+              <Box width="full" height="0.25" bg="primary.600" rounded="full" />
               <Form className="w-full">
                 <VStack spacing={4} align="flex-start">
                   <FormControl>
@@ -77,7 +76,7 @@ export default function SignUpForm() {
                       placeholder="Your email..."
                       _placeholder={{
                         opacity: 1,
-                        color: "gray.500",
+                        color: "gray.700",
                         fontSize: "xs",
                       }}
                       onChange={handleChange}
@@ -105,7 +104,7 @@ export default function SignUpForm() {
                       placeholder="Password..."
                       _placeholder={{
                         opacity: 1,
-                        color: "gray.500",
+                        color: "gray.700",
                         fontSize: "xs",
                       }}
                       onChange={handleChange}
@@ -137,7 +136,7 @@ export default function SignUpForm() {
                       placeholder="Verify Password..."
                       _placeholder={{
                         opacity: 1,
-                        color: "gray.500",
+                        color: "gray.700",
                         fontSize: "xs",
                       }}
                       onChange={handleChange}
@@ -154,11 +153,11 @@ export default function SignUpForm() {
                     <Button
                       disabled={!(isValid && dirty)}
                       type="submit"
-                      bg="razz.600"
+                      bg="ichw.600"
                       onClick={() => handleSubmit()}
-                      color="white"
+                      color="primary.600"
                       width="full"
-                      _hover={{ bg: "razz.500" }}
+                      _hover={{ bg: "ichw.500" }}
                       rounded="xl"
                     >
                       Sign up

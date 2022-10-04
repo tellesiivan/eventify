@@ -15,6 +15,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { auth } from "../firebase.config";
+
 enum ActiveStates {
   LOGIN = "Login",
   SIGNUP = "Sign up",
@@ -31,13 +34,11 @@ const formOpts: FormOpt[] = [
 
 const Home = () => {
   const isMobile = IsMobileView();
-  const alignVstack = useBreakpointValue(
-    { md: "center", lg: "start" },
-    { ssr: false }
-  );
+  const alignVstack = useBreakpointValue({ md: "center", lg: "start" });
   const [activeForm, setActiveForm] = useState<ActiveStates>(
     ActiveStates.LOGIN
   );
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
   return isMobile ? (
     <VStack height="full" width="full" spacing={0} bg="primary.600"></VStack>
@@ -45,7 +46,7 @@ const Home = () => {
     <HStack height="full" width="full" spacing={0} bg="primary.600">
       <Box className="relative w-6/12 h-full ">
         <Image
-          src="https://images.unsplash.com/photo-1660544287010-3310dd69e12f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+          src="https://images.unsplash.com/photo-1559568691-d699d88fdac8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80"
           alt="Home page, "
           className="absolute inset-0 object-cover object-center w-full h-full"
         />
@@ -59,7 +60,7 @@ const Home = () => {
       >
         <VStack align={alignVstack}>
           <Box mb={12}>
-            <Heading as="h2" size="3xl" color="white">
+            <Heading as="h2" size="2xl" color="white">
               Happening now.
             </Heading>
           </Box>
@@ -76,7 +77,7 @@ const Home = () => {
                   onClick={() => setActiveForm(opt.label)}
                   as="h1"
                   fontSize="md"
-                  color={`${opt.label === activeForm ? "razz.500" : "white"}`}
+                  color={`${opt.label === activeForm ? "ichw.600" : "white"}`}
                   className="cursor-pointer"
                 >
                   {opt.label}
@@ -84,14 +85,14 @@ const Home = () => {
               ))}
             </ButtonGroup>
             <Box
-              bg="primary.400"
+              bg="primary.300"
               p={6}
               rounded="xl"
               minWidth="96"
               maxWidth={96}
             >
               {activeForm === ActiveStates.LOGIN ? (
-                <LoginForm />
+                <LoginForm socialLogin={() => signInWithGoogle()} />
               ) : (
                 <SignUpForm />
               )}
