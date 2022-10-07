@@ -28,13 +28,13 @@ export const appColors = {
     500: "#acf76e",
     600: "#A3F65E",
   },
-  turquoise: {
-    100: "#c3f7ee",
-    200: "#aff5e8",
-    300: "#9bf2e2",
-    400: "#86efdc",
-    500: "#72edd6",
-    600: "#36e5c5",
+  sunglow: {
+    100: "#ffe581",
+    200: "#fedf68",
+    300: "#feda4f",
+    400: "#fed535",
+    500: "#fecf1c",
+    600: "#feca03",
   },
   success: {
     100: "#9feacd",

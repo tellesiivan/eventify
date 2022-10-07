@@ -32,7 +32,7 @@ const formOpts: FormOpt[] = [
   { label: ActiveStates.SIGNUP },
 ];
 
-const Home = () => {
+const Auth = () => {
   const isMobile = IsMobileView();
   const alignVstack = useBreakpointValue({ md: "center", lg: "start" });
   const [activeForm, setActiveForm] = useState<ActiveStates>(
@@ -76,6 +76,7 @@ const Home = () => {
                   key={opt.label}
                   onClick={() => setActiveForm(opt.label)}
                   as="h1"
+                  variant="base"
                   fontSize="md"
                   color={`${opt.label === activeForm ? "ichw.600" : "white"}`}
                   className="cursor-pointer"
@@ -104,4 +105,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Auth;
