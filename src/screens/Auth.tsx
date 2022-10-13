@@ -86,7 +86,7 @@ const Auth = () => {
               ))}
             </ButtonGroup>
             <Box
-              bg="primary.300"
+              bg="primary.500"
               p={6}
               rounded="xl"
               minWidth="96"

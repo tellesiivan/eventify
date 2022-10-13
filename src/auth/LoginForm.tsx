@@ -13,6 +13,7 @@ import {
 import { FcGoogle } from "react-icons/fc";
 
 import { ErrorMessage, Form, Formik, FormikProps } from "formik";
+import { useNavigate } from "react-router-dom";
 
 type InitialValues = {
   email: string;
@@ -24,6 +25,8 @@ type LoginFormProps = {
 };
 
 export default function LoginForm({ socialLogin }: LoginFormProps) {
+  const navigate = useNavigate();
+
   const initialValues: InitialValues = {
     email: "",
     password: "",
@@ -58,7 +61,10 @@ export default function LoginForm({ socialLogin }: LoginFormProps) {
                 Text="Continue with Google"
                 Icon={<FcGoogle />}
                 isLoading={false}
-                onClickAction={socialLogin}
+                onClickAction={() => {
+                  socialLogin();
+                  navigate("/");
+                }}
               />
               <Box width="full" height="0.25" bg="primary.600" rounded="full" />
               <Form className="w-full">

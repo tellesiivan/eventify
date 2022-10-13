@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Auth from "../screens/Auth";
 
-import { Box, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import { Flex, Spinner } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase.config";
@@ -23,34 +23,52 @@ const NavRoutes = (props: Props) => {
 
   if (loading) {
     return (
-      <Box padding="6" boxShadow="lg" height="100%" width="100%">
-        <SkeletonCircle size="10" bg="primary.300" />
-        <SkeletonText mt="4" noOfLines={4} spacing="4" bg="primary.300" />
-      </Box>
+      <Flex
+        padding="6"
+        boxShadow="lg"
+        h="calc(100vh)"
+        w="calc(100vw)"
+        minHeight="full"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="secondary.200"
+          color="primary.400"
+          size="xl"
+        />
+      </Flex>
     );
   }
 
   const isLoggedIn = user ? true : false;
 
   return (
-    <Routes>
-      {/* BaseNav: add a route below to include prelogin layout*/}
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/home" element={<BaseNav />}>
-        <Route index element={user ? <Feed /> : <Auth />} />
-      </Route>
-      <Route
-        path="/"
-        element={<Navigate to={isLoggedIn ? "/home" : "/auth"} />}
-      />
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute isLoggedIn={isLoggedIn} component={<UserProfile />} />
-        }
-      />
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
+    <>
+      <Routes>
+        {/* BaseNav: add a route below to include prelogin layout*/}
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/home" element={<BaseNav />}>
+          <Route index element={user ? <Feed /> : <Auth />} />
+        </Route>
+        <Route
+          path="/"
+          element={<Navigate to={isLoggedIn ? "/home" : "/auth"} />}
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute
+              isLoggedIn={isLoggedIn}
+              component={<UserProfile />}
+            />
+          }
+        />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
   );
 };
 
