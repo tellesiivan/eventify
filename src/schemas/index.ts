@@ -11,14 +11,17 @@ export const SignUpSchema = Yup.object().shape({
   email: Yup.string()
     .email("Must be a valid email address")
     .required("Required"),
-  password: Yup.string().required("This field is required"),
+  password: Yup.string()
+    .required("Please enter your password")
+    .matches(
+      /^.*(?=.{6,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+      "Password must contain at least 6 characters, one uppercase, one number and one special case character"
+    ),
   verifyPassword: Yup.string()
-    .required("This field is required")
+    .required("Please verify your password")
     .when("password", {
-      is: (val: string) => (val && val.length > 0 ? true : false),
-      then: Yup.string().oneOf(
-        [Yup.ref("password")],
-        "Both password need to be the same"
-      ),
+      is: (password: string | any[]) =>
+        password && password.length > 0 ? true : false,
+      then: Yup.string().oneOf([Yup.ref("password")], "Password doesn't match"),
     }),
 });

@@ -1,4 +1,3 @@
-import { ButtonWithIcon } from "../components/shared";
 import { SignUpSchema } from "../schemas/index";
 
 import {
@@ -10,9 +9,14 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
 
 import { ErrorMessage, Form, Formik, FormikProps } from "formik";
+
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase.config";
+import { useAddUserMutation } from "../redux/api/authApi";
+import { ExtractNameFromEmail } from "../utils";
 
 type InitialValues = {
   email: string;
@@ -21,10 +25,31 @@ type InitialValues = {
 };
 
 export default function SignUpForm() {
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+  const navigate = useNavigate();
   const initialValues: InitialValues = {
     email: "",
     password: "",
     verifyPassword: "",
+  };
+
+  const [addUser, { isError, isLoading }] = useAddUserMutation();
+
+  const signupHandler = async (values: InitialValues) => {
+    const username = ExtractNameFromEmail({
+      email: values.email,
+    });
+    try {
+      await createUserWithEmailAndPassword(values.email, values.password);
+      await addUser({
+        email: values.email,
+        username,
+      });
+      navigate("/profile");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -32,12 +57,7 @@ export default function SignUpForm() {
       <Formik
         initialValues={initialValues}
         validationSchema={SignUpSchema}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-          }, 1000);
-        }}
+        onSubmit={(values) => signupHandler(values)}
       >
         {(props: FormikProps<any>) => {
           const {
@@ -53,12 +73,6 @@ export default function SignUpForm() {
 
           return (
             <VStack spacing={6}>
-              <ButtonWithIcon
-                Text="Sign up with Google"
-                Icon={<FcGoogle />}
-                isLoading={false}
-              />
-              <Box width="full" height="0.25" bg="primary.600" rounded="full" />
               <Form className="w-full">
                 <VStack spacing={4} align="flex-start">
                   <FormControl>
@@ -67,8 +81,9 @@ export default function SignUpForm() {
                     </FormLabel>
                     <Input
                       id="email"
-                      rounded="xl"
+                      rounded="lg"
                       name="email"
+                      py={6}
                       color="white"
                       type="email"
                       bg="primary.600"
@@ -89,14 +104,16 @@ export default function SignUpForm() {
                       </Text>
                     )}
                   </FormControl>
+
                   <FormControl>
                     <FormLabel htmlFor="password" fontSize="xs" color="white">
                       Password
                     </FormLabel>
                     <Input
-                      rounded="xl"
+                      rounded="lg"
                       id="password"
                       color="white"
+                      py={6}
                       name="password"
                       bg="primary.600"
                       type="password"
@@ -126,9 +143,10 @@ export default function SignUpForm() {
                       Verify Password
                     </FormLabel>
                     <Input
-                      rounded="xl"
+                      rounded="lg"
                       id="verifyPassword"
                       color="white"
+                      py={6}
                       name="verifyPassword"
                       bg="primary.600"
                       type="password"
@@ -149,16 +167,16 @@ export default function SignUpForm() {
                       </Text>
                     )}
                   </FormControl>
+
                   <Box width="full" pt={2}>
                     <Button
                       disabled={!(isValid && dirty)}
-                      type="submit"
                       bg="ichw.600"
                       onClick={() => handleSubmit()}
                       color="primary.600"
                       width="full"
                       _hover={{ bg: "ichw.500" }}
-                      rounded="xl"
+                      rounded="lg"
                     >
                       Sign up
                     </Button>

@@ -46,11 +46,11 @@ const NavRoutes = (props: Props) => {
   const isLoggedIn = user ? true : false;
 
   return (
-    <>
-      <Routes>
-        {/* BaseNav: add a route below to include prelogin layout*/}
+    <Routes>
+      {/* BaseNav: add a route below to include prelogin layout*/}
+      <Route path="/" element={<BaseNav />}>
         <Route path="/auth" element={<Auth />} />
-        <Route path="/home" element={<BaseNav />}>
+        <Route path="/home" element={user ? <Feed /> : <Auth />}>
           <Route index element={user ? <Feed /> : <Auth />} />
         </Route>
         <Route
@@ -67,8 +67,8 @@ const NavRoutes = (props: Props) => {
           }
         />
         <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </>
+      </Route>
+    </Routes>
   );
 };
 

@@ -9,11 +9,13 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  Flex,
   Input,
   useDisclosure,
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import { Outlet, useNavigate } from "react-router-dom";
+import { ThemeToggler } from "../components/shared/index";
 import { auth } from "../firebase.config";
 
 type Props = {};
@@ -46,7 +48,8 @@ const BaseNav = (props: Props) => {
         >
           <div className="flex items-center justify-between w-full h-full">
             <div>logo</div>
-            <div className="ml-10 space-x-2">
+            <Flex alignItems="center" gap={3}>
+              <ThemeToggler />
               <Avatar
                 name="Wes"
                 size="sm"
@@ -55,11 +58,11 @@ const BaseNav = (props: Props) => {
                 cursor="pointer"
                 onClick={onOpen}
               />
-            </div>
+            </Flex>
           </div>
         </nav>
       </Box>
-      <main className="w-full h-[calc(100vh_-_70px)] pt-20">
+      <main className="w-full h-screen pt-20">
         <Outlet />
       </main>
       {/* Will handle navigation + auth and quick profile settings */}
@@ -83,8 +86,15 @@ const BaseNav = (props: Props) => {
             >
               Cancel
             </Button>
-            <Button colorScheme="blue" rounded="full">
-              Save
+            <Button
+              colorScheme="blue"
+              rounded="full"
+              onClick={() => {
+                onClose();
+                navigate("/profile");
+              }}
+            >
+              profile
             </Button>
           </DrawerFooter>
         </DrawerContent>

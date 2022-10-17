@@ -1,22 +1,25 @@
 import { Box } from "@chakra-ui/react";
-import { useGetPostsQuery } from "../../redux/api/example";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase.config";
+import { useGetUserQuery } from "../../redux/api/authApi";
 
 type UserProfileProps = {};
 
 const UserProfile = (props: UserProfileProps) => {
-  const { posts, isError, isLoading } = useGetPostsQuery(undefined, {
-    selectFromResult: ({ data, isLoading, isError }) => ({
-      posts: data,
-      isLoading,
-      isError,
-    }),
-  });
+  const [user, loading, error] = useAuthState(auth);
 
-  console.log(isLoading);
+  const { isError, isLoading, data } = useGetUserQuery(user?.email ?? 0);
 
-  return (
-    <Box>{isLoading && !posts ? "Loading..." : JSON.stringify(posts)}</Box>
-  );
+  if (isError) {
+    return <Box>isError</Box>;
+  }
+  if (loading) {
+    return <Box>Loading</Box>;
+  }
+
+  console.log(data);
+
+  return <Box>data</Box>;
 };
 
 export default UserProfile;
