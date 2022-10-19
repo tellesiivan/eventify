@@ -5,8 +5,8 @@ type ExtractNameFromEmailProps = {
 };
 
 export const ExtractNameFromEmail = ({ email }: ExtractNameFromEmailProps) => {
-  const randomUrlId = cryptoRandomString({ length: 10, type: "url-safe" });
-  const username = `${email.split("@")[0]}#${randomUrlId}`;
+  const randomUrlId = cryptoRandomString({ length: 8, type: "alphanumeric" });
+  const username = `${email.split("@")[0]}${randomUrlId}`;
 
   return username;
 };

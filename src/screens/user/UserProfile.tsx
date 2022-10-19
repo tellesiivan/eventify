@@ -1,25 +1,37 @@
 import { Box } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate, useParams } from "react-router-dom";
 import { auth } from "../../firebase.config";
 import { useGetUserQuery } from "../../redux/api/authApi";
 
 type UserProfileProps = {};
 
 const UserProfile = (props: UserProfileProps) => {
-  const [user, loading, error] = useAuthState(auth);
+  const { username } = useParams();
+  const navigate = useNavigate();
 
-  const { isError, isLoading, data } = useGetUserQuery(user?.email ?? 0);
+  const [user, loading, error] = useAuthState(auth);
+  const { isError, isLoading, data } = useGetUserQuery(username);
 
   if (isError) {
     return <Box>isError</Box>;
   }
-  if (loading) {
+  if (isLoading) {
     return <Box>Loading</Box>;
   }
+  if (!data) {
+    return <Box>no user found</Box>;
+  }
 
-  console.log(data);
-
-  return <Box>data</Box>;
+  return (
+    <Box>
+      <Box h={48} w="full" bg="primary.500" />
+      <Box>
+        {user?.email === data.email ? "is able to edit" : "not able to edit"} -{" "}
+        {}
+      </Box>
+    </Box>
+  );
 };
 
 export default UserProfile;

@@ -49,6 +49,9 @@ const NavRoutes = (props: Props) => {
     <Routes>
       {/* BaseNav: add a route below to include prelogin layout*/}
       <Route path="/" element={<BaseNav />}>
+        <Route path="/:username">
+          <Route index element={<UserProfile />} />
+        </Route>
         <Route path="/auth" element={<Auth />} />
         <Route path="/home" element={user ? <Feed /> : <Auth />}>
           <Route index element={user ? <Feed /> : <Auth />} />

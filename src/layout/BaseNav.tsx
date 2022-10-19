@@ -34,13 +34,13 @@ const BaseNav = (props: Props) => {
     <>
       <Box
         as="header"
-        height="14"
-        m="1%"
-        width="98%"
-        rounded="xl"
+        height="16"
+        width="full"
         position="fixed"
         top="0"
-        bg="primary.500"
+        bg="primary.600"
+        borderBottom="1px"
+        borderColor="secondary.600"
       >
         <nav
           className="h-full px-2 mx-auto max-w-7xl sm:px-4 lg:px-3"
@@ -62,7 +62,7 @@ const BaseNav = (props: Props) => {
           </div>
         </nav>
       </Box>
-      <main className="w-full h-screen pt-20">
+      <main className="w-full h-screen pt-16">
         <Outlet />
       </main>
       {/* Will handle navigation + auth and quick profile settings */}

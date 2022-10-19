@@ -29,7 +29,7 @@ export const authApi = baseApiSlice.injectEndpoints({
         try {
           await addDoc(usersRef, {
             ...user,
-            timestamp: serverTimestamp().toString(),
+            timestamp: serverTimestamp(),
           });
           const q = query(
             collection(firestoreDb, "users"),
@@ -48,13 +48,13 @@ export const authApi = baseApiSlice.injectEndpoints({
       },
       invalidatesTags: ["Posts"],
     }),
-    //***************SINGLE ITEM FETCHING*************** */
-    getUser: build.query<undefined, number | string>({
-      async queryFn(email): Promise<any> {
+    //***************SINGLE USER FETCHING*************** */
+    getUser: build.query<user, undefined | string>({
+      async queryFn(username): Promise<any> {
         try {
           const q = query(
             collection(firestoreDb, "users"),
-            where("email", "==", email)
+            where("username", "==", username)
           );
           const querySnapshot = await getDocs(q);
           let queryData: any;
@@ -64,6 +64,7 @@ export const authApi = baseApiSlice.injectEndpoints({
               ...doc.data(),
             };
           });
+          console.log(queryData, username);
           return {
             data: queryData,
           };

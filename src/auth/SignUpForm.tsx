@@ -46,7 +46,7 @@ export default function SignUpForm() {
         email: values.email,
         username,
       });
-      navigate("/profile");
+      !isError && navigate(`/${username}`);
     } catch (error) {
       console.log(error);
     }
@@ -170,6 +170,7 @@ export default function SignUpForm() {
 
                   <Box width="full" pt={2}>
                     <Button
+                      isLoading={isLoading || loading}
                       disabled={!(isValid && dirty)}
                       bg="ichw.600"
                       onClick={() => handleSubmit()}
