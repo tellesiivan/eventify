@@ -6,26 +6,17 @@ import {
   Box,
   Flex,
   HStack,
+  Text,
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
 
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { auth } from "../firebase.config";
+import LoginForm from "../auth/LoginForm";
 
 enum ActiveStates {
   LOGIN = "Login",
   SIGNUP = "Sign up",
 }
-
-type FormOpt = {
-  label: ActiveStates;
-};
-
-const formOpts: FormOpt[] = [
-  { label: ActiveStates.LOGIN },
-  { label: ActiveStates.SIGNUP },
-];
 
 const Auth = () => {
   const isMobile = IsMobileView();
@@ -33,7 +24,6 @@ const Auth = () => {
   const [activeForm, setActiveForm] = useState<ActiveStates>(
     ActiveStates.LOGIN
   );
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
   return isMobile ? (
     <VStack height="full" width="full" spacing={0} bg="primary.600"></VStack>
@@ -49,13 +39,31 @@ const Auth = () => {
         <VStack align={alignVstack}>
           <VStack align={alignVstack} spacing={1}>
             <Box
-              bg="primary.500"
+              bg="secondary.300"
               p={6}
               rounded="xl"
               minWidth="96"
               maxWidth={96}
             >
-              <SignUpForm />
+              <Text
+                fontSize="2xl"
+                textAlign="center"
+                mb={8}
+                onClick={() =>
+                  setActiveForm((prev) =>
+                    prev === ActiveStates.LOGIN
+                      ? ActiveStates.SIGNUP
+                      : ActiveStates.LOGIN
+                  )
+                }
+              >
+                {activeForm}
+              </Text>
+              {activeForm === ActiveStates.LOGIN ? (
+                <LoginForm />
+              ) : (
+                <SignUpForm />
+              )}
             </Box>
           </VStack>
         </VStack>

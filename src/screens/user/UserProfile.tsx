@@ -25,9 +25,11 @@ const UserProfile = (props: UserProfileProps) => {
 
   return (
     <Box>
-      <Box h={48} w="full" bg="primary.500" />
+      <Box h={48} w="full" bg="wzy.600" />
       <Box>
-        {user?.email === data.email ? "is able to edit" : "not able to edit"} -{" "}
+        {user?.email === data.email
+          ? "is able to edit - owns this profile"
+          : "not able to edit"}
         {}
       </Box>
     </Box>

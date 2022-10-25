@@ -1,4 +1,5 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
+
 import Auth from "../screens/Auth";
 
 import { Flex, Spinner } from "@chakra-ui/react";
@@ -7,12 +8,14 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase.config";
 import BaseNav from "../layout/BaseNav";
 import Feed from "../screens/feed/Feed";
+import ManagePage from "../screens/user/auth/Manage";
 import UserProfile from "../screens/user/UserProfile";
 import ProtectedRoute from "./ProtectedRoute";
 
 type Props = {};
 
 const NavRoutes = (props: Props) => {
+  const { username } = useParams();
   const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
@@ -43,15 +46,12 @@ const NavRoutes = (props: Props) => {
     );
   }
 
-  const isLoggedIn = user ? true : false;
+  const isLoggedIn = !!user?.email;
 
   return (
     <Routes>
       {/* BaseNav: add a route below to include prelogin layout*/}
       <Route path="/" element={<BaseNav />}>
-        <Route path="/:username">
-          <Route index element={<UserProfile />} />
-        </Route>
         <Route path="/auth" element={<Auth />} />
         <Route path="/home" element={user ? <Feed /> : <Auth />}>
           <Route index element={user ? <Feed /> : <Auth />} />
@@ -60,15 +60,19 @@ const NavRoutes = (props: Props) => {
           path="/"
           element={<Navigate to={isLoggedIn ? "/home" : "/auth"} />}
         />
+
         <Route
-          path="/profile"
+          path="/manage"
           element={
             <ProtectedRoute
               isLoggedIn={isLoggedIn}
-              component={<UserProfile />}
+              component={<ManagePage />}
             />
           }
         />
+
+        <Route path="/:username" element={<UserProfile />} />
+
         <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>

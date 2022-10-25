@@ -1,4 +1,3 @@
-import { ButtonWithIcon } from "../components/shared";
 import { loginInSchema } from "../schemas/index";
 
 import {
@@ -10,7 +9,6 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
 
 import { ErrorMessage, Form, Formik, FormikProps } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +22,7 @@ type LoginFormProps = {
   socialLogin: () => void;
 };
 
-export default function LoginForm({ socialLogin }: LoginFormProps) {
+export default function LoginForm() {
   const navigate = useNavigate();
 
   const initialValues: InitialValues = {
@@ -57,16 +55,6 @@ export default function LoginForm({ socialLogin }: LoginFormProps) {
 
           return (
             <VStack spacing={6}>
-              <ButtonWithIcon
-                Text="Continue with Google"
-                Icon={<FcGoogle />}
-                isLoading={false}
-                onClickAction={() => {
-                  socialLogin();
-                  navigate("/");
-                }}
-              />
-              <Box width="full" height="0.25" bg="primary.600" rounded="full" />
               <Form className="w-full">
                 <VStack spacing={4} align="flex-start">
                   <FormControl>
@@ -77,7 +65,7 @@ export default function LoginForm({ socialLogin }: LoginFormProps) {
                       id="email"
                       rounded="xl"
                       name="email"
-                      color="white"
+                      color="seconday.200"
                       type="email"
                       bg="primary.600"
                       variant="ghost"
@@ -104,7 +92,7 @@ export default function LoginForm({ socialLogin }: LoginFormProps) {
                     <Input
                       rounded="xl"
                       id="password"
-                      color="white"
+                      color="seconday.200"
                       name="password"
                       bg="primary.600"
                       type="password"

@@ -38,7 +38,10 @@ const BaseNav = (props: Props) => {
         width="full"
         position="fixed"
         top="0"
-        bg="primary.600"
+        bg={{
+          _light: '"primary.600"',
+          _dark: '"secondary.600"',
+        }}
         borderBottom="1px"
         borderColor="secondary.600"
       >
@@ -53,7 +56,7 @@ const BaseNav = (props: Props) => {
               <Avatar
                 name="Wes"
                 size="sm"
-                bg="yellow"
+                bg="black"
                 color="primary.600"
                 cursor="pointer"
                 onClick={onOpen}
@@ -68,7 +71,7 @@ const BaseNav = (props: Props) => {
       {/* Will handle navigation + auth and quick profile settings */}
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent bg="secondary.500">
+        <DrawerContent bg="primary.600">
           <DrawerCloseButton />
           <DrawerHeader>Create your account</DrawerHeader>
 
@@ -91,10 +94,10 @@ const BaseNav = (props: Props) => {
               rounded="full"
               onClick={() => {
                 onClose();
-                navigate("/profile");
+                navigate("/manage");
               }}
             >
-              profile
+              manage
             </Button>
           </DrawerFooter>
         </DrawerContent>

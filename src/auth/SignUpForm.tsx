@@ -16,6 +16,8 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase.config";
 import { useAddUserMutation } from "../redux/api/authApi";
+import { useAppDispatch } from "../redux/reduxHooks";
+import { addAuthUser } from "../redux/slices/authSlice";
 import { ExtractNameFromEmail } from "../utils";
 
 type InitialValues = {
@@ -25,6 +27,8 @@ type InitialValues = {
 };
 
 export default function SignUpForm() {
+  const dispatch = useAppDispatch();
+
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const navigate = useNavigate();
@@ -42,13 +46,21 @@ export default function SignUpForm() {
     });
     try {
       await createUserWithEmailAndPassword(values.email, values.password);
+      if (error) throw new Error("Not able to create user");
       await addUser({
         email: values.email,
         username,
       });
+
+      dispatch(
+        addAuthUser({
+          userName: username,
+          email: values.email,
+        })
+      );
       !isError && navigate(`/${username}`);
-    } catch (error) {
-      console.log(error);
+    } catch (error: string | any) {
+      console.log(error.message);
     }
   };
 
@@ -84,7 +96,7 @@ export default function SignUpForm() {
                       rounded="lg"
                       name="email"
                       py={6}
-                      color="white"
+                      color="seconday.200"
                       type="email"
                       bg="primary.600"
                       variant="ghost"
@@ -98,11 +110,10 @@ export default function SignUpForm() {
                       onBlur={handleBlur}
                       value={values.email}
                     />
-                    {errors.email && touched.email && (
-                      <Text color="red.500" pt={1} ml={2} fontSize="sm">
-                        <ErrorMessage name="email" />
-                      </Text>
-                    )}
+
+                    <Text color="red.500" pt={1} ml={2} fontSize="sm">
+                      <ErrorMessage name="email" />
+                    </Text>
                   </FormControl>
 
                   <FormControl>
@@ -112,7 +123,7 @@ export default function SignUpForm() {
                     <Input
                       rounded="lg"
                       id="password"
-                      color="white"
+                      color="seconday.200"
                       py={6}
                       name="password"
                       bg="primary.600"
@@ -128,11 +139,10 @@ export default function SignUpForm() {
                       onBlur={handleBlur}
                       value={values.password}
                     />
-                    {errors.password && touched.password && (
-                      <Text color="red.500" pt={1} ml={2} fontSize="sm">
-                        <ErrorMessage name="password" />
-                      </Text>
-                    )}
+
+                    <Text color="red.500" pt={1} ml={2} fontSize="sm">
+                      <ErrorMessage name="password" />
+                    </Text>
                   </FormControl>
                   <FormControl>
                     <FormLabel
@@ -145,7 +155,7 @@ export default function SignUpForm() {
                     <Input
                       rounded="lg"
                       id="verifyPassword"
-                      color="white"
+                      color="seconday.200"
                       py={6}
                       name="verifyPassword"
                       bg="primary.600"
@@ -161,11 +171,10 @@ export default function SignUpForm() {
                       onBlur={handleBlur}
                       value={values.verifyPassword}
                     />
-                    {errors.verifyPassword && touched.verifyPassword && (
-                      <Text color="red.500" pt={1} ml={2} fontSize="sm">
-                        <ErrorMessage name="verifyPassword" />
-                      </Text>
-                    )}
+
+                    <Text color="red.500" pt={1} ml={2} fontSize="sm">
+                      <ErrorMessage name="verifyPassword" />
+                    </Text>
                   </FormControl>
 
                   <Box width="full" pt={2}>

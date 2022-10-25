@@ -1,6 +1,8 @@
-import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
-import { componentsOverrites as Button } from "./components.config";
+import { componentsOverrites } from "./components.config";
 import { appColors } from "./palette";
+import { styles } from "./styles.config";
+
+import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
 
 // 2. Call `extendTheme` and pass your custom values
 // 2. Add your color mode config
@@ -9,22 +11,14 @@ const config: ThemeConfig = {
   useSystemColorMode: false,
 };
 
+const components = {
+  componentsOverrites,
+};
+
 const theme = extendTheme({
   colors: appColors,
-  styles: {
-    global: () => ({
-      body: {
-        height: "auto",
-        bg: "primary.600",
-      },
-      root: {
-        height: "full",
-      },
-    }),
-  },
-  components: {
-    Button,
-  },
+  components,
+  styles,
   config,
 });
 
