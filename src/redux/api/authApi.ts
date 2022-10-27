@@ -20,6 +20,11 @@ interface user {
   timestamp: Date;
 }
 
+interface GetUserBy {
+  user: undefined | string | null;
+  by: "email" | "username";
+}
+
 export const authApi = baseApiSlice.injectEndpoints({
   endpoints: (build) => ({
     addUser: build.mutation<undefined, newUser>({
@@ -48,14 +53,17 @@ export const authApi = baseApiSlice.injectEndpoints({
       },
       invalidatesTags: ["Posts"],
     }),
+
     //***************SINGLE USER FETCHING*************** */
-    getUser: build.query<user, undefined | string>({
-      async queryFn(username): Promise<any> {
+    getUser: build.query<user, GetUserBy>({
+      async queryFn({ user, by }): Promise<any> {
+        const filterBy = where(
+          by === "username" ? "username" : "email",
+          "==",
+          user
+        );
         try {
-          const q = query(
-            collection(firestoreDb, "users"),
-            where("username", "==", username)
-          );
+          const q = query(collection(firestoreDb, "users"), filterBy);
           const querySnapshot = await getDocs(q);
           let queryData: any;
           querySnapshot.forEach((doc) => {
@@ -64,7 +72,7 @@ export const authApi = baseApiSlice.injectEndpoints({
               ...doc.data(),
             };
           });
-          console.log(queryData, username);
+          console.log(queryData, user);
           return {
             data: queryData,
           };

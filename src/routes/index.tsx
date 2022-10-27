@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import Auth from "../screens/Auth";
 
@@ -7,6 +7,9 @@ import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase.config";
 import BaseNav from "../layout/BaseNav";
+import { useGetUserQuery } from "../redux/api/authApi";
+import { useAppDispatch } from "../redux/reduxHooks";
+import { addAuthUser } from "../redux/slices/authSlice";
 import Feed from "../screens/feed/Feed";
 import ManagePage from "../screens/user/auth/Manage";
 import UserProfile from "../screens/user/UserProfile";
@@ -15,16 +18,27 @@ import ProtectedRoute from "./ProtectedRoute";
 type Props = {};
 
 const NavRoutes = (props: Props) => {
-  const { username } = useParams();
-  const [user, loading, error] = useAuthState(auth);
+  const dispatch = useAppDispatch();
+  const [user, loading] = useAuthState(auth);
+  const { isError, isLoading, data } = useGetUserQuery({
+    by: "email",
+    user: user?.email,
+  });
 
   useEffect(() => {
-    if (loading) {
+    if (loading || isLoading) {
       return;
+    } else {
+      dispatch(
+        addAuthUser({
+          userName: data?.username ? data.username : "",
+          email: user?.email ? user.email : "",
+        })
+      );
     }
-  }, [user, loading]);
+  }, [user, loading, isLoading, dispatch, data]);
 
-  if (loading) {
+  if (loading || isLoading) {
     return (
       <Flex
         padding="6"
