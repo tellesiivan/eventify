@@ -86,7 +86,6 @@ const NavRoutes = (props: Props) => {
         />
 
         <Route path="/:username" element={<UserProfile />} />
-
         <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>

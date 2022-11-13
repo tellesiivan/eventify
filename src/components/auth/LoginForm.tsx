@@ -1,5 +1,3 @@
-import { loginInSchema } from "../schemas/index";
-
 import {
   Box,
   Button,
@@ -13,21 +11,55 @@ import {
 import { ErrorMessage, Form, Formik, FormikProps } from "formik";
 import { useNavigate } from "react-router-dom";
 
+import { auth } from "../../firebase.config";
+import { useLazyGetUserQuery } from "../../redux/api/authApi";
+import { useAppDispatch } from "../../redux/reduxHooks";
+import { addAuthUser } from "../../redux/slices/authSlice";
+import { loginInSchema } from "../../schemas";
+
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 type InitialValues = {
   email: string;
   password: string;
 };
 
-type LoginFormProps = {
-  socialLogin: () => void;
-};
-
+/**
+ * Handles login state and manages user login
+ *
+ * @export LoginForm
+ *
+ */
 export default function LoginForm() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [getUser, { isLoading, isError }] = useLazyGetUserQuery();
 
   const initialValues: InitialValues = {
     email: "",
     password: "",
+  };
+
+  const onSubmitHandler = async (values: InitialValues) => {
+    const { email, password } = values;
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      if (!result) throw new Error("Not able to login user");
+      const { data } = await getUser({
+        by: "email",
+        user: email,
+      });
+      if (!data?.username) throw new Error("Not able to get username");
+      dispatch(
+        addAuthUser({
+          userName: data?.username,
+          email,
+        })
+      );
+      navigate(`/${data?.username}`);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -35,12 +67,7 @@ export default function LoginForm() {
       <Formik
         initialValues={initialValues}
         validationSchema={loginInSchema}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-          }, 1000);
-        }}
+        onSubmit={onSubmitHandler}
       >
         {(props: FormikProps<any>) => {
           const {
@@ -62,19 +89,11 @@ export default function LoginForm() {
                       Email Address
                     </FormLabel>
                     <Input
+                      autoFocus={false}
                       id="email"
-                      rounded="xl"
                       name="email"
-                      color="seconday.200"
                       type="email"
-                      bg="primary.600"
-                      variant="ghost"
                       placeholder="Your email..."
-                      _placeholder={{
-                        opacity: 1,
-                        color: "gray.700",
-                        fontSize: "xs",
-                      }}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={props.values.email}
@@ -90,19 +109,10 @@ export default function LoginForm() {
                       Password
                     </FormLabel>
                     <Input
-                      rounded="xl"
                       id="password"
-                      color="seconday.200"
                       name="password"
-                      bg="primary.600"
                       type="password"
-                      variant="ghost"
                       placeholder="Password..."
-                      _placeholder={{
-                        opacity: 1,
-                        color: "gray.700",
-                        fontSize: "xs",
-                      }}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={props.values.password}
@@ -113,15 +123,15 @@ export default function LoginForm() {
                       </Text>
                     )}
                   </FormControl>
+                  {isError && <Text color="white">ERROR</Text>}
                   <Box width="full" pt={2}>
                     <Button
+                      isLoading={isLoading}
                       disabled={!(isValid && dirty)}
                       type="submit"
-                      bg="ichw.600"
                       onClick={() => handleSubmit()}
-                      color="primary.600"
+                      variant="secondary"
                       width="full"
-                      _hover={{ bg: "ichw.500" }}
                       rounded="xl"
                     >
                       Login

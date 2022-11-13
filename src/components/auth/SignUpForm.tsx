@@ -1,5 +1,3 @@
-import { SignUpSchema } from "../schemas/index";
-
 import {
   Box,
   Button,
@@ -14,11 +12,12 @@ import { ErrorMessage, Form, Formik, FormikProps } from "formik";
 
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase.config";
-import { useAddUserMutation } from "../redux/api/authApi";
-import { useAppDispatch } from "../redux/reduxHooks";
-import { addAuthUser } from "../redux/slices/authSlice";
-import { ExtractNameFromEmail } from "../utils";
+import { auth } from "../../firebase.config";
+import { useAddUserMutation } from "../../redux/api/authApi";
+import { useAppDispatch } from "../../redux/reduxHooks";
+import { addAuthUser } from "../../redux/slices/authSlice";
+import { SignUpSchema } from "../../schemas";
+import { ExtractNameFromEmail } from "../../utils";
 
 type InitialValues = {
   email: string;
@@ -93,7 +92,6 @@ export default function SignUpForm() {
                     </FormLabel>
                     <Input
                       id="email"
-                      rounded="lg"
                       name="email"
                       py={6}
                       color="seconday.200"

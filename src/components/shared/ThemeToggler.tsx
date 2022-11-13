@@ -6,11 +6,13 @@ type ThemeTogglerProps = {};
 export const ThemeToggler: React.FC<ThemeTogglerProps> = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
+  console.log(colorMode);
+
   return (
     <Switch
       size="md"
-      colorScheme={colorMode === "dark" ? "pink" : "black"}
-      color="primary.600"
+      colorScheme={colorMode === "dark" ? "red" : "black"}
+      color="primary.200"
       outlineColor="transparent"
       isChecked={colorMode === "dark"}
       onChange={toggleColorMode}

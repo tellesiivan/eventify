@@ -2,6 +2,7 @@ import { Box, Skeleton } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import { auth } from "../../firebase.config";
+import AppLayout from "../../layout/AppLayout";
 import { useGetUserQuery } from "../../redux/api/authApi";
 
 type UserProfileProps = {};
@@ -25,17 +26,19 @@ const UserProfile = (props: UserProfileProps) => {
   }
 
   return (
-    <Skeleton isLoaded={!loading && !isLoading} fadeDuration={2} m={3}>
-      <Box>
-        <Box h={48} w="full" bg="wzy.600" />
+    <AppLayout>
+      <Skeleton isLoaded={!loading && !isLoading} fadeDuration={2}>
         <Box>
-          {user?.email === data?.email
-            ? "is able to edit - owns this profile"
-            : "not able to edit"}
-          {}
+          <Box h={48} w="full" bg="wzy.600" />
+          <Box>
+            {user?.email === data?.email
+              ? "is able to edit - owns this profile"
+              : "not able to edit"}
+            {}
+          </Box>
         </Box>
-      </Box>
-    </Skeleton>
+      </Skeleton>
+    </AppLayout>
   );
 };
 

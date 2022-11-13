@@ -11,6 +11,7 @@ import {
   DrawerOverlay,
   Flex,
   Input,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
@@ -30,20 +31,19 @@ const BaseNav = (props: Props) => {
     onClose();
   };
 
+  const bg = useColorModeValue("primary.100", "secondary.200");
+
   return (
     <>
       <Box
         as="header"
-        height="16"
-        width="full"
+        height={16}
+        m="1%"
+        width="98%"
+        bg={bg}
         position="fixed"
         top="0"
-        bg={{
-          _light: '"primary.600"',
-          _dark: '"secondary.600"',
-        }}
-        borderBottom="1px"
-        borderColor="secondary.600"
+        rounded="2xl"
       >
         <nav
           className="h-full px-2 mx-auto max-w-7xl sm:px-4 lg:px-3"

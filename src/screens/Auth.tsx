@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { default as SignUpForm } from "../auth/SignUpForm";
-import { IsMobileView } from "../utils/index";
 
 import {
   Box,
@@ -11,7 +9,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import LoginForm from "../auth/LoginForm";
+import LoginForm from "../components/auth/LoginForm";
+import SignUpForm from "../components/auth/SignUpForm";
 
 enum ActiveStates {
   LOGIN = "Login",
@@ -19,16 +18,13 @@ enum ActiveStates {
 }
 
 const Auth = () => {
-  const isMobile = IsMobileView();
   const alignVstack = useBreakpointValue({ md: "center", lg: "start" });
   const [activeForm, setActiveForm] = useState<ActiveStates>(
     ActiveStates.LOGIN
   );
 
-  return isMobile ? (
-    <VStack height="full" width="full" spacing={0} bg="primary.600"></VStack>
-  ) : (
-    <HStack height="full" width="full" spacing={0} bg="primary.600">
+  return (
+    <HStack height="full" width="full" spacing={0}>
       <Flex
         height="full"
         flex={1}
@@ -38,15 +34,8 @@ const Auth = () => {
       >
         <VStack align={alignVstack}>
           <VStack align={alignVstack} spacing={1}>
-            <Box
-              bg="secondary.300"
-              p={6}
-              rounded="xl"
-              minWidth="96"
-              maxWidth={96}
-            >
+            <Box bg="secondary.300" p={6} minWidth="96" maxWidth={96}>
               <Text
-                fontSize="2xl"
                 textAlign="center"
                 mb={8}
                 onClick={() =>
