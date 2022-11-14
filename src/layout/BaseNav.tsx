@@ -32,10 +32,12 @@ const BaseNav = (props: Props) => {
   };
 
   const bg = useColorModeValue("primary.100", "secondary.200");
+  const borderColor = useColorModeValue("primary.100", "secondary.100");
 
   return (
     <>
       <Box
+        boxShadow="lg"
         as="header"
         height={16}
         m="1%"
@@ -43,12 +45,11 @@ const BaseNav = (props: Props) => {
         bg={bg}
         position="fixed"
         top="0"
+        border="1px"
+        borderColor={borderColor}
         rounded="2xl"
       >
-        <nav
-          className="h-full px-2 mx-auto max-w-7xl sm:px-4 lg:px-3"
-          aria-label="Top"
-        >
+        <nav className="h-full px-2 mx-auto md:px-4" aria-label="Top">
           <div className="flex items-center justify-between w-full h-full">
             <div>logo</div>
             <Flex alignItems="center" gap={3}>
@@ -71,7 +72,7 @@ const BaseNav = (props: Props) => {
       {/* Will handle navigation + auth and quick profile settings */}
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent bg="primary.600">
+        <DrawerContent bg={bg}>
           <DrawerCloseButton />
           <DrawerHeader>Create your account</DrawerHeader>
 

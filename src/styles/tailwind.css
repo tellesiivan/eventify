@@ -20,14 +20,3 @@
 /* Start purging... */
 @tailwind utilities;
 /* Stop purging. */
-
-/* Your own custom utilities */
-html,
-body {
-  background: #070d11;
-  height: 100%;
-  width: 100%;
-}
-#root {
-  min-height: 100vh;
-}

@@ -16,15 +16,15 @@ const components = {
     variants: {
       // Make a variant, we'll call it `base` here and leave it empty
       base: (props: StyleFunctionProps | Record<string, any>) => ({
-        bg: mode("secondary", "turquoise")(props),
-        color: "black",
+        color: mode("secondary.600", "primary.600")(props),
         _hover: {
           bg: "secondary.500",
         },
       }),
 
-      secondary: {
-        fontSize: "30px",
+      s1: {
+        fontSize: "16px",
+        fontWeight: "semibold",
       },
     },
   },

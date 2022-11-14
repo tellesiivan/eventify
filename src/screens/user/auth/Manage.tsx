@@ -1,29 +1,16 @@
-import { Box, Skeleton, Text } from "@chakra-ui/react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../firebase.config";
 import AppLayout from "../../../layout/AppLayout";
-import { useGetUserQuery } from "../../../redux/api/authApi";
+
+import ManageActions from "../../../components/auth/manage/ManageActions";
+import ManagaeUserScreenContent from "../../content/ManageUserScreenContent";
+
+import { LayoutType } from "../../../layout/AppLayout";
 
 type UserProfileProps = {};
 
 const ManagePage = (props: UserProfileProps) => {
-  const [user, loading] = useAuthState(auth);
-  const { isError, isLoading, data } = useGetUserQuery({
-    by: "email",
-    user: user?.email,
-  });
-
   return (
-    <AppLayout>
-      <Skeleton isLoaded={!loading && !isLoading} fadeDuration={2}>
-        <Box>
-          <Box h={48} w="full" bg="wzg.600" />
-          <Box>
-            {/* change basic font style in them */}
-            <Text variant="secondary">MANAGE PAGE FOR : {data?.username}</Text>
-          </Box>
-        </Box>
-      </Skeleton>
+    <AppLayout layoutType={LayoutType.Two_ROW} leftContent={<ManageActions />}>
+      <ManagaeUserScreenContent />
     </AppLayout>
   );
 };
