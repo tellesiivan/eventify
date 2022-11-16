@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase.config";
 import { useLazyGetUserQuery } from "../../redux/api/authApi";
 import { useAppDispatch } from "../../redux/reduxHooks";
-import { addAuthUser } from "../../redux/slices/authSlice";
+import { addAuthUser, authIsLoading } from "../../redux/slices/authSlice";
 import { loginInSchema } from "../../schemas";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -43,6 +43,7 @@ export default function LoginForm() {
   const onSubmitHandler = async (values: InitialValues) => {
     const { email, password } = values;
     try {
+      dispatch(authIsLoading(true));
       const result = await signInWithEmailAndPassword(auth, email, password);
       if (!result) throw new Error("Not able to login user");
       const { data } = await getUser({
@@ -59,6 +60,8 @@ export default function LoginForm() {
       navigate(`/${data?.username}`);
     } catch (e) {
       console.log(e);
+    } finally {
+      dispatch(authIsLoading(false));
     }
   };
 

@@ -17,16 +17,16 @@ export const AppLayout = ({
   leftContent,
   layoutType = LayoutType.One_ROW,
 }: AppLayoutProps) => {
-  const bg = useColorModeValue("primary.100", "secondary.200");
+  const bg = useColorModeValue("primary.500", "secondary.600");
 
   switch (layoutType) {
     case LayoutType.Two_ROW:
       return (
         <Box
-          mt={2}
+          mt={4}
           p={{
             base: 2,
-            md: 4,
+            md: +4,
           }}
         >
           <Grid

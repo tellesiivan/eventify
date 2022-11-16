@@ -11,19 +11,24 @@ import {
   DrawerOverlay,
   Flex,
   Input,
+  Spinner,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ThemeToggler } from "../components/shared/index";
 import { auth } from "../firebase.config";
+import { useAppSelector } from "../redux/reduxHooks";
 
 type Props = {};
 
 const BaseNav = (props: Props) => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const isAuthLoading = useAppSelector((state) => state.auth.isAuthLoading);
+  const [user, loading] = useAuthState(auth);
 
   const logout = () => {
     signOut(auth);
@@ -31,13 +36,12 @@ const BaseNav = (props: Props) => {
     onClose();
   };
 
-  const bg = useColorModeValue("primary.100", "secondary.200");
-  const borderColor = useColorModeValue("primary.100", "secondary.100");
+  const bg = useColorModeValue("primary.400", "secondary.400");
+  const borderColor = useColorModeValue("primary.600", "secondary.300");
 
   return (
     <>
       <Box
-        boxShadow="lg"
         as="header"
         height={16}
         m="1%"
@@ -54,14 +58,19 @@ const BaseNav = (props: Props) => {
             <div>logo</div>
             <Flex alignItems="center" gap={3}>
               <ThemeToggler />
-              <Avatar
-                name="Wes"
-                size="sm"
-                bg="black"
-                color="primary.600"
-                cursor="pointer"
-                onClick={onOpen}
-              />
+              {isAuthLoading || loading ? (
+                <Spinner size="md" color="wzp.500" />
+              ) : user ? (
+                <Avatar
+                  name="Wes"
+                  size="sm"
+                  bg="yellow.500"
+                  cursor="pointer"
+                  onClick={onOpen}
+                />
+              ) : (
+                <Avatar size="sm" bg="green.200" cursor="pointer" />
+              )}
             </Flex>
           </div>
         </nav>

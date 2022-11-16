@@ -34,7 +34,14 @@ const Auth = () => {
       >
         <VStack align={alignVstack}>
           <VStack align={alignVstack} spacing={1}>
-            <Box bg="secondary.300" p={6} minWidth="96" maxWidth={96}>
+            <Box
+              _dark={{
+                bg: "secondary.600",
+              }}
+              p={6}
+              minWidth="96"
+              maxWidth={96}
+            >
               <Text
                 textAlign="center"
                 mb={8}

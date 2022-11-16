@@ -8,6 +8,7 @@ type User = {
 
 type AuthState = {
   user: User;
+  isAuthLoading: boolean;
 };
 
 const initialState: AuthState = {
@@ -15,6 +16,7 @@ const initialState: AuthState = {
     email: "",
     userName: "",
   },
+  isAuthLoading: false,
 };
 
 export const authSlice = createSlice({
@@ -24,9 +26,12 @@ export const authSlice = createSlice({
     addAuthUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
+    authIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isAuthLoading = action.payload;
+    },
   },
 });
 
-export const { addAuthUser } = authSlice.actions;
+export const { addAuthUser, authIsLoading } = authSlice.actions;
 
 export default authSlice.reducer;

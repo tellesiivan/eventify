@@ -5,7 +5,7 @@ export const styles = {
   global: (props: StyleFunctionProps) => ({
     body: {
       height: "auto",
-      bg: mode("primary.600", "secondary.600")(props),
+      bg: mode("primary.100", "secondary.800")(props),
     },
   }),
 };

@@ -9,7 +9,7 @@ import { auth } from "../firebase.config";
 import BaseNav from "../layout/BaseNav";
 import { useGetUserQuery } from "../redux/api/authApi";
 import { useAppDispatch } from "../redux/reduxHooks";
-import { addAuthUser } from "../redux/slices/authSlice";
+import { addAuthUser, authIsLoading } from "../redux/slices/authSlice";
 import Feed from "../screens/feed/Feed";
 import ManagePage from "../screens/user/auth/Manage";
 import UserProfile from "../screens/user/UserProfile";
@@ -27,6 +27,7 @@ const NavRoutes = (props: Props) => {
 
   useEffect(() => {
     if (loading || isLoading) {
+      dispatch(authIsLoading(true));
       return;
     } else {
       dispatch(
@@ -35,6 +36,7 @@ const NavRoutes = (props: Props) => {
           email: user?.email ? user.email : "",
         })
       );
+      dispatch(authIsLoading(false));
     }
   }, [user, loading, isLoading, dispatch, data]);
 
