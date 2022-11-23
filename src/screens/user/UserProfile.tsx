@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Box, Skeleton } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";

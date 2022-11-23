@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Avatar,
   Box,
@@ -35,9 +37,8 @@ const BaseNav = (props: Props) => {
     navigate("/auth");
     onClose();
   };
-
-  const bg = useColorModeValue("primary.400", "secondary.400");
-  const borderColor = useColorModeValue("primary.600", "secondary.300");
+  const bg = useColorModeValue("primary.500", "secondary.400");
+  const borderColor = useColorModeValue("primary.800", "secondary.300");
 
   return (
     <>
@@ -86,7 +87,7 @@ const BaseNav = (props: Props) => {
           <DrawerHeader>Create your account</DrawerHeader>
 
           <DrawerBody>
-            <Input placeholder="Type here..." />
+            <Input placeholder="Type here..." variant="base" />
           </DrawerBody>
 
           <DrawerFooter>

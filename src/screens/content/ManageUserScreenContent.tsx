@@ -1,29 +1,30 @@
-import { Box, Skeleton, Text } from "@chakra-ui/react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase.config";
-import { useGetUserQuery } from "../../redux/api/authApi";
+import React from "react";
 
-interface ManagaeUserScreenContentProps {}
+import { Box, Text } from "@chakra-ui/react";
+import type { ManageUserNavItems } from "../../types";
 
-export const ManagaeUserScreenContent = (
-  props: ManagaeUserScreenContentProps
-) => {
-  const [user, loading] = useAuthState(auth);
-  const { isError, isLoading, data } = useGetUserQuery({
-    by: "email",
-    user: user?.email,
-  });
+interface ManagaeUserScreenContentProps {
+  activeNavItem: ManageUserNavItems;
+}
+
+/** makes sure the key is keyof <ManageUserNavItems> and value would be a <ReactNode> */
+type ManageUserContentSections = Record<ManageUserNavItems, React.ReactNode>;
+
+export const ManagaeUserScreenContent = ({
+  activeNavItem,
+}: ManagaeUserScreenContentProps) => {
+  const manageUserContent: ManageUserContentSections = {
+    Profile: <Text variant="s1">MANAGE PAGE FOR : Profile</Text>,
+    Events: <Text variant="s1">MANAGE PAGE FOR : Events</Text>,
+    Links: <Text variant="s1">MANAGE PAGE FOR : Links</Text>,
+    Vehicles: <Text variant="s1">MANAGE PAGE FOR : Vehicles</Text>,
+  };
 
   return (
-    <Skeleton isLoaded={!loading && !isLoading} fadeDuration={2}>
-      <Box>
-        <Box h={48} w="full" bg="wzy.500" rounded="lg" />
-        <Box>
-          {/* change basic font style in them */}
-          <Text variant="s1">MANAGE PAGE FOR : {data?.username}</Text>
-        </Box>
-      </Box>
-    </Skeleton>
+    <Box>
+      <Box h={48} w="full" bg="wzy.500" rounded="lg" />
+      <Box>{manageUserContent[activeNavItem]}</Box>
+    </Box>
   );
 };
 

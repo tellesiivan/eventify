@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import Auth from "../screens/Auth";
@@ -11,7 +13,7 @@ import { useGetUserQuery } from "../redux/api/authApi";
 import { useAppDispatch } from "../redux/reduxHooks";
 import { addAuthUser, authIsLoading } from "../redux/slices/authSlice";
 import Feed from "../screens/feed/Feed";
-import ManagePage from "../screens/user/auth/Manage";
+import ManageUserScreen from "../screens/user/auth/ManageUserScreen";
 import UserProfile from "../screens/user/UserProfile";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -82,7 +84,7 @@ const NavRoutes = (props: Props) => {
           element={
             <ProtectedRoute
               isLoggedIn={isLoggedIn}
-              component={<ManagePage />}
+              component={<ManageUserScreen />}
             />
           }
         />

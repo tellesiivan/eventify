@@ -23,8 +23,12 @@ const components = {
       }),
 
       s1: {
-        fontSize: "16px",
+        fontSize: "13px",
         fontWeight: "semibold",
+      },
+      s2: {
+        fontSize: "12px",
+        fontWeight: "regular",
       },
     },
   },
@@ -47,20 +51,25 @@ const components = {
     },
   },
   Input: {
-    baseStyle: {
-      field: {
-        rounded: "2xl",
-        borderRadius: "sm",
-        backgroundColor: "red",
-        height: 16,
-        ":focus": {
-          borderColor: "#a970ff",
-          bg: "#000",
-        },
-      },
-    },
     sizes: {},
-    variants: {},
+    variants: {
+      base: (props: StyleFunctionProps | Record<string, any>) => ({
+        bg: mode("primary", "secondary.200")(props),
+        field: {
+          py: "6",
+          rounded: "xl",
+          fontSize: { base: "md", lg: "sm" },
+          color: mode("secondary.400", "primary.400")(props),
+          bg: mode("primary.50", "secondary.300")(props),
+          _placeholder: {
+            color: mode("secondary.100", "secondary.50")(props),
+          },
+          // ":focus": {
+          //   bg: mode("primary.500", "secondary.300")(props),
+          // },
+        },
+      }),
+    },
     defaultProps: {
       variant: null, // null here
     },
