@@ -1,15 +1,15 @@
 import React from "react";
 
-import ManagaeUserScreenContent from "../../content/ManageUserScreenContent";
-
 import { AiOutlineCar, AiOutlineUser } from "react-icons/ai";
 import { BsCalendar4Range, BsLink45Deg } from "react-icons/bs";
 
 import { ReactNode, useState } from "react";
-import { AppLayout, ManageUserSideNavActions } from "../../../layout/index";
+import { AppLayout, ManageUserSideNavActions } from "../../../layout/";
 
 import { Icon } from "@chakra-ui/react";
 import { LayoutType } from "../../../layout/AppLayout";
+import { ManagaeUserScreenContent } from "../../content";
+
 import type { ManageUserNavItems } from "../../../types";
 
 export interface NavActionsItem {

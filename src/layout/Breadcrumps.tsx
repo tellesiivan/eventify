@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 import {
   Breadcrumb,
@@ -6,7 +7,7 @@ import {
   BreadcrumbLink,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
 
 interface BreadcrumpsProps {
   breadcrumps: {
@@ -24,10 +25,16 @@ export const Breadcrumps = ({ breadcrumps }: BreadcrumpsProps) => {
     routeLocation.pathname === route ? activeTextColor : inActiveTextColor;
 
   return (
-    <Breadcrumb mt={1} mb={3}>
+    <Breadcrumb
+      px={2}
+      borderBottom="1px"
+      py={3}
+      borderColor={ThemeColorModeComponents("borderColor")}
+    >
       {breadcrumps.map((breadcrumps) => (
         <BreadcrumbItem
           fontSize="sm"
+          fontWeight="semibold"
           textColor={getTextColor(breadcrumps.link)}
           isCurrentPage={routeLocation.pathname === breadcrumps.link}
         >

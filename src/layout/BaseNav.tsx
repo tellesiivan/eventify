@@ -12,11 +12,16 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
+  HStack,
+  Image,
   Input,
   Spinner,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+
+import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
+
 import { signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -37,48 +42,57 @@ const BaseNav = (props: Props) => {
     navigate("/auth");
     onClose();
   };
-  const bg = useColorModeValue("primary.500", "secondary.400");
-  const borderColor = useColorModeValue("primary.800", "secondary.300");
+  const bg = useColorModeValue("secondary.900", "secondary.700");
 
   return (
     <>
       <Box
+        zIndex="sticky"
         as="header"
-        height={16}
-        m="1%"
-        width="98%"
+        height={14}
+        width="full"
         bg={bg}
         position="fixed"
         top="0"
-        border="1px"
-        borderColor={borderColor}
-        rounded="2xl"
+        borderBottom="1px"
+        borderColor={ThemeColorModeComponents("borderColor")}
       >
-        <nav className="h-full px-2 mx-auto md:px-4" aria-label="Top">
-          <div className="flex items-center justify-between w-full h-full">
-            <div>logo</div>
-            <Flex alignItems="center" gap={3}>
-              <ThemeToggler />
-              {isAuthLoading || loading ? (
-                <Spinner size="md" color="wzp.500" />
-              ) : user ? (
-                <Avatar
-                  name="Wes"
-                  size="sm"
-                  bg="yellow.500"
-                  cursor="pointer"
-                  onClick={onOpen}
-                />
-              ) : (
-                <Avatar size="sm" bg="green.200" cursor="pointer" />
-              )}
-            </Flex>
-          </div>
-        </nav>
+        <HStack
+          as="div"
+          px={4}
+          height="full"
+          width="full"
+          aria-label="Top"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Image
+            h={8}
+            w={8}
+            src="https://www.simplimods.app/_next/image?url=%2Flogo-512.png&w=48&q=75"
+          />
+          <Flex alignItems="center" gap={3}>
+            <ThemeToggler />
+            {isAuthLoading || loading ? (
+              <Spinner size="md" color="wzp.500" />
+            ) : user ? (
+              <Avatar
+                name="Wes"
+                size="sm"
+                bg="yellow.500"
+                cursor="pointer"
+                onClick={onOpen}
+              />
+            ) : (
+              <Avatar size="sm" bg="green.200" cursor="pointer" />
+            )}
+          </Flex>
+        </HStack>
       </Box>
-      <main className="w-full h-screen pt-16">
+      <Box width="full" height="full" pt={14}>
         <Outlet />
-      </main>
+      </Box>
+
       {/* Will handle navigation + auth and quick profile settings */}
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />

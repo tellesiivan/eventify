@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Box, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
+import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
 import Breadcrumps from "./Breadcrumps";
 
 export enum LayoutType {
@@ -25,48 +26,28 @@ export const AppLayout = ({
   layoutType = LayoutType.One_ROW,
   breadcrumps,
 }: AppLayoutProps) => {
-  const bg = useColorModeValue("primary.500", "secondary.600");
-
   switch (layoutType) {
     case LayoutType.Two_ROW:
       return (
-        <Box
-          mt={2}
-          p={{
-            base: 2,
-            md: 4,
-          }}
-        >
+        <Box>
           <Grid
             minH="100vh"
             width="full"
             templateRows="repeat(2, 1fr)"
             templateColumns="repeat(5, 1fr)"
-            gap={2}
           >
             <GridItem
+              borderRight="1px"
+              borderColor={ThemeColorModeComponents("borderColor")}
               minWidth={72}
-              rounded="xl"
               display={{ base: "none", md: "block" }}
               rowSpan={4}
-              m={0}
               colSpan={1}
-              bg={bg}
               height="full"
             >
               {leftContent}
             </GridItem>
-            <GridItem
-              rowSpan={4}
-              colSpan={{ base: 5, md: 4 }}
-              bg={bg}
-              height="full"
-              p={{
-                base: 2,
-                md: 4,
-              }}
-              rounded="xl"
-            >
+            <GridItem rowSpan={4} colSpan={{ base: 5, md: 4 }} height="full">
               {breadcrumps && <Breadcrumps breadcrumps={breadcrumps} />}
 
               {children}
@@ -78,7 +59,6 @@ export const AppLayout = ({
     default:
       return (
         <Box
-          mt={2}
           p={{
             base: 2,
             md: 4,

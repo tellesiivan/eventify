@@ -8,7 +8,7 @@ import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
 // 2. Add your color mode config
 const config: ThemeConfig = {
   initialColorMode: "light",
-  useSystemColorMode: false,
+  useSystemColorMode: true,
 };
 
 const components = {
@@ -30,6 +30,10 @@ const components = {
         fontSize: "12px",
         fontWeight: "regular",
       },
+      h2sb: {
+        fontSize: "18px",
+        fontWeight: "semibold",
+      },
     },
   },
   Button: {
@@ -46,6 +50,15 @@ const components = {
         color: mode("primary.100", "wzy")(props),
         _hover: {
           bg: "primary.500",
+        },
+      }),
+      iconButton: (props: StyleFunctionProps | Record<string, any>) => ({
+        bg: mode("primary.50", "secondary.800")(props),
+        h: 10,
+        w: 10,
+        rounded: "full",
+        _hover: {
+          bg: mode("primary.900", "secondary.900")(props),
         },
       }),
     },

@@ -1,7 +1,9 @@
 import React from "react";
 
 import { Box, Text } from "@chakra-ui/react";
-import type { ManageUserNavItems } from "../../types";
+import { ManagerUserProfileContent } from "..";
+
+import type { ManageUserNavItems } from "../../../types";
 
 interface ManagaeUserScreenContentProps {
   activeNavItem: ManageUserNavItems;
@@ -14,18 +16,13 @@ export const ManagaeUserScreenContent = ({
   activeNavItem,
 }: ManagaeUserScreenContentProps) => {
   const manageUserContent: ManageUserContentSections = {
-    Profile: <Text variant="s1">MANAGE PAGE FOR : Profile</Text>,
+    Profile: <ManagerUserProfileContent />,
     Events: <Text variant="s1">MANAGE PAGE FOR : Events</Text>,
     Links: <Text variant="s1">MANAGE PAGE FOR : Links</Text>,
     Vehicles: <Text variant="s1">MANAGE PAGE FOR : Vehicles</Text>,
   };
 
-  return (
-    <Box>
-      <Box h={48} w="full" bg="wzy.500" rounded="lg" />
-      <Box>{manageUserContent[activeNavItem]}</Box>
-    </Box>
-  );
+  return <Box>{manageUserContent[activeNavItem]}</Box>;
 };
 
 export default ManagaeUserScreenContent;
