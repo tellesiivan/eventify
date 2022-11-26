@@ -79,7 +79,7 @@ const BaseNav = (props: Props) => {
               <Avatar
                 name="Wes"
                 size="sm"
-                bg="yellow.500"
+                bg="pink.600"
                 cursor="pointer"
                 onClick={onOpen}
               />

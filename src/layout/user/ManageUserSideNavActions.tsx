@@ -42,7 +42,7 @@ export const ManageUserSideNavActions = ({
           display="flex"
           m={0}
         >
-          <Box minW="10">{navItem.icon}</Box>
+          <Box minW={10}>{navItem.icon}</Box>
           <Text variant="s1">{navItem.name}</Text>
         </StackItem>
       ))}

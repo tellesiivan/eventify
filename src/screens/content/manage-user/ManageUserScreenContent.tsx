@@ -17,7 +17,7 @@ export const ManagaeUserScreenContent = ({
 }: ManagaeUserScreenContentProps) => {
   const manageUserContent: ManageUserContentSections = {
     Profile: <ManagerUserProfileContent />,
-    Events: <Text variant="s1">MANAGE PAGE FOR : Events</Text>,
+    Listings: <Text variant="s1">MANAGE PAGE FOR : Events</Text>,
     Links: <Text variant="s1">MANAGE PAGE FOR : Links</Text>,
     Vehicles: <Text variant="s1">MANAGE PAGE FOR : Vehicles</Text>,
   };

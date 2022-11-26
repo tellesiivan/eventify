@@ -11,9 +11,9 @@ export const ManagerUserProfileContent = (
     <VStack p={2} width="full">
       {/* ==== USER PROFILE BG IMAGE ==== */}
       <Text as="h2" variant="h2sb" textAlign="start" mr="auto">
-        Profile Info.
+        Basic Info.
       </Text>
-      <UserBackgroundCoverImage />
+      <UserBackgroundCoverImage canManage={true} />
     </VStack>
   );
 };

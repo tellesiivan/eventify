@@ -1,12 +1,17 @@
 import { Box, Button, Image, useDisclosure } from "@chakra-ui/react";
-import React from "react";
-import { Icon, Modal } from "../../components/shared";
+import React, { useMemo } from "react";
+import { Icon, ImageUploadWithPreview, Modal } from "../../components/shared";
+import { useSelectFile } from "../../hooks";
 
-interface UserBackgroundCoverImageProps {}
+interface UserBackgroundCoverImageProps {
+  canManage: boolean;
+}
 
-export const UserBackgroundCoverImage = (
-  props: UserBackgroundCoverImageProps
-) => {
+export const UserBackgroundCoverImage = ({
+  canManage = false,
+}: UserBackgroundCoverImageProps) => {
+  const { selectedFile, setSelectedFile, onSelectedFile } = useSelectFile();
+
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const imageSrc =
@@ -25,18 +30,29 @@ export const UserBackgroundCoverImage = (
           width="full"
           bgImage="cover"
         />
-        <Button
-          variant="iconButton"
-          position="absolute"
-          bottom={4}
-          right={4}
-          onClick={() => onOpen()}
-        >
-          <Icon iconName="EditPencil" />
-        </Button>
+        {canManage && (
+          <Button
+            variant="iconButton"
+            position="absolute"
+            bottom={4}
+            right={4}
+            onClick={() => onOpen()}
+          >
+            <Icon iconName="EditPencil" />
+          </Button>
+        )}
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose} title="Upload Image">
-        <></>
+      <Modal isOpen={isOpen} onClose={onClose} title="Update cover image">
+        {useMemo(
+          () => (
+            <ImageUploadWithPreview
+              selectedImageUrl={selectedFile}
+              onDeleteClick={setSelectedFile}
+              onUploadChange={onSelectedFile}
+            />
+          ),
+          [onSelectedFile, selectedFile, setSelectedFile]
+        )}
       </Modal>
     </>
   );

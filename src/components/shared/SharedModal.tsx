@@ -28,17 +28,19 @@ export const SharedModal = ({
 }: SharedModalProps) => {
   return (
     <Modal
-      blockScrollOnMount={false}
+      blockScrollOnMount={true}
       isOpen={isOpen}
       onClose={onClose}
       isCentered
       motionPreset="slideInBottom"
     >
       <ModalOverlay />
-      <ModalContent bg={ThemeColorModeComponents("accentThemeBg")}>
-        <ModalHeader>{title}</ModalHeader>
+      <ModalContent bg={ThemeColorModeComponents("baseBg")} rounded="lg">
+        <ModalHeader pb={0} fontSize="medium">
+          {title}
+        </ModalHeader>
         <ModalCloseButton rounded="full" />
-        <ModalBody>{children}</ModalBody>
+        <ModalBody py={4}>{children}</ModalBody>
 
         {showCloseButton && (
           <ModalFooter>

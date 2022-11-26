@@ -53,12 +53,13 @@ const components = {
         },
       }),
       iconButton: (props: StyleFunctionProps | Record<string, any>) => ({
-        bg: mode("primary.50", "secondary.800")(props),
+        bg: mode("wzp.400", "wzg.600")(props),
+        color: mode("primary.400", "secondary.600")(props),
         h: 10,
         w: 10,
         rounded: "full",
         _hover: {
-          bg: mode("primary.900", "secondary.900")(props),
+          bg: mode("wzp.200", "wzg.400")(props),
         },
       }),
     },
