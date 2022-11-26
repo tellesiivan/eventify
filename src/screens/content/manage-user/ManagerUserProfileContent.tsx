@@ -10,9 +10,8 @@ export const ManagerUserProfileContent = (
   return (
     <VStack p={2} width="full">
       {/* ==== USER PROFILE BG IMAGE ==== */}
-
       <Text as="h2" variant="h2sb" textAlign="start" mr="auto">
-        Make Your Profile.
+        Profile Info.
       </Text>
       <UserBackgroundCoverImage />
     </VStack>

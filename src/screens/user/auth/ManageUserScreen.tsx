@@ -1,15 +1,12 @@
 import React from "react";
 
-import { AiOutlineCar, AiOutlineUser } from "react-icons/ai";
-import { BsCalendar4Range, BsLink45Deg } from "react-icons/bs";
-
 import { ReactNode, useState } from "react";
 import { AppLayout, ManageUserSideNavActions } from "../../../layout/";
 
-import { Icon } from "@chakra-ui/react";
 import { LayoutType } from "../../../layout/AppLayout";
 import { ManagaeUserScreenContent } from "../../content";
 
+import { Icon } from "../../../components/shared";
 import type { ManageUserNavItems } from "../../../types";
 
 export interface NavActionsItem {
@@ -26,22 +23,22 @@ const ManageUserScreen = (props: UserProfileProps) => {
 
   const sideNavActions: NavActionsItem[] = [
     {
-      icon: <Icon as={AiOutlineUser} />,
+      icon: <Icon iconName="User" />,
       name: "Profile",
       onPressAction: () => setActiveNavItem("Profile"),
     },
     {
-      icon: <Icon as={BsCalendar4Range} />,
+      icon: <Icon iconName="CalendarOutline" />,
       name: "Events",
       onPressAction: () => setActiveNavItem("Events"),
     },
     {
-      icon: <Icon as={AiOutlineCar} />,
+      icon: <Icon iconName="CarOutline" />,
       name: "Vehicles",
       onPressAction: () => setActiveNavItem("Vehicles"),
     },
     {
-      icon: <Icon as={BsLink45Deg} />,
+      icon: <Icon iconName="LinkAddOutline" />,
       name: "Links",
       onPressAction: () => setActiveNavItem("Links"),
     },

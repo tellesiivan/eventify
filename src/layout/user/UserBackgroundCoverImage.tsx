@@ -1,7 +1,6 @@
-import { Box, Button, Icon, Image, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Image, useDisclosure } from "@chakra-ui/react";
 import React from "react";
-import { HiOutlinePencil } from "react-icons/hi";
-import { Modal } from "../../components/shared";
+import { Icon, Modal } from "../../components/shared";
 
 interface UserBackgroundCoverImageProps {}
 
@@ -11,11 +10,11 @@ export const UserBackgroundCoverImage = (
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const imageSrc =
-    "https://images.unsplash.com/photo-1624912150907-b85b9b6547c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1224&q=80";
+    "https://momo.com/wp-contents/uploads/2019/07/momo-midnight-purple-bmw-e36-m3-momo-6-spoke-heritage-classic-sports-car-wheels-silver-rims-d.jpg";
 
   return (
     <>
-      <Box width="full" height={48} position="relative">
+      <Box width="full" height={60} position="relative">
         <Image
           src={imageSrc}
           position="absolute"
@@ -33,7 +32,7 @@ export const UserBackgroundCoverImage = (
           right={4}
           onClick={() => onOpen()}
         >
-          <Icon as={HiOutlinePencil} />
+          <Icon iconName="EditPencil" />
         </Button>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose} title="Upload Image">

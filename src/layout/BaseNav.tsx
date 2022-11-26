@@ -42,7 +42,7 @@ const BaseNav = (props: Props) => {
     navigate("/auth");
     onClose();
   };
-  const bg = useColorModeValue("secondary.900", "secondary.700");
+  const bg = useColorModeValue("secondary.900", "secondary.800");
 
   return (
     <>
