@@ -22,6 +22,7 @@ const components = {
         },
       }),
 
+      //
       s1: {
         fontSize: "13px",
         fontWeight: "semibold",
@@ -30,6 +31,12 @@ const components = {
         fontSize: "12px",
         fontWeight: "regular",
       },
+      s3: (props: StyleFunctionProps | Record<string, any>) => ({
+        fontSize: "xs",
+        fontWeight: "regular",
+        color: mode("secondary.400", "secondary.50")(props),
+      }),
+
       h2sb: {
         fontSize: "18px",
         fontWeight: "semibold",
@@ -47,13 +54,15 @@ const components = {
       }),
 
       secondary: (props: StyleFunctionProps | Record<string, any>) => ({
-        color: mode("primary.100", "wzy")(props),
+        bg: mode("primary.50", "secondary.400")(props),
+        fontSize: "sm",
+        fontWeight: "semibold",
         _hover: {
-          bg: "primary.500",
+          bg: mode("primary.300", "secondary.300")(props),
         },
       }),
       iconButton: (props: StyleFunctionProps | Record<string, any>) => ({
-        bg: mode("wzp.400", "wzg.600")(props),
+        bg: mode("wzp.400", "wzg.200")(props),
         color: mode("primary.400", "secondary.600")(props),
         h: 10,
         w: 10,

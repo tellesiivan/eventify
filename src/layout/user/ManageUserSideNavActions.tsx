@@ -1,11 +1,11 @@
 import React from "react";
 
 import {
-  Box,
   Stack,
   StackItem,
   Text,
   useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
 
 import type { NavActionsItem } from "../../screens/user/auth/ManageUserScreen";
@@ -42,7 +42,15 @@ export const ManageUserSideNavActions = ({
           display="flex"
           m={0}
         >
-          <Box minW={10}>{navItem.icon}</Box>
+          <VStack
+            minW={6}
+            mr={3}
+            height={6}
+            justifyContent="center"
+            alignItems="center"
+          >
+            {navItem.icon}
+          </VStack>
           <Text variant="s1">{navItem.name}</Text>
         </StackItem>
       ))}

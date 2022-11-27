@@ -1,1 +1,1 @@
-export type ManageUserNavItems = "Profile" | "Vehicles" | "Listings" | "Links";
+export type ManageUserNavItems = "Profile" | "Vehicles" | "Events" | "Links";

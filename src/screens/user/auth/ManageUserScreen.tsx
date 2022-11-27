@@ -28,9 +28,9 @@ const ManageUserScreen = (props: UserProfileProps) => {
       onPressAction: () => setActiveNavItem("Profile"),
     },
     {
-      icon: <Icon iconName="CurrencySignOutline" />,
-      name: "Listings",
-      onPressAction: () => setActiveNavItem("Listings"),
+      icon: <Icon iconName="CalendarOutline" />,
+      name: "Events",
+      onPressAction: () => setActiveNavItem("Events"),
     },
     {
       icon: <Icon iconName="CarOutline" />,

@@ -1,5 +1,8 @@
 export { default as ButtonWithIcon } from "./ButtonIcon";
+export * from "./Card";
 export * from "./Icon";
-export { default as Modal } from "./SharedModal";
-export * from "./ThemeToggler";
 export * from "./ImageUploadWithPreview";
+export { default as Modal } from "./SharedModal";
+export * from "./Skeleton";
+export * from "./TextHeader";
+export * from "./ThemeToggler";

@@ -1,27 +1,47 @@
 import { Box, Button, Image, useDisclosure } from "@chakra-ui/react";
-import React, { useMemo } from "react";
-import { Icon, ImageUploadWithPreview, Modal } from "../../components/shared";
+import React from "react";
+import {
+  Icon,
+  ImageUploadWithPreview,
+  Modal,
+  Skeleton,
+} from "../../components/shared";
 import { useSelectFile } from "../../hooks";
 
 interface UserBackgroundCoverImageProps {
   canManage: boolean;
+  isLoading: boolean;
+  imageSrc: string | undefined;
 }
 
 export const UserBackgroundCoverImage = ({
   canManage = false,
+  isLoading,
+  imageSrc,
 }: UserBackgroundCoverImageProps) => {
   const { selectedFile, setSelectedFile, onSelectedFile } = useSelectFile();
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const imageSrc =
-    "https://momo.com/wp-contents/uploads/2019/07/momo-midnight-purple-bmw-e36-m3-momo-6-spoke-heritage-classic-sports-car-wheels-silver-rims-d.jpg";
+  if (isLoading) {
+    return <Skeleton height={60} speed={0.75} />;
+  }
 
   return (
     <>
-      <Box width="full" height={60} position="relative">
+      <Box
+        width="full"
+        height={60}
+        position="relative"
+        overflow="hidden"
+        rounded="sm"
+      >
         <Image
-          src={imageSrc}
+          src={
+            imageSrc
+              ? imageSrc
+              : "https://images.unsplash.com/photo-1605906457463-5eb60f753738?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1330&q=80"
+          }
           position="absolute"
           top={0}
           objectFit="cover"
@@ -43,16 +63,11 @@ export const UserBackgroundCoverImage = ({
         )}
       </Box>
       <Modal isOpen={isOpen} onClose={onClose} title="Update cover image">
-        {useMemo(
-          () => (
-            <ImageUploadWithPreview
-              selectedImageUrl={selectedFile}
-              onDeleteClick={setSelectedFile}
-              onUploadChange={onSelectedFile}
-            />
-          ),
-          [onSelectedFile, selectedFile, setSelectedFile]
-        )}
+        <ImageUploadWithPreview
+          selectedImageUrl={selectedFile}
+          onDeleteClick={setSelectedFile}
+          onUploadChange={onSelectedFile}
+        />
       </Modal>
     </>
   );

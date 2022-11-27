@@ -29,15 +29,16 @@ export const authApi = baseApiSlice.injectEndpoints({
   endpoints: (build) => ({
     addUser: build.mutation<undefined, newUser>({
       async queryFn(user) {
-        const usersRef = collection(firestoreDb, "users");
+        const usersRef = collection(firestoreDb, "memberGraph");
         let data: any = {};
         try {
           await addDoc(usersRef, {
             ...user,
             timestamp: serverTimestamp(),
           });
+
           const q = query(
-            collection(firestoreDb, "users"),
+            collection(firestoreDb, "memberGraph"),
             where("email", "==", user.email)
           );
           const querySnapshot = await getDocs(q);
@@ -62,7 +63,7 @@ export const authApi = baseApiSlice.injectEndpoints({
           user
         );
         try {
-          const q = query(collection(firestoreDb, "users"), filterBy);
+          const q = query(collection(firestoreDb, "memberGraph"), filterBy);
           const querySnapshot = await getDocs(q);
           let queryData: any;
           querySnapshot.forEach((doc) => {
