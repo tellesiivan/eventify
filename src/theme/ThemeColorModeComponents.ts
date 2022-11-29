@@ -11,7 +11,7 @@ export const ThemeColorModeComponents = (
 ) => {
   const baseBg = useColorModeValue("primary.50", "secondary.900");
   const borderColor = useColorModeValue("primary.800", "secondary.700");
-  const accentThemeBg = useColorModeValue("primary.800", "secondary.800");
+  const accentThemeBg = useColorModeValue("primary.400", "secondary.800");
   const accentThemeBgDos = useColorModeValue("primary.500", "secondary.700");
 
   switch (colorModeComponent) {

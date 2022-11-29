@@ -65,10 +65,11 @@ export const authApi = baseApiSlice.injectEndpoints({
         try {
           const q = query(collection(firestoreDb, "memberGraph"), filterBy);
           const querySnapshot = await getDocs(q);
+
           let queryData: any;
           querySnapshot.forEach((doc) => {
             queryData = {
-              timestamp: doc.data().timestamp.toDate(),
+              internalId: doc.id,
               ...doc.data(),
             };
           });

@@ -34,7 +34,7 @@ export const UserBackgroundCoverImage = ({
         height={60}
         position="relative"
         overflow="hidden"
-        rounded="sm"
+        rounded="md"
       >
         <Image
           src={
@@ -67,6 +67,7 @@ export const UserBackgroundCoverImage = ({
           selectedImageUrl={selectedFile}
           onDeleteClick={setSelectedFile}
           onUploadChange={onSelectedFile}
+          onUploadSubmit={() => console.log("Upload")}
         />
       </Modal>
     </>

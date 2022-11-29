@@ -9,7 +9,7 @@ interface CardProps extends StyleProps {
 
 export const Card = (props: CardProps) => {
   return (
-    <Box p={2} bg={ThemeColorModeComponents("accentThemeBgDos")} {...props}>
+    <Box p={2} bg={ThemeColorModeComponents("accentThemeBg")} {...props}>
       {props.children}
     </Box>
   );

@@ -15,11 +15,13 @@ interface ImageUploadWithPreviewProps {
   onUploadChange: (event: { target: HTMLInputElement }) => void;
   onDeleteClick: React.Dispatch<React.SetStateAction<string>>;
   size?: number;
+  onUploadSubmit: () => void;
 }
 
 export const ImageUploadWithPreview = ({
   selectedImageUrl,
   onUploadChange,
+  onUploadSubmit,
   onDeleteClick,
   size,
 }: ImageUploadWithPreviewProps) => {
@@ -73,7 +75,7 @@ export const ImageUploadWithPreview = ({
           <Button flex={1} variant="solid" onClick={() => onDeleteClick("")}>
             Delete
           </Button>
-          <Button flex={1} variant="solid">
+          <Button flex={1} variant="solid" onClick={onUploadSubmit}>
             Upload
           </Button>
         </HStack>

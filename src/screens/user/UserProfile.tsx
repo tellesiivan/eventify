@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Box, Skeleton } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
+import { Skeleton } from "../../components/shared";
 import { auth } from "../../firebase.config";
 import AppLayout from "../../layout/AppLayout";
 import { useGetUserQuery } from "../../redux/api/authApi";
@@ -23,23 +24,25 @@ const UserProfile = (props: UserProfileProps) => {
     return <Box>isError</Box>;
   }
 
+  if (isLoading || loading) {
+    return <Skeleton height={96} />;
+  }
+
   if (!data && !isLoading) {
     return <Box>no user found</Box>;
   }
 
   return (
     <AppLayout>
-      <Skeleton isLoaded={!loading && !isLoading} fadeDuration={2}>
+      <Box>
+        <Box h={48} w="full" bg="red.600" />
         <Box>
-          <Box h={48} w="full" bg="wzy.600" />
-          <Box>
-            {user?.email === data?.email
-              ? "is able to edit - owns this profile"
-              : "not able to edit"}
-            {}
-          </Box>
+          {user?.email === data?.email
+            ? "is able to edit - owns this profile - sunday"
+            : "not able to edit"}
+          {}
         </Box>
-      </Skeleton>
+      </Box>
     </AppLayout>
   );
 };

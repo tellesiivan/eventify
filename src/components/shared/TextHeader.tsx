@@ -20,7 +20,7 @@ export const TextHeader = (props: TextHeaderProps) => {
         {props.title}
       </Text>
       {props.description && (
-        <Text variant="s3" mr="auto">
+        <Text variant="s2" mr="auto">
           {props.description}
         </Text>
       )}

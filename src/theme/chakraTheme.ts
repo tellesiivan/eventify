@@ -27,10 +27,12 @@ const components = {
         fontSize: "13px",
         fontWeight: "semibold",
       },
-      s2: {
-        fontSize: "12px",
+      s2: (props: StyleFunctionProps | Record<string, any>) => ({
+        fontSize: "sm",
         fontWeight: "regular",
-      },
+        color: mode("secondary.400", "primary.800")(props),
+      }),
+
       s3: (props: StyleFunctionProps | Record<string, any>) => ({
         fontSize: "xs",
         fontWeight: "regular",
