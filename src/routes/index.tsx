@@ -8,10 +8,12 @@ import { Flex, Spinner } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase.config";
+import { AuthLayout } from "../layout";
 import BaseNav from "../layout/BaseNav";
 import { useGetUserQuery } from "../redux/api/authApi";
 import { useAppDispatch } from "../redux/reduxHooks";
 import { addAuthUser, authIsLoading } from "../redux/slices/authSlice";
+import { LoginScreen, SignupScreen } from "../screens";
 import Feed from "../screens/feed/Feed";
 import ManageUserScreen from "../screens/user/auth/ManageUserScreen";
 import UserProfile from "../screens/user/UserProfile";
@@ -70,7 +72,10 @@ const NavRoutes = (props: Props) => {
     <Routes>
       {/* BaseNav: add a route below to include prelogin layout*/}
       <Route path="/" element={<BaseNav />}>
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/auth" element={<AuthLayout />}>
+          <Route path="/auth/login" element={<LoginScreen />} />
+          <Route path="/auth/signup" element={<SignupScreen />} />
+        </Route>
         <Route path="/home" element={user ? <Feed /> : <Auth />}>
           <Route index element={user ? <Feed /> : <Auth />} />
         </Route>

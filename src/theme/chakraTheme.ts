@@ -23,10 +23,12 @@ const components = {
       }),
 
       //
-      s1: {
-        fontSize: "13px",
+
+      s1: (props: StyleFunctionProps | Record<string, any>) => ({
+        fontSize: "md",
         fontWeight: "semibold",
-      },
+        color: mode("secondary.400", "primary.800")(props),
+      }),
       s2: (props: StyleFunctionProps | Record<string, any>) => ({
         fontSize: "sm",
         fontWeight: "regular",
@@ -80,6 +82,7 @@ const components = {
     variants: {
       base: (props: StyleFunctionProps | Record<string, any>) => ({
         bg: mode("primary", "secondary.200")(props),
+
         field: {
           py: "6",
           rounded: "xl",

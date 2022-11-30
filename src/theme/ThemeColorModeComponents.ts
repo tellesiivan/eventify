@@ -4,12 +4,14 @@ type ColorModeComponents =
   | "borderColor"
   | "accentThemeBg"
   | "accentThemeBgDos"
-  | "baseBg";
+  | "baseBg"
+  | "reverseBaseBg";
 
 export const ThemeColorModeComponents = (
   colorModeComponent: ColorModeComponents
 ) => {
   const baseBg = useColorModeValue("primary.50", "secondary.900");
+  const reverseBaseBg = useColorModeValue("secondary.900", "primary.50");
   const borderColor = useColorModeValue("primary.800", "secondary.700");
   const accentThemeBg = useColorModeValue("primary.400", "secondary.800");
   const accentThemeBgDos = useColorModeValue("primary.500", "secondary.700");
@@ -23,6 +25,8 @@ export const ThemeColorModeComponents = (
       return accentThemeBgDos;
     case "baseBg":
       return baseBg;
+    case "reverseBaseBg":
+      return reverseBaseBg;
     default:
       break;
   }

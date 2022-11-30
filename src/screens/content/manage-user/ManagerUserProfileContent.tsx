@@ -29,18 +29,21 @@ export const ManagerUserProfileContent = (
     ? convertTimestamp(data.timestamp)
     : null;
 
-  const formattedUserCreatedDate =
-    userCreatedDate !== null && formatDate(new Date(userCreatedDate as Date));
+  const formattedUserCreatedDate = userCreatedDate
+    ? formatDate(new Date(userCreatedDate as Date))
+    : null;
+
+  console.log(data);
 
   return (
     <VStack p={2} width="full" spacing={4} maxWidth="container.lg" mx="auto">
       {/* ==== USER PROFILE BG IMAGE ==== */}
       <VStack width="full">
         <TextHeader
+          maxWidth={{ base: "sm", md: "xl" }}
+          mr="auto"
           my={2}
-          title={`Hello ${
-            data?.username ? data.username + "," + formattedUserCreatedDate : ""
-          }`}
+          title={`Hello ${data?.username && data.username}`}
           description="Customize your public profile here, from background cover image to your general location."
         />
         <UserBackgroundCoverImage
@@ -60,6 +63,7 @@ export const ManagerUserProfileContent = (
       >
         <HStack width="full" justifyContent="space-between">
           <TextHeader
+            maxWidth="64"
             my={2}
             title="Your Avatar"
             description="Click on the avatar to upload a custom one from your files."

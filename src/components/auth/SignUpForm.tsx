@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { ErrorMessage, Form, Formik, FormikProps } from "formik";
+import { ErrorMessage, Formik, FormikProps } from "formik";
 
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,9 @@ import { useAddUserMutation } from "../../redux/api/authApi";
 import { useAppDispatch } from "../../redux/reduxHooks";
 import { addAuthUser } from "../../redux/slices/authSlice";
 import { SignUpSchema } from "../../schemas";
+import ThemeColorModeComponents from "../../theme/ThemeColorModeComponents";
 import { ExtractNameFromEmail } from "../../utils";
+import { PressableNoticeText } from "../shared";
 
 type InitialValues = {
   email: string;
@@ -85,118 +87,117 @@ export default function SignUpForm() {
           } = props;
 
           return (
-            <VStack spacing={6}>
-              <Form className="w-full">
-                <VStack spacing={4} align="flex-start">
-                  <FormControl>
-                    <FormLabel htmlFor="email" fontSize="xs" color="white">
-                      Email Address
-                    </FormLabel>
-                    <Input
-                      id="email"
-                      name="email"
-                      py={6}
-                      color="seconday.200"
-                      type="email"
-                      bg="primary.600"
-                      variant="ghost"
-                      placeholder="Your email..."
-                      _placeholder={{
-                        opacity: 1,
-                        color: "gray.700",
-                        fontSize: "xs",
-                      }}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                    />
+            <VStack spacing={4}>
+              <FormControl>
+                <FormLabel htmlFor="email" fontSize="xs" color="white">
+                  Email Address
+                </FormLabel>
+                <Input
+                  id="email"
+                  name="email"
+                  py={6}
+                  color="seconday.200"
+                  type="email"
+                  bg="primary.600"
+                  variant="ghost"
+                  placeholder="Your email..."
+                  _placeholder={{
+                    opacity: 1,
+                    color: "gray.700",
+                    fontSize: "xs",
+                  }}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
 
-                    <Text color="red.500" pt={1} ml={2} fontSize="sm">
-                      <ErrorMessage name="email" />
-                    </Text>
-                  </FormControl>
+                <Text color="red.500" pt={1} ml={2} fontSize="sm">
+                  <ErrorMessage name="email" />
+                </Text>
+              </FormControl>
 
-                  <FormControl>
-                    <FormLabel htmlFor="password" fontSize="xs" color="white">
-                      Password
-                    </FormLabel>
-                    <Input
-                      rounded="lg"
-                      id="password"
-                      color="seconday.200"
-                      py={6}
-                      name="password"
-                      bg="primary.600"
-                      type="password"
-                      variant="ghost"
-                      placeholder="Password..."
-                      _placeholder={{
-                        opacity: 1,
-                        color: "gray.700",
-                        fontSize: "xs",
-                      }}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.password}
-                    />
+              <FormControl>
+                <FormLabel htmlFor="password" fontSize="xs" color="white">
+                  Password
+                </FormLabel>
+                <Input
+                  rounded="lg"
+                  id="password"
+                  color="seconday.200"
+                  py={6}
+                  name="password"
+                  bg="primary.600"
+                  type="password"
+                  variant="ghost"
+                  placeholder="Password..."
+                  _placeholder={{
+                    opacity: 1,
+                    color: "gray.700",
+                    fontSize: "xs",
+                  }}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                />
 
-                    <Text color="red.500" pt={1} ml={2} fontSize="sm">
-                      <ErrorMessage name="password" />
-                    </Text>
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel
-                      htmlFor="verifyPassword"
-                      fontSize="xs"
-                      color="white"
-                    >
-                      Verify Password
-                    </FormLabel>
-                    <Input
-                      rounded="lg"
-                      id="verifyPassword"
-                      color="seconday.200"
-                      py={6}
-                      name="verifyPassword"
-                      bg="primary.600"
-                      type="password"
-                      variant="ghost"
-                      placeholder="Verify Password..."
-                      _placeholder={{
-                        opacity: 1,
-                        color: "gray.700",
-                        fontSize: "xs",
-                      }}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.verifyPassword}
-                    />
+                <Text color="red.500" pt={1} ml={2} fontSize="sm">
+                  <ErrorMessage name="password" />
+                </Text>
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="verifyPassword" fontSize="xs" color="white">
+                  Verify Password
+                </FormLabel>
+                <Input
+                  rounded="lg"
+                  id="verifyPassword"
+                  color="seconday.200"
+                  py={6}
+                  name="verifyPassword"
+                  bg="primary.600"
+                  type="password"
+                  variant="ghost"
+                  placeholder="Verify Password..."
+                  _placeholder={{
+                    opacity: 1,
+                    color: "gray.700",
+                    fontSize: "xs",
+                  }}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.verifyPassword}
+                />
 
-                    <Text color="red.500" pt={1} ml={2} fontSize="sm">
-                      <ErrorMessage name="verifyPassword" />
-                    </Text>
-                  </FormControl>
+                <Text color="red.500" pt={1} ml={2} fontSize="sm">
+                  <ErrorMessage name="verifyPassword" />
+                </Text>
+              </FormControl>
 
-                  <Box width="full" pt={2}>
-                    <Button
-                      isLoading={isLoading || loading}
-                      disabled={!(isValid && dirty)}
-                      bg="ichw.600"
-                      onClick={() => handleSubmit()}
-                      color="primary.600"
-                      width="full"
-                      _hover={{ bg: "ichw.500" }}
-                      rounded="lg"
-                    >
-                      Sign up
-                    </Button>
-                  </Box>
-                </VStack>
-              </Form>
+              <Box width="full" pt={2}>
+                <Button
+                  isLoading={isLoading || loading}
+                  disabled={!(isValid && dirty)}
+                  bg="ichw.600"
+                  onClick={() => handleSubmit()}
+                  color="primary.600"
+                  width="full"
+                  _hover={{ bg: "ichw.500" }}
+                  rounded="lg"
+                >
+                  Sign up
+                </Button>
+              </Box>
             </VStack>
           );
         }}
       </Formik>
+      <PressableNoticeText
+        link="/auth/login"
+        textContent="Already have an account? Login"
+        textAlign="center"
+        py="4"
+        color={ThemeColorModeComponents("baseBg")}
+      />
     </Box>
   );
 }

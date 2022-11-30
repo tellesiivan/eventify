@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { ErrorMessage, Form, Formik, FormikProps } from "formik";
+import { ErrorMessage, Formik, FormikProps } from "formik";
 import { useNavigate } from "react-router-dom";
 
 import { auth } from "../../firebase.config";
@@ -44,6 +44,7 @@ export default function LoginForm() {
 
   const onSubmitHandler = async (values: InitialValues) => {
     const { email, password } = values;
+    console.log(email, password);
     try {
       dispatch(authIsLoading(true));
       const result = await signInWithEmailAndPassword(auth, email, password);
@@ -87,67 +88,71 @@ export default function LoginForm() {
 
           return (
             <VStack spacing={6}>
-              <Form className="w-full">
-                <VStack spacing={4} align="flex-start">
-                  <FormControl>
-                    <FormLabel htmlFor="email" fontSize="xs" color="white">
-                      Email Address
-                    </FormLabel>
-                    <Input
-                      autoFocus={false}
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="Your email..."
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={props.values.email}
-                    />
-                    {errors.email && touched.email && (
-                      <Text color="red.500" pt={1} ml={2} fontSize="sm">
-                        <ErrorMessage name="email" />
-                      </Text>
-                    )}
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel htmlFor="password" fontSize="xs" color="white">
-                      Password
-                    </FormLabel>
-                    <Input
-                      id="password"
-                      name="password"
-                      type="password"
-                      placeholder="Password..."
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={props.values.password}
-                    />
-                    {errors.password && touched.password && (
-                      <Text color="red.500" pt={1} ml={2} fontSize="sm">
-                        <ErrorMessage name="password" />
-                      </Text>
-                    )}
-                  </FormControl>
-                  {isError && <Text color="white">ERROR</Text>}
-                  <Box width="full" pt={2}>
-                    <Button
-                      isLoading={isLoading}
-                      disabled={!(isValid && dirty)}
-                      type="submit"
-                      onClick={() => handleSubmit()}
-                      variant="secondary"
-                      width="full"
-                      rounded="xl"
-                    >
-                      Login
-                    </Button>
-                  </Box>
-                </VStack>
-              </Form>
+              <FormControl>
+                <FormLabel htmlFor="email" fontSize="xs" color="white">
+                  Email Address
+                </FormLabel>
+                <Input
+                  width="full"
+                  autoFocus={false}
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Your email..."
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={props.values.email}
+                />
+                {errors.email && touched.email && (
+                  <Text color="red.500" pt={1} ml={2} fontSize="sm">
+                    <ErrorMessage name="email" />
+                  </Text>
+                )}
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="password" fontSize="xs" color="white">
+                  Password
+                </FormLabel>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Password..."
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={props.values.password}
+                />
+                {errors.password && touched.password && (
+                  <Text color="red.500" pt={1} ml={2} fontSize="sm">
+                    <ErrorMessage name="password" />
+                  </Text>
+                )}
+              </FormControl>
+              {isError && <Text color="white">ERROR</Text>}
+              <Box width="full" pt={2}>
+                <Button
+                  isLoading={isLoading}
+                  disabled={!(isValid && dirty)}
+                  type="submit"
+                  onClick={() => handleSubmit()}
+                  variant="secondary"
+                  width="full"
+                  rounded="md"
+                >
+                  Login
+                </Button>
+              </Box>
             </VStack>
           );
         }}
       </Formik>
+      {/* <PressableNoticeText
+        link="/auth/signup"
+        textContent="Don't have an account? Sign up"
+        textAlign="center"
+        py="4"
+        color={ThemeColorModeComponents("baseBg")}
+      /> */}
     </Box>
   );
 }
