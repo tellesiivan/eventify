@@ -5,3 +5,5 @@ export * from "./icons/calendar-outline";
 export * from "./icons/car-outline";
 export * from "./icons/link-outline";
 export * from "./icons/currency-sign-outline";
+export * from "./icons/lightbulb-outline";
+export * from "./icons/lightbuld-filled";

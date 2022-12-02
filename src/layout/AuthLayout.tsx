@@ -19,23 +19,23 @@ import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
 const avatars = [
   {
     name: "Ryan Florence",
-    url: "https://bit.ly/ryan-florence",
+    url: "https://images.unsplash.com/photo-1587004461774-8aeded0aadff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
     name: "Segun Adebayo",
-    url: "https://bit.ly/sage-adebayo",
+    url: "https://images.unsplash.com/photo-1549473472-b8972f16f96d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
     name: "Kent Dodds",
-    url: "https://bit.ly/kent-c-dodds",
+    url: "https://images.unsplash.com/photo-1580274437636-1c384e59e9b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80",
   },
   {
     name: "Prosper Otemuyiwa",
-    url: "https://bit.ly/prosper-baba",
+    url: "https://images.unsplash.com/photo-1633728342572-4b6fd355c646?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80",
   },
   {
     name: "Christian Nwamba",
-    url: "https://bit.ly/code-beast",
+    url: "https://images.unsplash.com/photo-1612076813057-3c82f6127a7c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
 ];
 
@@ -60,7 +60,7 @@ export function AuthLayout() {
         spacing={{ base: 10, lg: 32 }}
         py={{ base: 10, sm: 20, lg: 32 }}
       >
-        <Stack spacing={{ base: 10, md: 20 }}>
+        <Stack spacing={{ base: 10 }}>
           <Heading
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
@@ -135,10 +135,9 @@ export function AuthLayout() {
           bg={ThemeColorModeComponents("reverseBaseBg")}
           rounded={"xl"}
           p={{ base: 4, sm: 6, md: 8 }}
-          spacing={{ base: 8 }}
           maxW={{ lg: "lg" }}
         >
-          <Box as={"form"}>
+          <Box>
             <Outlet />
           </Box>
         </Stack>

@@ -22,24 +22,22 @@ import {
 
 import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
 
-import { signOut } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ThemeToggler } from "../components/shared/index";
-import { auth } from "../firebase.config";
 import { useAppSelector } from "../redux/reduxHooks";
 
 type Props = {};
 
 const BaseNav = (props: Props) => {
   const navigate = useNavigate();
+  const { logout: auth0Logout, user } = useAuth0();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isAuthLoading = useAppSelector((state) => state.auth.isAuthLoading);
-  const [user, loading] = useAuthState(auth);
 
   const logout = () => {
-    signOut(auth);
-    navigate("/auth");
+    auth0Logout();
+    navigate("/home");
     onClose();
   };
   const bg = useColorModeValue("secondary.900", "secondary.800");
@@ -71,9 +69,9 @@ const BaseNav = (props: Props) => {
             w={8}
             src="https://www.simplimods.app/_next/image?url=%2Flogo-512.png&w=48&q=75"
           />
-          <Flex alignItems="center" gap={3}>
+          <Flex alignItems="center" justifyItems="center" gap={3}>
             <ThemeToggler />
-            {isAuthLoading || loading ? (
+            {isAuthLoading ? (
               <Spinner size="md" color="wzp.500" />
             ) : user ? (
               <Avatar
@@ -81,6 +79,7 @@ const BaseNav = (props: Props) => {
                 size="sm"
                 bg="pink.600"
                 cursor="pointer"
+                src={user.picture}
                 onClick={onOpen}
               />
             ) : (

@@ -4,10 +4,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import Auth from "../screens/Auth";
 
-import { Flex, Spinner } from "@chakra-ui/react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase.config";
 import { AuthLayout } from "../layout";
 import BaseNav from "../layout/BaseNav";
 import { useGetUserQuery } from "../redux/api/authApi";
@@ -23,14 +21,19 @@ type Props = {};
 
 const NavRoutes = (props: Props) => {
   const dispatch = useAppDispatch();
-  const [user, loading] = useAuthState(auth);
+  const {
+    isLoading: isAuth0Loading,
+
+    user,
+  } = useAuth0();
+
   const { isError, isLoading, data } = useGetUserQuery({
     by: "email",
     user: user?.email,
   });
 
   useEffect(() => {
-    if (loading || isLoading) {
+    if (isAuth0Loading || isLoading) {
       dispatch(authIsLoading(true));
       return;
     } else {
@@ -42,29 +45,29 @@ const NavRoutes = (props: Props) => {
       );
       dispatch(authIsLoading(false));
     }
-  }, [user, loading, isLoading, dispatch, data]);
+  }, [data, dispatch, isAuth0Loading, isLoading, user]);
 
-  if (loading || isLoading) {
-    return (
-      <Flex
-        padding="6"
-        boxShadow="lg"
-        h="calc(100vh)"
-        w="calc(100vw)"
-        minHeight="full"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="secondary.200"
-          color="primary.400"
-          size="xl"
-        />
-      </Flex>
-    );
-  }
+  // if (isLoading || isLoading) {
+  //   return (
+  //     <Flex
+  //       padding="6"
+  //       boxShadow="lg"
+  //       h="calc(100vh)"
+  //       w="calc(100vw)"
+  //       minHeight="full"
+  //       justifyContent="center"
+  //       alignItems="center"
+  //     >
+  //       <Spinner
+  //         thickness="4px"
+  //         speed="0.65s"
+  //         emptyColor="secondary.200"
+  //         color="primary.400"
+  //         size="xl"
+  //       />
+  //     </Flex>
+  //   );
+  // }
 
   const isLoggedIn = !!user?.email;
 

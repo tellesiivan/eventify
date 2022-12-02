@@ -6,18 +6,21 @@ import {
   EditOutline,
   HelpOutline,
   IconCalendarOutline,
+  LightbulbFilled,
+  LightbulbOutline,
   LinkAddOutline,
   User,
 } from "../../assets";
 
+import type { IconProps as ChakraIconProps } from "@chakra-ui/react";
 import { IconSize, SvgrIconList } from "../../types";
 
-interface IconProps {
+interface IconProps extends ChakraIconProps {
   iconName: SvgrIconList;
   size?: IconSize;
 }
 
-export const Icon = ({ iconName, size }: IconProps) => {
+export const Icon = (props: IconProps) => {
   const IconSelection = (iconName: SvgrIconList): any => {
     switch (iconName) {
       case "User":
@@ -34,13 +37,22 @@ export const Icon = ({ iconName, size }: IconProps) => {
         return LinkAddOutline;
       case "CurrencySignOutline":
         return CurrencySignOutline;
+      case "LightbulbOutline":
+        return LightbulbOutline;
+      case "LightbulbFilled":
+        return LightbulbFilled;
       default:
         return HelpOutline;
     }
   };
 
   return (
-    <ChakraIcon as={IconSelection(iconName)} w={size ?? 5} h={size ?? 5} />
+    <ChakraIcon
+      as={IconSelection(props.iconName)}
+      w={props.size ?? 5}
+      h={props.size ?? 5}
+      {...props}
+    />
   );
 };
 

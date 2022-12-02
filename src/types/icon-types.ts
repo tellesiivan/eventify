@@ -6,6 +6,8 @@ export const SvgrIconListInApp = {
   AntDesignCarOutline: "CarOutline",
   UniconsLinkAddOutline: "LinkAddOutline",
   HeroiconsCurrencySignOutline: "CurrencySignOutline",
+  MaterialLightbulbOutline: "LightbulbOutline",
+  MaterialLightbulbFilled: "LightbulbFilled",
 } as const;
 
 export type SvgrIconList =
