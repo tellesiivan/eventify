@@ -14,9 +14,8 @@ import { ErrorMessage, Formik, FormikProps } from "formik";
 import { useNavigate } from "react-router-dom";
 
 import { auth } from "../../firebase.config";
-import { useLazyGetUserQuery } from "../../redux/api/authApi";
-import { useAppDispatch } from "../../redux/reduxHooks";
-import { addAuthUser, authIsLoading } from "../../redux/slices/authSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks";
+import { authIsLoading } from "../../redux/slices/authSlice";
 import { loginInSchema } from "../../schemas";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -35,7 +34,9 @@ type InitialValues = {
 export default function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [getUser, { isLoading, isError }] = useLazyGetUserQuery();
+  const logginUserInLoadingState = useAppSelector(
+    (state) => state.auth.isAuthLoading
+  );
 
   const initialValues: InitialValues = {
     email: "",
@@ -44,23 +45,15 @@ export default function LoginForm() {
 
   const onSubmitHandler = async (values: InitialValues) => {
     const { email, password } = values;
-    console.log(email, password);
     try {
       dispatch(authIsLoading(true));
       const result = await signInWithEmailAndPassword(auth, email, password);
+
       if (!result) throw new Error("Not able to login user");
-      const { data } = await getUser({
-        by: "email",
-        user: email,
-      });
-      if (!data?.username) throw new Error("Not able to get username");
-      dispatch(
-        addAuthUser({
-          userName: data?.username,
-          email,
-        })
-      );
-      navigate(`/${data?.username}`);
+
+      // TODO: get display name and set it to username and route
+
+      console.log(result);
     } catch (e) {
       console.log(e);
     } finally {
@@ -83,7 +76,6 @@ export default function LoginForm() {
             handleChange,
             isValid,
             handleSubmit,
-            dirty,
           } = props;
 
           return (
@@ -128,11 +120,11 @@ export default function LoginForm() {
                   </Text>
                 )}
               </FormControl>
-              {isError && <Text color="white">ERROR</Text>}
+
               <Box width="full" pt={2}>
                 <Button
-                  isLoading={isLoading}
-                  disabled={!(isValid && dirty)}
+                  isLoading={logginUserInLoadingState}
+                  disabled={!(isValid || logginUserInLoadingState)}
                   type="submit"
                   onClick={() => handleSubmit()}
                   variant="secondary"

@@ -47,6 +47,22 @@ const components = {
       },
     },
   },
+  Link: {
+    variants: {
+      // Make a variant, we'll call it `base` here and leave it empty
+      base: (props: StyleFunctionProps | Record<string, any>) => ({
+        color: mode("secondary.600", "primary.600")(props),
+        _hover: {
+          bg: "secondary.500",
+        },
+      }),
+
+      nav: (props: StyleFunctionProps | Record<string, any>) => ({
+        fontSize: "sm",
+        color: "primary.50",
+      }),
+    },
+  },
   Button: {
     variants: {
       // Make a variant, we'll call it `base` here and leave it empty
@@ -59,6 +75,7 @@ const components = {
 
       secondary: (props: StyleFunctionProps | Record<string, any>) => ({
         bg: mode("primary.50", "secondary.400")(props),
+        py: { base: 4, lg: 6 },
         fontSize: "sm",
         fontWeight: "semibold",
         _hover: {

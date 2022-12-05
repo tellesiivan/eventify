@@ -13,10 +13,10 @@ interface ManagerUserProfileContentProps {}
 export const ManagerUserProfileContent = (
   props: ManagerUserProfileContentProps
 ) => {
-  const authUser = useAppSelector((state: RootState) => state.auth.user.email);
+  const authUser = useAppSelector((state: RootState) => state.auth.user);
   const { isError, isLoading, data } = useGetUserQuery({
     by: "email",
-    user: authUser,
+    user: authUser.email,
   });
   const imageSrc =
     "https://images.unsplash.com/photo-1605906457463-5eb60f753738?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1330&q=80";

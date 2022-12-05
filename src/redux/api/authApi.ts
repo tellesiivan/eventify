@@ -21,7 +21,7 @@ interface user {
 }
 
 interface GetUserBy {
-  user: undefined | string | null;
+  user: string | undefined;
   by: "email" | "username";
 }
 
@@ -57,15 +57,10 @@ export const authApi = baseApiSlice.injectEndpoints({
     //***************SINGLE USER FETCHING*************** */
     getUser: build.query<user, GetUserBy>({
       async queryFn({ user, by }): Promise<any> {
-        const filterBy = where(
-          by === "username" ? "username" : "email",
-          "==",
-          user
-        );
+        const filterBy = where(by, "==", user);
         try {
           const q = query(collection(firestoreDb, "memberGraph"), filterBy);
           const querySnapshot = await getDocs(q);
-
           let queryData: any;
           querySnapshot.forEach((doc) => {
             queryData = {

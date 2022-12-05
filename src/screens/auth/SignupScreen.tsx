@@ -8,7 +8,7 @@ interface SignupScreenProps {}
 export const SignupScreen = (props: SignupScreenProps) => {
   return (
     <>
-      <Stack spacing={4} mb={10}>
+      <Stack spacing={4}>
         <Heading
           color={ThemeColorModeComponents("accentThemeBg")}
           lineHeight={1.1}

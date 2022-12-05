@@ -2,15 +2,10 @@ import React from "react";
 
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import Auth from "../screens/Auth";
-
-import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
 import { AuthLayout } from "../layout";
 import BaseNav from "../layout/BaseNav";
-import { useGetUserQuery } from "../redux/api/authApi";
-import { useAppDispatch } from "../redux/reduxHooks";
-import { addAuthUser, authIsLoading } from "../redux/slices/authSlice";
+import { useAppSelector } from "../redux/reduxHooks";
+
 import { LoginScreen, SignupScreen } from "../screens";
 import Feed from "../screens/feed/Feed";
 import ManageUserScreen from "../screens/user/auth/ManageUserScreen";
@@ -20,56 +15,11 @@ import ProtectedRoute from "./ProtectedRoute";
 type Props = {};
 
 const NavRoutes = (props: Props) => {
-  const dispatch = useAppDispatch();
-  const {
-    isLoading: isAuth0Loading,
-
-    user,
-  } = useAuth0();
-
-  const { isError, isLoading, data } = useGetUserQuery({
-    by: "email",
-    user: user?.email,
-  });
-
-  useEffect(() => {
-    if (isAuth0Loading || isLoading) {
-      dispatch(authIsLoading(true));
-      return;
-    } else {
-      dispatch(
-        addAuthUser({
-          userName: data?.username ? data.username : "",
-          email: user?.email ? user.email : "",
-        })
-      );
-      dispatch(authIsLoading(false));
-    }
-  }, [data, dispatch, isAuth0Loading, isLoading, user]);
-
-  // if (isLoading || isLoading) {
-  //   return (
-  //     <Flex
-  //       padding="6"
-  //       boxShadow="lg"
-  //       h="calc(100vh)"
-  //       w="calc(100vw)"
-  //       minHeight="full"
-  //       justifyContent="center"
-  //       alignItems="center"
-  //     >
-  //       <Spinner
-  //         thickness="4px"
-  //         speed="0.65s"
-  //         emptyColor="secondary.200"
-  //         color="primary.400"
-  //         size="xl"
-  //       />
-  //     </Flex>
-  //   );
-  // }
-
-  const isLoggedIn = !!user?.email;
+  const isAuthUser = useAppSelector((state) => !!state.auth.user.email);
+  const isAuthStateLoading = useAppSelector(
+    (state) => !!state.auth.isAuthLoading
+  );
+  const isLoggedIn = !isAuthStateLoading && isAuthUser;
 
   return (
     <Routes>
@@ -79,13 +29,10 @@ const NavRoutes = (props: Props) => {
           <Route path="/auth/login" element={<LoginScreen />} />
           <Route path="/auth/signup" element={<SignupScreen />} />
         </Route>
-        <Route path="/home" element={user ? <Feed /> : <Auth />}>
-          <Route index element={user ? <Feed /> : <Auth />} />
+        <Route path="/" element={<Feed />}>
+          <Route index />
+          <Route path="/home" element={<Feed />} />
         </Route>
-        <Route
-          path="/"
-          element={<Navigate to={isLoggedIn ? "/home" : "/auth"} />}
-        />
 
         <Route
           path="/manage"

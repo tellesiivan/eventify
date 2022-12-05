@@ -15,6 +15,7 @@ import {
   HStack,
   Image,
   Input,
+  Link,
   Spinner,
   useColorModeValue,
   useDisclosure,
@@ -22,21 +23,46 @@ import {
 
 import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
 
-import { useAuth0 } from "@auth0/auth0-react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { Link as ReachLink, Outlet, useNavigate } from "react-router-dom";
 import { ThemeToggler } from "../components/shared/index";
-import { useAppSelector } from "../redux/reduxHooks";
+import { auth } from "../firebase.config";
+import { useAppDispatch, useAppSelector } from "../redux/reduxHooks";
+import { resetAuthState } from "../redux/slices/authSlice";
 
 type Props = {};
 
 const BaseNav = (props: Props) => {
   const navigate = useNavigate();
-  const { logout: auth0Logout, user } = useAuth0();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isAuthLoading = useAppSelector((state) => state.auth.isAuthLoading);
+  const authUser = useAppSelector((state) => state.auth.user.email);
+
+  const dispatch = useAppDispatch();
+
+  type NavLink = {
+    label: string;
+    link: string;
+  };
+
+  const navLinks: NavLink[] = [
+    {
+      label: "Login",
+      link: "/auth/login",
+    },
+    {
+      label: "Sign Up",
+      link: "/auth/signup",
+    },
+    {
+      label: "Events",
+      link: "/events",
+    },
+  ];
 
   const logout = () => {
-    auth0Logout();
+    signOut(auth);
+    dispatch(resetAuthState());
     navigate("/home");
     onClose();
   };
@@ -70,20 +96,34 @@ const BaseNav = (props: Props) => {
             src="https://www.simplimods.app/_next/image?url=%2Flogo-512.png&w=48&q=75"
           />
           <Flex alignItems="center" justifyItems="center" gap={3}>
-            <ThemeToggler />
             {isAuthLoading ? (
               <Spinner size="md" color="wzp.500" />
-            ) : user ? (
-              <Avatar
-                name="Wes"
-                size="sm"
-                bg="pink.600"
-                cursor="pointer"
-                src={user.picture}
-                onClick={onOpen}
-              />
+            ) : authUser ? (
+              <>
+                <ThemeToggler />
+                <Avatar
+                  name={authUser}
+                  size="sm"
+                  bg="wzy.600"
+                  color="secondary.900"
+                  cursor="pointer"
+                  // src={user.picture}
+                  onClick={onOpen}
+                />
+              </>
             ) : (
-              <Avatar size="sm" bg="green.200" cursor="pointer" />
+              <HStack spacing={4} alignItems="center">
+                {navLinks.map((navLink: NavLink) => (
+                  <Link
+                    as={ReachLink}
+                    key={navLink.label}
+                    to={navLink.link}
+                    variant="nav"
+                  >
+                    {navLink.label}
+                  </Link>
+                ))}
+              </HStack>
             )}
           </Flex>
         </HStack>

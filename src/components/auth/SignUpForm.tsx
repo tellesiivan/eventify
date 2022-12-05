@@ -12,12 +12,11 @@ import {
 
 import { ErrorMessage, Formik, FormikProps } from "formik";
 
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase.config";
-import { useAddUserMutation } from "../../redux/api/authApi";
-import { useAppDispatch } from "../../redux/reduxHooks";
-import { addAuthUser } from "../../redux/slices/authSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks";
+import { addAuthUser, authIsLoading } from "../../redux/slices/authSlice";
 import { SignUpSchema } from "../../schemas";
 import ThemeColorModeComponents from "../../theme/ThemeColorModeComponents";
 import { ExtractNameFromEmail } from "../../utils";
@@ -31,39 +30,48 @@ type InitialValues = {
 
 export default function SignUpForm() {
   const dispatch = useAppDispatch();
-
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
   const navigate = useNavigate();
   const initialValues: InitialValues = {
     email: "",
     password: "",
     verifyPassword: "",
   };
-
-  const [addUser, { isError, isLoading }] = useAddUserMutation();
+  const logginUserInLoadingState = useAppSelector(
+    (state) => state.auth.isAuthLoading
+  );
 
   const signupHandler = async (values: InitialValues) => {
     const username = ExtractNameFromEmail({
       email: values.email,
     });
     try {
-      await createUserWithEmailAndPassword(values.email, values.password);
-      if (error) throw new Error("Not able to create user");
-      await addUser({
-        email: values.email,
-        username,
+      dispatch(authIsLoading(true));
+      const registerUser = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+
+      await updateProfile(registerUser.user, {
+        displayName: username,
       });
 
-      dispatch(
-        addAuthUser({
-          userName: username,
-          email: values.email,
-        })
-      );
-      !isError && navigate(`/${username}`);
+      const { email: authEmail, displayName: authUserName } = registerUser.user;
+
+      if (authUserName && authEmail) {
+        dispatch(
+          addAuthUser({
+            userName: authUserName,
+            email: authEmail,
+          })
+        );
+
+        navigate(`/${authUserName}`);
+      }
     } catch (error: string | any) {
       console.log(error.message);
+    } finally {
+      dispatch(authIsLoading(false));
     }
   };
 
@@ -175,8 +183,8 @@ export default function SignUpForm() {
 
               <Box width="full" pt={2}>
                 <Button
-                  isLoading={isLoading || loading}
-                  disabled={!(isValid && dirty)}
+                  isLoading={logginUserInLoadingState}
+                  disabled={!(isValid || logginUserInLoadingState)}
                   bg="ichw.600"
                   onClick={() => handleSubmit()}
                   color="primary.600"

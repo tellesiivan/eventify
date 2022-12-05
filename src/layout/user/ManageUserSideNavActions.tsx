@@ -51,7 +51,7 @@ export const ManageUserSideNavActions = ({
           >
             {navItem.icon}
           </VStack>
-          <Text variant="s1">{navItem.name}</Text>
+          <Text variant="s2">{navItem.name}</Text>
         </StackItem>
       ))}
     </Stack>

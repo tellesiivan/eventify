@@ -1,12 +1,10 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { Box, Button, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import React from "react";
+import LoginForm from "../../components/auth/LoginForm";
 import { PressableNoticeText } from "../../components/shared";
 import ThemeColorModeComponents from "../../theme/ThemeColorModeComponents";
 
 export function LoginScreen() {
-  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
-
   return (
     <Box>
       <Stack spacing={4} mb={10}>
@@ -29,16 +27,7 @@ export function LoginScreen() {
         </Text>
       </Stack>
       <VStack mt="auto">
-        <Button
-          isLoading={isLoading}
-          type="submit"
-          variant="secondary"
-          width="full"
-          rounded="md"
-          onClick={() => loginWithRedirect()}
-        >
-          Login
-        </Button>
+        <LoginForm />
         <PressableNoticeText
           link="/auth/signup"
           textContent="Don't have an account? Sign up"
