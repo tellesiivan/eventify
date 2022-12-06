@@ -1,5 +1,7 @@
 import { Icon as ChakraIcon } from "@chakra-ui/react";
 import React from "react";
+
+import type { IconProps as ChakraIconProps } from "@chakra-ui/react";
 import {
   CarOutline,
   CurrencySignOutline,
@@ -10,10 +12,8 @@ import {
   LightbulbOutline,
   LinkAddOutline,
   User,
-} from "../../assets";
-
-import type { IconProps as ChakraIconProps } from "@chakra-ui/react";
-import { IconSize, SvgrIconList } from "../../types";
+} from "@simplimods/assets";
+import { IconSize, SvgrIconList } from "@simplimods/types";
 
 interface IconProps extends ChakraIconProps {
   iconName: SvgrIconList;

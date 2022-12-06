@@ -7,8 +7,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { ThemeColorModeComponents } from "@simplimods/theme";
 import React from "react";
-import ThemeColorModeComponents from "../../theme/ThemeColorModeComponents";
 
 interface ImageUploadWithPreviewProps {
   selectedImageUrl: string;

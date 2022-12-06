@@ -9,7 +9,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import React from "react";
-import ThemeColorModeComponents from "../../theme/ThemeColorModeComponents";
+import { ThemeColorModeComponents } from "@simplimods/theme";
 
 interface SharedModalProps {
   title: string;

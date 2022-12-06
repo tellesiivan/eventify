@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import {
   Stack,
@@ -8,8 +8,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import type { NavActionsItem } from "../../screens/user/auth/ManageUserScreen";
-import type { ManageUserNavItems } from "../../types";
+import type { ManageUserNavItems } from "@simplimods/types";
+
+export interface NavActionsItem {
+  icon: ReactNode;
+  name: ManageUserNavItems;
+  onPressAction: () => void;
+}
 
 interface ManageUserSideNavActionsProps {
   sideNavActions: NavActionsItem[];

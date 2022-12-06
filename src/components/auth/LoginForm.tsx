@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Box,
   Button,
@@ -9,16 +7,18 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { ErrorMessage, Formik, FormikProps } from "formik";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { auth } from "../../firebase.config";
-import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks";
-import { authIsLoading } from "../../redux/slices/authSlice";
-import { loginInSchema } from "../../schemas";
-
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@simplimods/firebase";
+import {
+  authIsLoading,
+  useAppDispatch,
+  useAppSelector,
+} from "@simplimods/redux";
+import { loginInSchema } from "@simplimods/schemas";
 
 type InitialValues = {
   email: string;
@@ -54,8 +54,8 @@ export default function LoginForm() {
       // TODO: get display name and set it to username and route
 
       console.log(result);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     } finally {
       dispatch(authIsLoading(false));
     }

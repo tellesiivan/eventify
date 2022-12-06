@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
 
 const avatars = [
   {
@@ -132,7 +131,7 @@ export function AuthLayout() {
           </Stack>
         </Stack>
         <Stack
-          bg={ThemeColorModeComponents("reverseBaseBg")}
+          // bg={ThemeColorModeComponents("reverseBaseBg")}
           rounded={"xl"}
           p={{ base: 4, sm: 6, md: 8 }}
           maxW={{ lg: "lg" }}

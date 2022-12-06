@@ -12,15 +12,19 @@ import {
 
 import { ErrorMessage, Formik, FormikProps } from "formik";
 
+import { PressableNoticeText } from "@simplimods/components";
+import { auth } from "@simplimods/firebase";
+import {
+  addAuthUser,
+  authIsLoading,
+  useAppDispatch,
+  useAppSelector,
+} from "@simplimods/redux";
+import { SignUpSchema } from "@simplimods/schemas";
+import { ThemeColorModeComponents } from "@simplimods/theme";
+import { ExtractNameFromEmail } from "@simplimods/utils";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase.config";
-import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks";
-import { addAuthUser, authIsLoading } from "../../redux/slices/authSlice";
-import { SignUpSchema } from "../../schemas";
-import ThemeColorModeComponents from "../../theme/ThemeColorModeComponents";
-import { ExtractNameFromEmail } from "../../utils";
-import { PressableNoticeText } from "../shared";
 
 type InitialValues = {
   email: string;

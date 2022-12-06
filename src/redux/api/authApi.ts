@@ -6,7 +6,7 @@ import {
   serverTimestamp,
   where,
 } from "firebase/firestore";
-import { firestoreDb } from "../../firebase.config";
+import { firestoreDb } from "../../firebase/firebase.config";
 import { baseApiSlice } from "./baseApi";
 
 interface newUser {

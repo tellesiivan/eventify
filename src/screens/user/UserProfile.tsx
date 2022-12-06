@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import { Skeleton } from "../../components/shared";
-import { auth } from "../../firebase.config";
+import { auth } from "../../firebase/firebase.config";
 import AppLayout from "../../layout/AppLayout";
 import { useGetUserQuery } from "../../redux/api/authApi";
 

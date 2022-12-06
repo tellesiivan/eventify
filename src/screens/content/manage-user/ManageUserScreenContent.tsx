@@ -1,9 +1,8 @@
 import React from "react";
 
 import { Box, Text } from "@chakra-ui/react";
-import { ManagerUserProfileContent } from "..";
-
-import type { ManageUserNavItems } from "../../../types";
+import { ManagerUserProfileContent } from "@simplimods/screens";
+import { ManageUserNavItems } from "@simplimods/types";
 
 interface ManagaeUserScreenContentProps {
   activeNavItem: ManageUserNavItems;

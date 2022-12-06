@@ -21,14 +21,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
+import { ThemeColorModeComponents } from "@simplimods/theme";
 
+import { ThemeToggler } from "@simplimods/components/shared";
+import { auth } from "@simplimods/firebase";
+import {
+  resetAuthState,
+  useAppDispatch,
+  useAppSelector,
+} from "@simplimods/redux";
 import { signOut } from "firebase/auth";
 import { Link as ReachLink, Outlet, useNavigate } from "react-router-dom";
-import { ThemeToggler } from "../components/shared/index";
-import { auth } from "../firebase.config";
-import { useAppDispatch, useAppSelector } from "../redux/reduxHooks";
-import { resetAuthState } from "../redux/slices/authSlice";
 
 type Props = {};
 

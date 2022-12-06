@@ -1,7 +1,7 @@
 import type { SkeletonProps as ChakraSkeletonProps } from "@chakra-ui/react";
 import { Skeleton as ChakraSkeleton } from "@chakra-ui/react";
 import React from "react";
-import ThemeColorModeComponents from "../../theme/ThemeColorModeComponents";
+import { ThemeColorModeComponents } from "@simplimods/theme";
 
 interface SkeletonProps extends ChakraSkeletonProps {
   height?: number;

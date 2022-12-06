@@ -1,13 +1,14 @@
+import { Icon } from "@simplimods/components";
+import {
+  AppLayout,
+  LayoutType,
+  ManageUserSideNavActions,
+} from "@simplimods/layout";
+import { ManagaeUserScreenContent } from "@simplimods/screens";
+import type { ManageUserNavItems } from "@simplimods/types";
 import React from "react";
 
 import { ReactNode, useState } from "react";
-import { AppLayout, ManageUserSideNavActions } from "../../../layout/";
-
-import { LayoutType } from "../../../layout/AppLayout";
-import { ManagaeUserScreenContent } from "../../content";
-
-import { Icon } from "../../../components/shared";
-import type { ManageUserNavItems } from "../../../types";
 
 export interface NavActionsItem {
   icon: ReactNode;

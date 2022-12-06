@@ -1,12 +1,13 @@
 import { Box, Button, Image, useDisclosure } from "@chakra-ui/react";
 import React from "react";
+
 import {
   Icon,
   ImageUploadWithPreview,
   Modal,
   Skeleton,
-} from "../../components/shared";
-import { useSelectFile } from "../../hooks";
+} from "@simplimods/components";
+import { useSelectFile } from "@simplimods/hooks";
 
 interface UserBackgroundCoverImageProps {
   canManage: boolean;

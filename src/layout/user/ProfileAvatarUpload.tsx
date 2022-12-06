@@ -1,7 +1,7 @@
 import { Avatar, Input, useDisclosure, VStack } from "@chakra-ui/react";
+import { ImageUploadWithPreview, Modal } from "@simplimods/components";
+import { useSelectFile } from "@simplimods/hooks";
 import React, { useEffect, useRef } from "react";
-import { ImageUploadWithPreview, Modal } from "../../components/shared";
-import { useSelectFile } from "../../hooks";
 
 interface ProfileAvatarUploadProps {
   userAvatar: string;

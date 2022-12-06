@@ -7,7 +7,7 @@ import {
   BreadcrumbLink,
   useColorModeValue,
 } from "@chakra-ui/react";
-import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
+import { ThemeColorModeComponents } from "@simplimods/theme";
 
 interface BreadcrumpsProps {
   breadcrumps: {
@@ -31,15 +31,16 @@ export const Breadcrumps = ({ breadcrumps }: BreadcrumpsProps) => {
       py={3}
       borderColor={ThemeColorModeComponents("borderColor")}
     >
-      {breadcrumps.map((breadcrumps) => (
+      {breadcrumps.map((breadcrump) => (
         <BreadcrumbItem
+          key={breadcrump.link}
           fontSize="sm"
           fontWeight="semibold"
-          textColor={getTextColor(breadcrumps.link)}
-          isCurrentPage={routeLocation.pathname === breadcrumps.link}
+          textColor={getTextColor(breadcrump.link)}
+          isCurrentPage={routeLocation.pathname === breadcrump.link}
         >
-          <BreadcrumbLink href={breadcrumps.link}>
-            {breadcrumps.label}
+          <BreadcrumbLink href={breadcrump.link}>
+            {breadcrump.label}
           </BreadcrumbLink>
         </BreadcrumbItem>
       ))}

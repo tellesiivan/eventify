@@ -1,6 +1,6 @@
 import { Button, useColorMode } from "@chakra-ui/react";
+import { Icon } from "@simplimods/components";
 import React from "react";
-import Icon from "./Icon";
 
 type ThemeTogglerProps = {};
 

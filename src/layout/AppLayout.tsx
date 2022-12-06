@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Box, Grid, GridItem } from "@chakra-ui/react";
-import ThemeColorModeComponents from "../theme/ThemeColorModeComponents";
-import Breadcrumps from "./Breadcrumps";
+import { ThemeColorModeComponents } from "@simplimods/theme";
+import { Breadcrumps } from "@simplimods/layout";
 
 export enum LayoutType {
   One_ROW = "1ROW",
