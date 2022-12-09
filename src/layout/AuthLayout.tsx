@@ -57,9 +57,9 @@ export function AuthLayout() {
         maxW={"7xl"}
         columns={{ base: 1, md: 2 }}
         spacing={{ base: 10, lg: 32 }}
-        py={{ base: 10, sm: 20, lg: 32 }}
+        py={{ base: 10, md: 5 }}
       >
-        <Stack spacing={{ base: 10 }}>
+        <Stack spacing={{ base: 10 }} justifyContent="center">
           <Heading
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
@@ -133,7 +133,7 @@ export function AuthLayout() {
         <Stack
           // bg={ThemeColorModeComponents("reverseBaseBg")}
           rounded={"xl"}
-          p={{ base: 4, sm: 6, md: 8 }}
+          p={{ base: 0, md: 6 }}
           maxW={{ lg: "lg" }}
         >
           <Box>

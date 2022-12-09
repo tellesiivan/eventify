@@ -20,7 +20,7 @@ interface IconProps extends ChakraIconProps {
   size?: IconSize;
 }
 
-export const Icon = (props: IconProps) => {
+export const Icon = ({ iconName, size, ...props }: IconProps) => {
   const IconSelection = (iconName: SvgrIconList): any => {
     switch (iconName) {
       case "User":
@@ -48,9 +48,9 @@ export const Icon = (props: IconProps) => {
 
   return (
     <ChakraIcon
-      as={IconSelection(props.iconName)}
-      w={props.size ?? 5}
-      h={props.size ?? 5}
+      as={IconSelection(iconName)}
+      w={size ?? 5}
+      h={size ?? 5}
       {...props}
     />
   );

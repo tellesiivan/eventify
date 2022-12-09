@@ -11,11 +11,15 @@ interface PressableNoticeTextProps extends TextProps {
  *  A pressable text with a link
  * @param Text add any Text styles from chakra ui
  */
-export const PressableNoticeText = (props: PressableNoticeTextProps) => {
+export const PressableNoticeText = ({
+  link,
+  textContent,
+  ...props
+}: PressableNoticeTextProps) => {
   // TODO: check link is a valid link string
 
   return (
-    <Link as={ReactRouterLink} to={props.link}>
+    <Link as={ReactRouterLink} to={link}>
       <Text
         variant="s1"
         _hover={{
@@ -23,8 +27,10 @@ export const PressableNoticeText = (props: PressableNoticeTextProps) => {
         }}
         {...props}
       >
-        {props.textContent ? props.textContent : null}
+        {textContent ? textContent : null}
       </Text>
     </Link>
   );
 };
+
+export default PressableNoticeText;

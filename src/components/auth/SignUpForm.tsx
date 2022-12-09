@@ -82,6 +82,7 @@ export default function SignUpForm() {
   return (
     <Box width="full">
       <Formik
+        isInitialValid={false}
         initialValues={initialValues}
         validationSchema={SignUpSchema}
         onSubmit={(values) => signupHandler(values)}
@@ -101,23 +102,15 @@ export default function SignUpForm() {
           return (
             <VStack spacing={4}>
               <FormControl>
-                <FormLabel htmlFor="email" fontSize="xs" color="white">
+                <FormLabel htmlFor="email" variant="base">
                   Email Address
                 </FormLabel>
                 <Input
                   id="email"
                   name="email"
-                  py={6}
-                  color="seconday.200"
                   type="email"
-                  bg="primary.600"
-                  variant="ghost"
+                  variant="v1"
                   placeholder="Your email..."
-                  _placeholder={{
-                    opacity: 1,
-                    color: "gray.700",
-                    fontSize: "xs",
-                  }}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
@@ -129,24 +122,15 @@ export default function SignUpForm() {
               </FormControl>
 
               <FormControl>
-                <FormLabel htmlFor="password" fontSize="xs" color="white">
+                <FormLabel htmlFor="password" variant="base">
                   Password
                 </FormLabel>
                 <Input
-                  rounded="lg"
                   id="password"
-                  color="seconday.200"
-                  py={6}
                   name="password"
-                  bg="primary.600"
                   type="password"
-                  variant="ghost"
+                  variant="v1"
                   placeholder="Password..."
-                  _placeholder={{
-                    opacity: 1,
-                    color: "gray.700",
-                    fontSize: "xs",
-                  }}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
@@ -157,24 +141,15 @@ export default function SignUpForm() {
                 </Text>
               </FormControl>
               <FormControl>
-                <FormLabel htmlFor="verifyPassword" fontSize="xs" color="white">
+                <FormLabel htmlFor="verifyPassword" variant="base">
                   Verify Password
                 </FormLabel>
                 <Input
-                  rounded="lg"
                   id="verifyPassword"
-                  color="seconday.200"
-                  py={6}
                   name="verifyPassword"
-                  bg="primary.600"
                   type="password"
-                  variant="ghost"
+                  variant="v1"
                   placeholder="Verify Password..."
-                  _placeholder={{
-                    opacity: 1,
-                    color: "gray.700",
-                    fontSize: "xs",
-                  }}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.verifyPassword}
@@ -189,12 +164,10 @@ export default function SignUpForm() {
                 <Button
                   isLoading={logginUserInLoadingState}
                   disabled={!(isValid || logginUserInLoadingState)}
-                  bg="ichw.600"
+                  type="submit"
                   onClick={() => handleSubmit()}
-                  color="primary.600"
+                  variant="secondary"
                   width="full"
-                  _hover={{ bg: "ichw.500" }}
-                  rounded="lg"
                 >
                   Sign up
                 </Button>
@@ -208,7 +181,7 @@ export default function SignUpForm() {
         textContent="Already have an account? Login"
         textAlign="center"
         py="4"
-        color={ThemeColorModeComponents("baseBg")}
+        color={ThemeColorModeComponents("reverseBaseBg")}
       />
     </Box>
   );

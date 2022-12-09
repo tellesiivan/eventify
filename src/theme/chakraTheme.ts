@@ -68,18 +68,15 @@ const components = {
       // Make a variant, we'll call it `base` here and leave it empty
       base: (props: StyleFunctionProps | Record<string, any>) => ({
         bg: mode("primary", "turquoise")(props),
-        _hover: {
-          bg: "primary.500",
-        },
       }),
 
       secondary: (props: StyleFunctionProps | Record<string, any>) => ({
-        bg: mode("primary.50", "secondary.400")(props),
-        py: { base: 4, lg: 6 },
+        bg: mode("secondary.900", "primary.100")(props),
+        color: mode("primary.100", "secondary.600")(props),
+        py: 6,
         fontSize: "sm",
-        fontWeight: "semibold",
         _hover: {
-          bg: mode("primary.300", "secondary.300")(props),
+          bg: mode("secondary.800", "primary.800")(props),
         },
       }),
       iconButton: (props: StyleFunctionProps | Record<string, any>) => ({
@@ -98,11 +95,11 @@ const components = {
     sizes: {},
     variants: {
       base: (props: StyleFunctionProps | Record<string, any>) => ({
-        bg: mode("primary", "secondary.200")(props),
+        bg: mode("primary.900", "secondary.200")(props),
 
         field: {
-          py: "6",
-          rounded: "xl",
+          py: "7",
+          rounded: "lg",
           fontSize: { base: "md", lg: "sm" },
           color: mode("secondary.400", "primary.400")(props),
           bg: mode("primary.50", "secondary.300")(props),
@@ -113,6 +110,33 @@ const components = {
           //   bg: mode("primary.500", "secondary.300")(props),
           // },
         },
+      }),
+      v1: (props: StyleFunctionProps | Record<string, any>) => ({
+        field: {
+          py: "7",
+          rounded: "lg",
+          fontSize: { base: "md", lg: "sm" },
+          color: mode("secondary.400", "primary.400")(props),
+          bg: mode("primary.500", "secondary.700")(props),
+          _placeholder: {
+            color: mode("secondary.100", "secondary.50")(props),
+          },
+          // ":focus": {
+          //   bg: mode("primary.500", "secondary.300")(props),
+          // },
+        },
+      }),
+    },
+    defaultProps: {
+      variant: null, // null here
+    },
+  },
+  FormLabel: {
+    sizes: {},
+    variants: {
+      base: (props: StyleFunctionProps | Record<string, any>) => ({
+        color: mode("secondary.200", "primary.400")(props),
+        fontSize: { base: "sm", lg: "xs" },
       }),
     },
     defaultProps: {

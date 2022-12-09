@@ -7,18 +7,16 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
 import { ErrorMessage, Formik, FormikProps } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { PressableNoticeText } from "@simplimods/components/shared";
 import { auth } from "@simplimods/firebase";
-import {
-  authIsLoading,
-  useAppDispatch,
-  useAppSelector,
-} from "@simplimods/redux";
+import { addAuthUser, useAppDispatch, useAppSelector } from "@simplimods/redux";
 import { loginInSchema } from "@simplimods/schemas";
+import { ThemeColorModeComponents } from "@simplimods/theme";
 
 type InitialValues = {
   email: string;
@@ -38,6 +36,9 @@ export default function LoginForm() {
     (state) => state.auth.isAuthLoading
   );
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<string>("");
+
   const initialValues: InitialValues = {
     email: "",
     password: "",
@@ -46,18 +47,29 @@ export default function LoginForm() {
   const onSubmitHandler = async (values: InitialValues) => {
     const { email, password } = values;
     try {
-      dispatch(authIsLoading(true));
-      const result = await signInWithEmailAndPassword(auth, email, password);
+      setIsLoading(true);
+      const loginUser = await signInWithEmailAndPassword(auth, email, password);
 
-      if (!result) throw new Error("Not able to login user");
+      if (!loginUser) throw new Error("Not able to login user");
 
-      // TODO: get display name and set it to username and route
+      const userName = loginUser.user.displayName;
+      const userEmail = loginUser.user.email;
+      const userUid = loginUser.user.displayName;
 
-      console.log(result);
-    } catch (error) {
-      console.log(error);
+      if (userName && userEmail) {
+        dispatch(
+          addAuthUser({
+            email: userEmail,
+            userName,
+          })
+        );
+        navigate(`/${userName}`, { replace: true });
+      }
+    } catch (error: any) {
+      console.log(AuthErrorCodes.ADMIN_ONLY_OPERATION);
+      setIsError(GetAuthErrorMessage(error.code));
     } finally {
-      dispatch(authIsLoading(false));
+      setIsLoading(false);
     }
   };
 
@@ -81,12 +93,13 @@ export default function LoginForm() {
           return (
             <VStack spacing={6}>
               <FormControl>
-                <FormLabel htmlFor="email" fontSize="xs" color="white">
+                <FormLabel htmlFor="email" variant="base">
                   Email Address
                 </FormLabel>
                 <Input
                   width="full"
                   autoFocus={false}
+                  variant="v1"
                   id="email"
                   name="email"
                   type="email"
@@ -102,10 +115,11 @@ export default function LoginForm() {
                 )}
               </FormControl>
               <FormControl>
-                <FormLabel htmlFor="password" fontSize="xs" color="white">
+                <FormLabel htmlFor="password" variant="base">
                   Password
                 </FormLabel>
                 <Input
+                  variant="v1"
                   id="password"
                   name="password"
                   type="password"
@@ -121,15 +135,20 @@ export default function LoginForm() {
                 )}
               </FormControl>
 
+              <Box p={6} bg="red.100" w="full" rounded="md">
+                <Text color="red.900" fontSize="xs" textAlign="center">
+                  {isError}
+                </Text>
+              </Box>
+
               <Box width="full" pt={2}>
                 <Button
-                  isLoading={logginUserInLoadingState}
-                  disabled={!(isValid || logginUserInLoadingState)}
+                  isLoading={isLoading}
+                  disabled={!(isValid || isLoading || isError)}
                   type="submit"
                   onClick={() => handleSubmit()}
                   variant="secondary"
                   width="full"
-                  rounded="md"
                 >
                   Login
                 </Button>
@@ -138,13 +157,22 @@ export default function LoginForm() {
           );
         }}
       </Formik>
-      {/* <PressableNoticeText
+      <PressableNoticeText
         link="/auth/signup"
         textContent="Don't have an account? Sign up"
         textAlign="center"
         py="4"
-        color={ThemeColorModeComponents("baseBg")}
-      /> */}
+        color={ThemeColorModeComponents("reverseBaseBg")}
+      />
     </Box>
   );
 }
+
+const GetAuthErrorMessage = (error: string) => {
+  switch (error) {
+    case (error = "auth/wrong-password"):
+      return "Incorrect Password";
+    default:
+      return "Unable to login, please try again later.";
+  }
+};
