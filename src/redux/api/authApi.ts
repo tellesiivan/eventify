@@ -12,6 +12,7 @@ import { baseApiSlice } from "./baseApi";
 interface newUser {
   email: string;
   username: string;
+  uid: string;
 }
 
 interface user {
@@ -39,11 +40,10 @@ export const authApi = baseApiSlice.injectEndpoints({
 
           const q = query(
             collection(firestoreDb, "memberGraph"),
-            where("email", "==", user.email)
+            where("username", "==", user.username)
           );
           const querySnapshot = await getDocs(q);
           querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
             data = doc.data();
           });
           return data;

@@ -19,7 +19,7 @@ export const ManagerUserProfileContent = (
     user: authUser.email,
   });
   const imageSrc =
-    "https://images.unsplash.com/photo-1605906457463-5eb60f753738?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1330&q=80";
+    "https://porschemelbourne.com.au/Media/Page-images/classic.jpg";
 
   if (isLoading) {
     return <Skeleton h={60} />;
@@ -70,9 +70,6 @@ export const ManagerUserProfileContent = (
           />
           <ProfileAvatarUpload userAvatar={imageSrc} />
         </HStack>
-      </Card>
-      <Card rounded="md">
-        <VStack width="full"></VStack>
       </Card>
     </VStack>
   );

@@ -25,20 +25,21 @@ export const ManageUserSideNavActions = ({
   sideNavActions,
   activeNavItem,
 }: ManageUserSideNavActionsProps) => {
-  const navItemBg = useColorModeValue("primary.500", "secondary.800");
   const navItemBgHover = useColorModeValue("primary.400", "secondary.700");
 
   return (
-    <Stack align="stretch">
+    <Stack align="stretch" m={2}>
       {sideNavActions.map((navItem: NavActionsItem) => (
         <StackItem
+          rounded="md"
           flexDirection="row"
           px="4"
           py="3"
-          bg={activeNavItem === navItem.name ? navItemBg : undefined}
+          bg={activeNavItem === navItem.name ? "wzy.100" : undefined}
           _hover={{
             bg: activeNavItem !== navItem.name ? navItemBgHover : undefined,
           }}
+          color={activeNavItem === navItem.name ? "secondary.900" : undefined}
           cursor="pointer"
           onClick={navItem.onPressAction}
           key={navItem.name}
@@ -56,7 +57,12 @@ export const ManageUserSideNavActions = ({
           >
             {navItem.icon}
           </VStack>
-          <Text variant="s2">{navItem.name}</Text>
+          <Text
+            variant="p1"
+            color={activeNavItem === navItem.name ? "secondary.900" : undefined}
+          >
+            {navItem.name}
+          </Text>
         </StackItem>
       ))}
     </Stack>

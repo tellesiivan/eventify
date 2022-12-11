@@ -107,7 +107,7 @@ const BaseNav = (props: Props) => {
                 <Avatar
                   name={authUser}
                   size="sm"
-                  bg="wzy.600"
+                  bg="wzy.100"
                   color="secondary.900"
                   cursor="pointer"
                   // src={user.picture}

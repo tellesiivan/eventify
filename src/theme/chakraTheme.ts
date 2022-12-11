@@ -29,6 +29,11 @@ const components = {
         fontWeight: "semibold",
         color: mode("secondary.400", "primary.800")(props),
       }),
+      p1: (props: StyleFunctionProps | Record<string, any>) => ({
+        fontSize: "sm",
+        fontWeight: "semibold",
+        color: mode("secondary.400", "primary.800")(props),
+      }),
       s2: (props: StyleFunctionProps | Record<string, any>) => ({
         fontSize: "sm",
         fontWeight: "regular",

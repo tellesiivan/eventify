@@ -14,12 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 import { PressableNoticeText } from "@simplimods/components/shared";
 import { auth } from "@simplimods/firebase";
-import {
-  addAuthUser,
-  authIsLoading,
-  useAppDispatch,
-  useAppSelector,
-} from "@simplimods/redux";
+import { addAuthUser, useAppDispatch, useAppSelector } from "@simplimods/redux";
 import { loginInSchema } from "@simplimods/schemas";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 
@@ -52,7 +47,6 @@ export default function LoginForm() {
   const onSubmitHandler = async (values: InitialValues) => {
     const { email, password } = values;
     try {
-      dispatch(authIsLoading(true));
       setIsLoading(true);
       const loginUser = await signInWithEmailAndPassword(auth, email, password);
 
@@ -76,7 +70,6 @@ export default function LoginForm() {
       setIsError(GetAuthErrorMessage(error.code));
     } finally {
       setIsLoading(false);
-      dispatch(authIsLoading(false));
     }
   };
 
@@ -92,10 +85,18 @@ export default function LoginForm() {
             touched,
             errors,
             handleBlur,
-            handleChange,
             isValid,
             handleSubmit,
+            setFieldValue,
           } = props;
+
+          const handleInputChange = (
+            field: "email" | "password",
+            fieldValue: string
+          ) => {
+            isError !== null && setIsError(null);
+            setFieldValue(field, fieldValue, true);
+          };
 
           return (
             <VStack spacing={6}>
@@ -111,7 +112,9 @@ export default function LoginForm() {
                   name="email"
                   type="email"
                   placeholder="Your email..."
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleInputChange("email", event.target.value)
+                  }
                   onBlur={handleBlur}
                   value={props.values.email}
                 />
@@ -131,7 +134,9 @@ export default function LoginForm() {
                   name="password"
                   type="password"
                   placeholder="Password..."
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleInputChange("password", event.target.value)
+                  }
                   onBlur={handleBlur}
                   value={props.values.password}
                 />

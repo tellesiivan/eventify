@@ -4,6 +4,7 @@ import {
   LayoutType,
   ManageUserSideNavActions,
 } from "@simplimods/layout";
+import { useAppSelector } from "@simplimods/redux";
 import { ManagaeUserScreenContent } from "@simplimods/screens";
 import type { ManageUserNavItems } from "@simplimods/types";
 import React from "react";
@@ -21,6 +22,7 @@ type UserProfileProps = {};
 const ManageUserScreen = (props: UserProfileProps) => {
   const [activeNavItem, setActiveNavItem] =
     useState<ManageUserNavItems>("Profile");
+  const username = useAppSelector((state) => state.auth.user.userName);
 
   const sideNavActions: NavActionsItem[] = [
     {
@@ -58,6 +60,7 @@ const ManageUserScreen = (props: UserProfileProps) => {
           activeNavItem={activeNavItem}
         />
       }
+      username={username}
     >
       <ManagaeUserScreenContent activeNavItem={activeNavItem} />
     </AppLayout>

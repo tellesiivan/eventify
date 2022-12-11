@@ -7,11 +7,12 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  ModalProps,
 } from "@chakra-ui/react";
-import React from "react";
 import { ThemeColorModeComponents } from "@simplimods/theme";
+import React from "react";
 
-interface SharedModalProps {
+interface SharedModalProps extends ModalProps {
   title: string;
   isOpen: boolean;
   showCloseButton?: boolean;
@@ -25,6 +26,7 @@ export const SharedModal = ({
   children,
   title,
   showCloseButton = false,
+  ...props
 }: SharedModalProps) => {
   return (
     <Modal
@@ -33,6 +35,7 @@ export const SharedModal = ({
       onClose={onClose}
       isCentered
       motionPreset="slideInBottom"
+      {...props}
     >
       <ModalOverlay />
       <ModalContent bg={ThemeColorModeComponents("baseBg")} rounded="lg">

@@ -17,6 +17,7 @@ import { auth } from "@simplimods/firebase";
 import {
   addAuthUser,
   authIsLoading,
+  useAddUserMutation,
   useAppDispatch,
   useAppSelector,
 } from "@simplimods/redux";
@@ -44,6 +45,9 @@ export default function SignUpForm() {
     (state) => state.auth.isAuthLoading
   );
 
+  // RTK
+  const [addUserDoc, { isError, isLoading }] = useAddUserMutation();
+
   const signupHandler = async (values: InitialValues) => {
     const username = ExtractNameFromEmail({
       email: values.email,
@@ -60,16 +64,25 @@ export default function SignUpForm() {
         displayName: username,
       });
 
-      const { email: authEmail, displayName: authUserName } = registerUser.user;
+      const {
+        email: authEmail,
+        displayName: authUserName,
+        uid,
+      } = registerUser.user;
 
       if (authUserName && authEmail) {
+        await addUserDoc({
+          email: authEmail,
+          username: authUserName,
+          uid,
+        });
+
         dispatch(
           addAuthUser({
             userName: authUserName,
             email: authEmail,
           })
         );
-
         navigate(`/${authUserName}`);
       }
     } catch (error: string | any) {
@@ -88,16 +101,8 @@ export default function SignUpForm() {
         onSubmit={(values) => signupHandler(values)}
       >
         {(props: FormikProps<any>) => {
-          const {
-            touched,
-            errors,
-            handleBlur,
-            handleChange,
-            isValid,
-            handleSubmit,
-            values,
-            dirty,
-          } = props;
+          const { handleBlur, handleChange, isValid, handleSubmit, values } =
+            props;
 
           return (
             <VStack spacing={4}>
@@ -162,7 +167,7 @@ export default function SignUpForm() {
 
               <Box width="full" pt={2}>
                 <Button
-                  isLoading={logginUserInLoadingState}
+                  isLoading={logginUserInLoadingState || isLoading}
                   disabled={!(isValid || logginUserInLoadingState)}
                   type="submit"
                   onClick={() => handleSubmit()}
