@@ -19,6 +19,7 @@ function App() {
       // User is signed in, see docs for a list of available properties
       const email = user.email;
       const userName = user.displayName;
+
       if (userName && email) {
         dispatch(
           addAuthUser({

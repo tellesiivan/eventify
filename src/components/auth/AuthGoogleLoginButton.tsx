@@ -14,7 +14,7 @@ export const AuthGoogleLoginButton = (props: AuthGoogleLoginButtonProps) => {
       rightIcon={<Icon iconName="QuestionMark" />}
       width="full"
     >
-      <Text>Continue with Google</Text>
+      <Text variant="s2">Continue with Google</Text>
     </Button>
   );
 };

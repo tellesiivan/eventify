@@ -1,4 +1,4 @@
-import { Box, Divider, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { Divider, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import { AuthGoogleLoginButton } from "@simplimods/components/auth";
 import React from "react";
 import LoginForm from "../../components/auth/LoginForm";
@@ -6,7 +6,7 @@ import ThemeColorModeComponents from "../../theme/ThemeColorModeComponents";
 
 export function LoginScreen() {
   return (
-    <Box>
+    <React.Fragment>
       <Stack spacing={2} mb={8}>
         <Heading
           color={ThemeColorModeComponents("reverseBaseBg")}
@@ -34,6 +34,6 @@ export function LoginScreen() {
         <Divider />
         <LoginForm />
       </VStack>
-    </Box>
+    </React.Fragment>
   );
 }

@@ -7,14 +7,19 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { ErrorMessage, Formik, FormikProps } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { PressableNoticeText } from "@simplimods/components/shared";
 import { auth } from "@simplimods/firebase";
-import { addAuthUser, useAppDispatch, useAppSelector } from "@simplimods/redux";
+import {
+  addAuthUser,
+  authIsLoading,
+  useAppDispatch,
+  useAppSelector,
+} from "@simplimods/redux";
 import { loginInSchema } from "@simplimods/schemas";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 
@@ -37,7 +42,7 @@ export default function LoginForm() {
   );
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<string>("");
+  const [isError, setIsError] = useState<string | null>(null);
 
   const initialValues: InitialValues = {
     email: "",
@@ -47,6 +52,7 @@ export default function LoginForm() {
   const onSubmitHandler = async (values: InitialValues) => {
     const { email, password } = values;
     try {
+      dispatch(authIsLoading(true));
       setIsLoading(true);
       const loginUser = await signInWithEmailAndPassword(auth, email, password);
 
@@ -66,10 +72,11 @@ export default function LoginForm() {
         navigate(`/${userName}`, { replace: true });
       }
     } catch (error: any) {
-      console.log(AuthErrorCodes.ADMIN_ONLY_OPERATION);
+      console.log(error.code);
       setIsError(GetAuthErrorMessage(error.code));
     } finally {
       setIsLoading(false);
+      dispatch(authIsLoading(false));
     }
   };
 
@@ -134,12 +141,13 @@ export default function LoginForm() {
                   </Text>
                 )}
               </FormControl>
-
-              <Box p={6} bg="red.100" w="full" rounded="md">
-                <Text color="red.900" fontSize="xs" textAlign="center">
-                  {isError}
-                </Text>
-              </Box>
+              {isError && (
+                <Box p={6} bg="red.100" w="full" rounded="md">
+                  <Text color="red.900" fontSize="xs" textAlign="center">
+                    {isError}
+                  </Text>
+                </Box>
+              )}
 
               <Box width="full" pt={2}>
                 <Button
@@ -172,6 +180,8 @@ const GetAuthErrorMessage = (error: string) => {
   switch (error) {
     case (error = "auth/wrong-password"):
       return "Incorrect Password";
+    case (error = "auth/user-not-found"):
+      return "Please double check your email";
     default:
       return "Unable to login, please try again later.";
   }
