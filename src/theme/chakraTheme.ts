@@ -32,12 +32,12 @@ const components = {
       p1: (props: StyleFunctionProps | Record<string, any>) => ({
         fontSize: "sm",
         fontWeight: "semibold",
-        color: mode("secondary.400", "primary.800")(props),
+        color: mode("secondary.800", "primary.800")(props),
       }),
       s2: (props: StyleFunctionProps | Record<string, any>) => ({
         fontSize: "sm",
         fontWeight: "regular",
-        color: mode("secondary.400", "primary.800")(props),
+        color: mode("secondary.600", "secondary.200")(props),
       }),
 
       s3: (props: StyleFunctionProps | Record<string, any>) => ({
@@ -151,6 +151,10 @@ const components = {
 };
 
 const theme = extendTheme({
+  fonts: {
+    heading: `'DM Sans', sans-serif`,
+    body: `'DM Sans', sans-serif`,
+  },
   colors: appColors,
   components,
   styles,

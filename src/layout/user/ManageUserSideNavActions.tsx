@@ -18,14 +18,14 @@ export interface NavActionsItem {
 
 interface ManageUserSideNavActionsProps {
   sideNavActions: NavActionsItem[];
-  activeNavItem: ManageUserNavItems;
+  activeNavItem: string;
 }
 
 export const ManageUserSideNavActions = ({
   sideNavActions,
   activeNavItem,
 }: ManageUserSideNavActionsProps) => {
-  const navItemBgHover = useColorModeValue("primary.400", "secondary.700");
+  const navItemBgHover = useColorModeValue("primary.400", "secondary.800");
 
   return (
     <Stack align="stretch" m={2}>
@@ -35,7 +35,7 @@ export const ManageUserSideNavActions = ({
           flexDirection="row"
           px="4"
           py="3"
-          bg={activeNavItem === navItem.name ? "wzy.100" : undefined}
+          bg={activeNavItem === navItem.name ? "wzy.500" : undefined}
           _hover={{
             bg: activeNavItem !== navItem.name ? navItemBgHover : undefined,
           }}

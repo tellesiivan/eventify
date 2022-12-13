@@ -33,8 +33,6 @@ export const ManagerUserProfileContent = (
     ? formatDate(new Date(userCreatedDate as Date))
     : null;
 
-  console.log(data);
-
   return (
     <VStack p={2} width="full" spacing={4} maxWidth="container.lg" mx="auto">
       {/* ==== USER PROFILE BG IMAGE ==== */}
@@ -43,7 +41,7 @@ export const ManagerUserProfileContent = (
           maxWidth={{ base: "sm", md: "xl" }}
           mr="auto"
           my={2}
-          title={`Hello ${data?.username && data.username}`}
+          title={`Welcome ${data?.username && data.username},`}
           description="Customize your public profile here, from background cover image to your general location."
         />
         <UserBackgroundCoverImage

@@ -18,8 +18,8 @@ interface BreadcrumpsProps {
 
 export const Breadcrumps = ({ breadcrumps }: BreadcrumpsProps) => {
   const routeLocation = useLocation();
-  const inActiveTextColor = useColorModeValue("secondary.50", "secondary.50");
-  const activeTextColor = useColorModeValue("secondary.600", "primary.400");
+  const inActiveTextColor = useColorModeValue("secondary.400", "secondary.600");
+  const activeTextColor = useColorModeValue("secondary.900", "primary.400");
 
   const getTextColor = (route: string) =>
     routeLocation.pathname === route ? activeTextColor : inActiveTextColor;

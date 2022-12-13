@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Box, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
 import { Modal } from "@simplimods/components";
 import { Breadcrumps, LeftContentNavigation } from "@simplimods/layout";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 import { IsMobileView } from "@simplimods/utils";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export enum LayoutType {
   One_ROW = "1ROW",
@@ -43,8 +43,14 @@ export const AppLayout = ({
   const isMobile = !!IsMobileView();
   const navigate = useNavigate();
   const modalHanler = useDisclosure();
+  const location = useLocation();
+  const { hash: UrLHash } = location;
 
   const handleUserProfileNavigation = () => navigate(`/${username}`);
+
+  useEffect(() => {
+    modalHanler.onClose();
+  }, [location]);
 
   switch (layoutType) {
     case LayoutType.Two_ROW:

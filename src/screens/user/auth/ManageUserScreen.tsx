@@ -9,7 +9,8 @@ import { ManagaeUserScreenContent } from "@simplimods/screens";
 import type { ManageUserNavItems } from "@simplimods/types";
 import React from "react";
 
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export interface NavActionsItem {
   icon: ReactNode;
@@ -20,30 +21,32 @@ export interface NavActionsItem {
 type UserProfileProps = {};
 
 const ManageUserScreen = (props: UserProfileProps) => {
-  const [activeNavItem, setActiveNavItem] =
-    useState<ManageUserNavItems>("Profile");
   const username = useAppSelector((state) => state.auth.user.userName);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { hash: UrLHash } = location;
+  const activeNavItem = UrLHash.substring(1).toString() ?? "Profile";
 
   const sideNavActions: NavActionsItem[] = [
     {
       icon: <Icon iconName="User" />,
       name: "Profile",
-      onPressAction: () => setActiveNavItem("Profile"),
+      onPressAction: () => navigate("/manage#Profile"),
     },
     {
       icon: <Icon iconName="CalendarOutline" />,
       name: "Events",
-      onPressAction: () => setActiveNavItem("Events"),
+      onPressAction: () => navigate("/manage#Events"),
     },
     {
       icon: <Icon iconName="CarOutline" />,
       name: "Vehicles",
-      onPressAction: () => setActiveNavItem("Vehicles"),
+      onPressAction: () => navigate("/manage#Vehicles"),
     },
     {
       icon: <Icon iconName="LinkAddOutline" />,
       name: "Links",
-      onPressAction: () => setActiveNavItem("Links"),
+      onPressAction: () => navigate("/manage#Links"),
     },
   ];
 
@@ -57,12 +60,18 @@ const ManageUserScreen = (props: UserProfileProps) => {
       leftContent={
         <ManageUserSideNavActions
           sideNavActions={sideNavActions}
-          activeNavItem={activeNavItem}
+          activeNavItem={activeNavItem !== "" ? activeNavItem : "Profile"}
         />
       }
       username={username}
     >
-      <ManagaeUserScreenContent activeNavItem={activeNavItem} />
+      <ManagaeUserScreenContent
+        activeNavItem={
+          activeNavItem !== ""
+            ? (activeNavItem as "Links" | "Vehicles" | "Events" | "Profile")
+            : "Profile"
+        }
+      />
     </AppLayout>
   );
 };

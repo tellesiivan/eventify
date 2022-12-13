@@ -69,7 +69,7 @@ const BaseNav = (props: Props) => {
     navigate("/home");
     onClose();
   };
-  const bg = useColorModeValue("secondary.900", "secondary.800");
+  const bg = useColorModeValue("secondary.900", "secondary.900");
 
   return (
     <>
@@ -107,7 +107,7 @@ const BaseNav = (props: Props) => {
                 <Avatar
                   name={authUser}
                   size="sm"
-                  bg="wzy.100"
+                  bg="wzy.400"
                   color="secondary.900"
                   cursor="pointer"
                   // src={user.picture}
