@@ -18,7 +18,7 @@ import {
   Link,
   Spinner,
   useColorModeValue,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 
 import { ThemeColorModeComponents } from "@simplimods/theme";
@@ -28,7 +28,7 @@ import { auth } from "@simplimods/firebase";
 import {
   resetAuthState,
   useAppDispatch,
-  useAppSelector,
+  useAppSelector
 } from "@simplimods/redux";
 import { signOut } from "firebase/auth";
 import { Link as ReachLink, Outlet, useNavigate } from "react-router-dom";

@@ -34,8 +34,8 @@ export const SignupScreen = (props: SignupScreenProps) => {
           </Text>
         </VStack>
         <VStack spacing={8}>
-          <AuthGoogleLoginButton />
-          <Divider />
+          {/* <AuthGoogleLoginButton />
+          <Divider /> */}
           <SignUpForm />
         </VStack>
       </Stack>

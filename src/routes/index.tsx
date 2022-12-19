@@ -15,11 +15,11 @@ import ProtectedRoute from "./ProtectedRoute";
 type Props = {};
 
 const NavRoutes = (props: Props) => {
-  const isAuthUser = useAppSelector((state) => !!state.auth.user.email);
+  const isAuthUser = useAppSelector((state) => state.auth.user.email);
   const isAuthStateLoading = useAppSelector(
-    (state) => !!state.auth.isAuthLoading
+    (state) => state.auth.isAuthLoading
   );
-  const isLoggedIn = !isAuthStateLoading && isAuthUser;
+  const isLoggedIn = isAuthUser !== null && !isAuthStateLoading;
 
   return (
     <Routes>

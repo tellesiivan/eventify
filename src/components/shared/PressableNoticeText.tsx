@@ -21,7 +21,7 @@ export const PressableNoticeText = ({
   return (
     <Link as={ReactRouterLink} to={link}>
       <Text
-        variant="s1"
+        variant="s2"
         _hover={{
           textDecoration: "underline",
         }}

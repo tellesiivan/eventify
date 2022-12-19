@@ -43,12 +43,24 @@ const components = {
       s3: (props: StyleFunctionProps | Record<string, any>) => ({
         fontSize: "xs",
         fontWeight: "regular",
-        color: mode("secondary.400", "secondary.50")(props),
+        color: mode("secondary.600", "secondary.200")(props),
       }),
 
       h2sb: {
-        fontSize: "18px",
+        fontSize: "md",
         fontWeight: "semibold",
+      },
+      h2b: {
+        fontSize: "md",
+        fontWeight: "bold",
+      },
+      h3sb: {
+        fontSize: "sm",
+        fontWeight: "semibold",
+      },
+      h3b: {
+        fontSize: "sm",
+        fontWeight: "bold",
       },
     },
   },
@@ -78,6 +90,7 @@ const components = {
       secondary: (props: StyleFunctionProps | Record<string, any>) => ({
         bg: mode("secondary.900", "primary.100")(props),
         color: mode("primary.100", "secondary.600")(props),
+        cursor: "pointer",
         py: 6,
         fontSize: "sm",
         _hover: {
@@ -97,6 +110,47 @@ const components = {
     },
   },
   Input: {
+    sizes: {},
+    variants: {
+      base: (props: StyleFunctionProps | Record<string, any>) => ({
+        bg: mode("primary.900", "secondary.200")(props),
+
+        field: {
+          py: "7",
+          rounded: "lg",
+          fontSize: { base: "md", lg: "sm" },
+          color: mode("secondary.400", "primary.400")(props),
+          bg: mode("primary.50", "secondary.300")(props),
+          _placeholder: {
+            color: mode("secondary.100", "secondary.50")(props),
+          },
+          // ":focus": {
+          //   bg: mode("primary.500", "secondary.300")(props),
+          // },
+        },
+      }),
+      v1: (props: StyleFunctionProps | Record<string, any>) => ({
+        field: {
+          py: "7",
+          rounded: "lg",
+          fontSize: { base: "md", lg: "sm" },
+          color: mode("secondary.400", "primary.400")(props),
+          bg: mode("primary.500", "secondary.700")(props),
+          _placeholder: {
+            fontSize: "sm",
+            color: mode("secondary.100", "secondary.400")(props),
+          },
+          // ":focus": {
+          //   bg: mode("primary.500", "secondary.300")(props),
+          // },
+        },
+      }),
+    },
+    defaultProps: {
+      variant: null, // null here
+    },
+  },
+  InputGroup: {
     sizes: {},
     variants: {
       base: (props: StyleFunctionProps | Record<string, any>) => ({
@@ -152,8 +206,8 @@ const components = {
 
 const theme = extendTheme({
   fonts: {
-    heading: `'DM Sans', sans-serif`,
-    body: `'DM Sans', sans-serif`,
+    heading: `'Poppins', sans-serif`,
+    body: `'Poppins', sans-serif`,
   },
   colors: appColors,
   components,

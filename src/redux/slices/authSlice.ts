@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 // types
 type User = {
-  email: string;
+  email: string | null;
   userName: string;
+  uid: string | null;
 };
 
 type AuthState = {
@@ -13,8 +15,9 @@ type AuthState = {
 
 const initialState: AuthState = {
   user: {
-    email: "",
+    email: null,
     userName: "",
+    uid: null,
   },
   isAuthLoading: false,
 };
@@ -33,8 +36,14 @@ export const authSlice = createSlice({
       state.user = initialState.user;
     },
   },
+  extraReducers(builder) {
+    builder.addMatcher();
+  },
 });
 
 export const { addAuthUser, authIsLoading, resetAuthState } = authSlice.actions;
+
+// selectors =
+export const selectCurrentAuthUser = (state: RootState) => state.auth.user;
 
 export default authSlice.reducer;

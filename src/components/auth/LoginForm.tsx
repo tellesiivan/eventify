@@ -5,7 +5,7 @@ import {
   FormLabel,
   Input,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ErrorMessage, Formik, FormikProps } from "formik";
@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 import { PressableNoticeText } from "@simplimods/components/shared";
 import { auth } from "@simplimods/firebase";
-import { addAuthUser, useAppDispatch, useAppSelector } from "@simplimods/redux";
+import { addAuthUser, useAppDispatch } from "@simplimods/redux";
 import { loginInSchema } from "@simplimods/schemas";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 
@@ -32,9 +32,7 @@ type InitialValues = {
 export default function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const logginUserInLoadingState = useAppSelector(
-    (state) => state.auth.isAuthLoading
-  );
+
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<string | null>(null);
@@ -61,6 +59,7 @@ export default function LoginForm() {
           addAuthUser({
             email: userEmail,
             userName,
+            uid:userUid
           })
         );
         navigate(`/${userName}`, { replace: true });
@@ -175,6 +174,7 @@ export default function LoginForm() {
         textContent="Don't have an account? Sign up"
         textAlign="center"
         py="4"
+        mt={2}
         color={ThemeColorModeComponents("reverseBaseBg")}
       />
     </Box>

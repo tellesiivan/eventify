@@ -50,7 +50,7 @@ export const AppLayout = ({
 
   useEffect(() => {
     modalHanler.onClose();
-  }, [location]);
+  }, [location, modalHanler]);
 
   switch (layoutType) {
     case LayoutType.Two_ROW:
@@ -81,7 +81,6 @@ export const AppLayout = ({
             >
               {breadcrumps && <Breadcrumps breadcrumps={breadcrumps} />}
               {children}
-              {/*  */}
               {username !== undefined && (
                 <LeftContentNavigation
                   onClickAction={

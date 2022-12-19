@@ -23,7 +23,7 @@ import {
 } from "@simplimods/redux";
 import { SignUpSchema } from "@simplimods/schemas";
 import { ThemeColorModeComponents } from "@simplimods/theme";
-import { ExtractNameFromEmail } from "@simplimods/utils";
+import { ExtractNameFromEmail, InitialSettingsConfig } from "@simplimods/utils";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -70,21 +70,24 @@ export default function SignUpForm() {
         uid,
       } = registerUser.user;
 
-      if (authUserName && authEmail) {
+      if (authUserName && authEmail && uid) {
         await addUserDoc({
-          email: authEmail,
-          username: authUserName,
-          uid,
+          user: {
+            email: authEmail,
+            username: authUserName,
+            uid,
+          },
+          settings: InitialSettingsConfig,
         });
-
         dispatch(
           addAuthUser({
             userName: authUserName,
             email: authEmail,
+            uid,
           })
         );
         navigate(`/${authUserName}`);
-      }
+      } else throw new Error("Unable to login at this time");
     } catch (error: string | any) {
       console.log(error.message);
     } finally {
@@ -186,6 +189,7 @@ export default function SignUpForm() {
         textContent="Already have an account? Login"
         textAlign="center"
         py="4"
+        mt={2}
         color={ThemeColorModeComponents("reverseBaseBg")}
       />
     </Box>

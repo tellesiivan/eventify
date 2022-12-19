@@ -10,7 +10,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  useBreakpointValue,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -51,7 +51,7 @@ export function AuthLayout() {
   }, [isSingupscreen, location.pathname, navigate]);
 
   return (
-    <Box position={"relative"}>
+    <Box display="flex" alignItems="center" h="100vh" >
       <Container
         as={SimpleGrid}
         maxW={"7xl"}
@@ -61,12 +61,13 @@ export function AuthLayout() {
       >
         <Stack spacing={{ base: 10 }} justifyContent="center">
           <Heading
+
+            fontWeight="extrabold"
             lineHeight={1.1}
-            fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
+            fontSize={{ base: "3xl", sm: "4xl", md: "5xl",}}
           >
             Your modifications{" "}
             <Text
-              as={"span"}
               bgGradient="linear(to-r, red.400,pink.400)"
               bgClip="text"
             >
@@ -99,7 +100,7 @@ export function AuthLayout() {
                 />
               ))}
             </AvatarGroup>
-            <Text fontFamily={"heading"} fontSize={{ base: "4xl", md: "6xl" }}>
+            <Text fontFamily={"heading"} fontSize={{ base: "4xl", }}>
               +
             </Text>
             <Flex

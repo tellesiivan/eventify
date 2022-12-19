@@ -1,5 +1,6 @@
 export { default as ButtonWithIcon } from "./ButtonIcon";
 export * from "./Card";
+export * from "./Forms";
 export { default as Icon } from "./Icon";
 export * from "./ImageUploadWithPreview";
 export { default as PressableNoticeText } from "./PressableNoticeText";

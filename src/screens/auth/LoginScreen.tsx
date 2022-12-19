@@ -1,5 +1,4 @@
-import { Divider, Heading, Stack, Text, VStack } from "@chakra-ui/react";
-import { AuthGoogleLoginButton } from "@simplimods/components/auth";
+import { Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import LoginForm from "../../components/auth/LoginForm";
 import ThemeColorModeComponents from "../../theme/ThemeColorModeComponents";
@@ -30,8 +29,8 @@ export function LoginScreen() {
         </Text>
       </Stack>
       <VStack spacing={8}>
-        <AuthGoogleLoginButton />
-        <Divider />
+        {/* <AuthGoogleLoginButton />
+        <Divider /> */}
         <LoginForm />
       </VStack>
     </React.Fragment>

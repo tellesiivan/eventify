@@ -1,25 +1,40 @@
 import { HStack, VStack } from "@chakra-ui/react";
+import {
+  Card,
+  InputWithSubmitButton,
+  Skeleton,
+  TextHeader,
+} from "@simplimods/components";
+import {
+  ProfileAvatarUpload,
+  UserBackgroundCoverImage,
+} from "@simplimods/layout";
+import {
+  selectCurrentAuthUser,
+  useAppSelector,
+  useGetUserQuery,
+} from "@simplimods/redux";
+import { formatDate } from "@simplimods/utils";
 import { convertTimestamp } from "convert-firebase-timestamp";
-import React from "react";
-import { Card, Skeleton, TextHeader } from "../../../components/shared";
-import { ProfileAvatarUpload, UserBackgroundCoverImage } from "../../../layout";
-import { useGetUserQuery } from "../../../redux/api/authApi";
-import { useAppSelector } from "../../../redux/reduxHooks";
-import { RootState } from "../../../redux/store";
-import { formatDate } from "../../../utils";
+import React, { useState } from "react";
 
 interface ManagerUserProfileContentProps {}
 
 export const ManagerUserProfileContent = (
   props: ManagerUserProfileContentProps
 ) => {
-  const authUser = useAppSelector((state: RootState) => state.auth.user);
+  const [zipcodeInputValue, setZipcodeInputValue] = useState<string>("");
+  const authUser = useAppSelector(selectCurrentAuthUser);
   const { isError, isLoading, data } = useGetUserQuery({
     by: "email",
-    user: authUser.email,
+    user: authUser.email ?? undefined,
   });
   const imageSrc =
-    "https://porschemelbourne.com.au/Media/Page-images/classic.jpg";
+    "https://www.automoblog.net/wp-content/uploads/2022/05/2023-Porsche-911-Sport-Classic-1.jpg";
+
+  if (isError) {
+    return <Skeleton h={60} />;
+  }
 
   if (isLoading) {
     return <Skeleton h={60} />;
@@ -33,15 +48,18 @@ export const ManagerUserProfileContent = (
     ? formatDate(new Date(userCreatedDate as Date))
     : null;
 
+  // handle user zipcode update
+  const zipcodeUpdateHandler = () => console.log(zipcodeInputValue);
+
   return (
-    <VStack p={2} width="full" spacing={4} maxWidth="container.lg" mx="auto">
+    <VStack p={2} width="full" spacing={4} maxWidth="container.xl" mx="auto">
       {/* ==== USER PROFILE BG IMAGE ==== */}
       <VStack width="full">
         <TextHeader
           maxWidth={{ base: "sm", md: "xl" }}
           mr="auto"
           my={2}
-          title={`Welcome ${data?.username && data.username},`}
+          title={`Welcome back ${data?.username && data.username},`}
           description="Customize your public profile here, from background cover image to your general location."
         />
         <UserBackgroundCoverImage
@@ -50,7 +68,8 @@ export const ManagerUserProfileContent = (
           isLoading={isLoading}
         />
       </VStack>
-      {/* ==== USER PROFILE BG IMAGE ==== */}
+
+      {/* ==== USER PROFILE AVATAR IMAGE ==== */}
       <Card
         rounded="md"
         p={{
@@ -68,6 +87,34 @@ export const ManagerUserProfileContent = (
           />
           <ProfileAvatarUpload userAvatar={imageSrc} />
         </HStack>
+      </Card>
+
+      {/* ==== USER LOCATION | ZIPCODE ==== */}
+      <Card
+        rounded="md"
+        p={{
+          base: 4,
+          md: 6,
+        }}
+        responsiveFlexCard={true}
+      >
+        <TextHeader
+          maxWidth={{
+            base: "full",
+            lg: "64",
+          }}
+          my={2}
+          title="General Location"
+          description="Add your zipcode to find nearby events and more."
+          mb={{ base: 8, lg: 0 }}
+        />
+        <InputWithSubmitButton
+          placeholder="zipcode..."
+          onSubmitClick={zipcodeUpdateHandler}
+          setInputValue={setZipcodeInputValue}
+          inputValue={zipcodeInputValue}
+          inputType="number"
+        />
       </Card>
     </VStack>
   );
