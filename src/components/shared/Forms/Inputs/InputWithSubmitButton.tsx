@@ -10,7 +10,7 @@ interface InputWithSubmitButtonProps extends InputGroupProps {
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   inputValue: string;
   inputType?: "text" | "number";
-  minInputLength?:3 | 5 | 8
+  minInputLength?: 3 | 5 | 8;
 }
 
 export const InputWithSubmitButton = ({
@@ -38,6 +38,17 @@ export const InputWithSubmitButton = ({
       <Input
         type={inputType}
         placeholder={placeholder}
+        _placeholder={{
+          fontSize: "sm",
+        }}
+        border="none"
+        borderColor="transparent"
+        outline="none"
+        outlineColor="transparent"
+        _focusVisible={{
+          outline: "0",
+          border: "none",
+        }}
         bg="transparent"
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}

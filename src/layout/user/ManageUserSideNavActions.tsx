@@ -8,11 +8,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import type { ManageUserNavItems } from "@simplimods/types";
+import type { ManageUserNavigationTabItems } from "@simplimods/types";
 
 export interface NavActionsItem {
   icon: ReactNode;
-  name: ManageUserNavItems;
+  name: ManageUserNavigationTabItems;
   onPressAction: () => void;
 }
 
@@ -31,7 +31,6 @@ export const ManageUserSideNavActions = ({
     <Stack align="stretch" m={2}>
       {sideNavActions.map((navItem: NavActionsItem) => (
         <StackItem
-          rounded="md"
           flexDirection="row"
           px="4"
           py="3"

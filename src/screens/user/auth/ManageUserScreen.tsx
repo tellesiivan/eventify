@@ -6,7 +6,7 @@ import {
 } from "@simplimods/layout";
 import { useAppSelector } from "@simplimods/redux";
 import { ManagaeUserScreenContent } from "@simplimods/screens";
-import type { ManageUserNavItems } from "@simplimods/types";
+import type { ManageUserNavigationTabItems } from "@simplimods/types";
 import React from "react";
 
 import { ReactNode } from "react";
@@ -14,7 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export interface NavActionsItem {
   icon: ReactNode;
-  name: ManageUserNavItems;
+  name: ManageUserNavigationTabItems;
   onPressAction: () => void;
 }
 

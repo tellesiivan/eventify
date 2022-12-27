@@ -8,7 +8,7 @@
     "@craco/craco": "^7.0.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@fontsource/poppins": "^4.5.10",
+    "@fontsource/azeret-mono": "^4.5.11",
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -43,7 +43,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "theme": "chakra-cli tokens src/theme/chakraTheme.ts",
+    "theme:watch": "chakra-cli tokens src/theme/chakraTheme.ts --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -59,5 +61,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@chakra-ui/cli": "^2.3.0"
   }
 }

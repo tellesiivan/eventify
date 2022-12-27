@@ -2,7 +2,7 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
 export const baseApiSlice = createApi({
-  tagTypes: ["Posts"],
+  tagTypes: ["Settings", "Membergraph"],
   baseQuery: fakeBaseQuery(),
 
   endpoints: () => ({}),

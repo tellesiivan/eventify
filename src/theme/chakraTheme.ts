@@ -2,7 +2,7 @@ import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
 import { appColors } from "./palette";
 import { styles } from "./styles.config";
 
-import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
+import { extendTheme, StyleConfig, type ThemeConfig } from "@chakra-ui/react";
 
 // 2. Call `extendTheme` and pass your custom values
 // 2. Add your color mode config
@@ -11,7 +11,7 @@ const config: ThemeConfig = {
   useSystemColorMode: true,
 };
 
-const components = {
+const components: Record<string, StyleConfig> = {
   Text: {
     variants: {
       // Make a variant, we'll call it `base` here and leave it empty
@@ -147,7 +147,7 @@ const components = {
       }),
     },
     defaultProps: {
-      variant: null, // null here
+      variant: undefined, // null here
     },
   },
   InputGroup: {
@@ -187,7 +187,7 @@ const components = {
       }),
     },
     defaultProps: {
-      variant: null, // null here
+      variant: undefined, // null here
     },
   },
   FormLabel: {
@@ -199,15 +199,15 @@ const components = {
       }),
     },
     defaultProps: {
-      variant: null, // null here
+      variant: undefined, // null here
     },
   },
 };
 
 const theme = extendTheme({
   fonts: {
-    heading: `'Poppins', sans-serif`,
-    body: `'Poppins', sans-serif`,
+    heading: `"Azeret Mono", monospace`,
+    body: `"Azeret Mono", monospace`,
   },
   colors: appColors,
   components,

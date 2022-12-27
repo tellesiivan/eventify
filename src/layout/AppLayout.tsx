@@ -3,6 +3,12 @@ import React, { useEffect } from "react";
 import { Box, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
 import { Modal } from "@simplimods/components";
 import { Breadcrumps, LeftContentNavigation } from "@simplimods/layout";
+import {
+  ManageUserIsMobileModalOpen,
+  setManageUserIsMobileModalOpen,
+  useAppDispatch,
+  useAppSelector,
+} from "@simplimods/redux";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 import { IsMobileView } from "@simplimods/utils";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -44,9 +50,9 @@ export const AppLayout = ({
   const navigate = useNavigate();
   const modalHanler = useDisclosure();
   const location = useLocation();
-  const { hash: UrLHash } = location;
-
+  const dispatch = useAppDispatch();
   const handleUserProfileNavigation = () => navigate(`/${username}`);
+  const isNagivationModalOpen = useAppSelector(ManageUserIsMobileModalOpen);
 
   useEffect(() => {
     modalHanler.onClose();
@@ -85,7 +91,7 @@ export const AppLayout = ({
                 <LeftContentNavigation
                   onClickAction={
                     isMobile
-                      ? () => modalHanler.onOpen()
+                      ? () => dispatch(setManageUserIsMobileModalOpen(true))
                       : handleUserProfileNavigation
                   }
                   label={isMobile ? "Dashboard Menu" : "View Public Profile"}
@@ -95,9 +101,9 @@ export const AppLayout = ({
           </Grid>
           {leftContent && (
             <Modal
-              size="sm"
-              isOpen={modalHanler.isOpen}
-              onClose={modalHanler.onClose}
+              size="full"
+              isOpen={isNagivationModalOpen}
+              onClose={() => dispatch(setManageUserIsMobileModalOpen(false))}
               title={"Dashboard Menu"}
             >
               {leftContent}

@@ -1,16 +1,17 @@
 import React from "react";
 
-import { Box, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { ManagerUserProfileContent } from "@simplimods/screens";
+import { ManageUserNavigationTabItems } from "@simplimods/types";
 
 interface ManagaeUserScreenContentProps {
-  activeNavItem: "Links" | "Vehicles" | "Events" | "Profile";
+  activeNavItem: ManageUserNavigationTabItems;
 }
 
 /** makes sure the key is keyof <ManageUserNavItems> and value would be a <ReactNode> */
 type ManageUserContentSections = Record<
-  "Links" | "Vehicles" | "Events" | "Profile",
-  React.ReactNode
+  ManageUserNavigationTabItems,
+  JSX.Element
 >;
 
 export const ManagaeUserScreenContent = ({
@@ -23,7 +24,7 @@ export const ManagaeUserScreenContent = ({
     Vehicles: <Text variant="s1">MANAGE PAGE FOR : Vehicles</Text>,
   };
 
-  return <Box>{manageUserContent[`${activeNavItem}`]}</Box>;
+  return manageUserContent[`${activeNavItem}`];
 };
 
 export default ManagaeUserScreenContent;

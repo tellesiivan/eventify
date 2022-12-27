@@ -1,4 +1,9 @@
 import { UserSettings } from "@simplimods/types";
+import type {
+  CollectionReference,
+  DocumentData,
+  DocumentReference,
+} from "firebase/firestore";
 import {
   addDoc,
   collection,
@@ -41,9 +46,15 @@ export const authApi = baseApiSlice.injectEndpoints({
         const settings = newUser.settings;
 
         // doc + collection references
-        const usersRef = doc(firestoreDb, "memberGraph", user.uid);
-        const docRef = doc(firestoreDb, "memberGraph", user.uid);
-        const settingsRef = collection(docRef, "settings");
+        const usersRef: DocumentReference<DocumentData> = doc(
+          firestoreDb,
+          "memberGraph",
+          user.uid
+        );
+        const settingsRef: CollectionReference<DocumentData> = collection(
+          usersRef,
+          "settings"
+        );
 
         try {
           // add user to memberGraph collection
@@ -74,7 +85,7 @@ export const authApi = baseApiSlice.injectEndpoints({
           return { error: err };
         }
       },
-      invalidatesTags: ["Posts"],
+      invalidatesTags: ["Membergraph"],
     }),
 
     //***************SINGLE USER FETCHING*************** */

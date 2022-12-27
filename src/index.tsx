@@ -7,8 +7,7 @@ import App from "./App";
 import { store } from "./redux/store";
 import chakraTheme from "./theme/chakraTheme";
 
-import "@fontsource/poppins";
-
+import "@fontsource/azeret-mono";
 
 // TODOL: Fix type env
 const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;

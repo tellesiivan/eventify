@@ -37,7 +37,7 @@ export const authSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addMatcher();
+    // builder.addMatcher();
   },
 });
 
