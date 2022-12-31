@@ -206,8 +206,8 @@ const components: Record<string, StyleConfig> = {
 
 const theme = extendTheme({
   fonts: {
-    heading: `"Azeret Mono", monospace`,
-    body: `"Azeret Mono", monospace`,
+    heading: `"Space Grotesk", sans-serif`,
+    body: `"Space Grotesk", sans-serif`,
   },
   colors: appColors,
   components,

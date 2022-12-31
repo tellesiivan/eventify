@@ -8,7 +8,7 @@
     "@craco/craco": "^7.0.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@fontsource/azeret-mono": "^4.5.11",
+    "@fontsource/space-grotesk": "^4.5.10",
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

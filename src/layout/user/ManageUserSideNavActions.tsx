@@ -68,4 +68,3 @@ export const ManageUserSideNavActions = ({
   );
 };
 
-export default ManageUserSideNavActions;

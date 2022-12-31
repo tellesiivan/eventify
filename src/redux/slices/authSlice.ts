@@ -45,5 +45,6 @@ export const { addAuthUser, authIsLoading, resetAuthState } = authSlice.actions;
 
 // selectors =
 export const selectCurrentAuthUser = (state: RootState) => state.auth.user;
+export const selectCurrentAuthUsername = (state: RootState) => state.auth.user.userName;
 
 export default authSlice.reducer;

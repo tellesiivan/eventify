@@ -12,7 +12,7 @@ const initialState: UserInterface = {
 };
 
 export const userInterfaceSlice = createSlice({
-  name: "user-interface",
+  name: "userInterface",
   initialState,
   reducers: {
     /** ===== Manage user screen =====  */

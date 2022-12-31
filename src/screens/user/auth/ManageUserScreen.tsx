@@ -4,13 +4,18 @@ import {
   LayoutType,
   ManageUserSideNavActions,
 } from "@simplimods/layout";
-import { useAppSelector } from "@simplimods/redux";
+import {
+  ManageUserActiveNavigationTab,
+  selectCurrentAuthUsername,
+  updateActiveManageUserNavigationTab,
+  useAppDispatch,
+  useAppSelector
+} from "@simplimods/redux";
 import { ManagaeUserScreenContent } from "@simplimods/screens";
 import type { ManageUserNavigationTabItems } from "@simplimods/types";
 import React from "react";
 
 import { ReactNode } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 
 export interface NavActionsItem {
   icon: ReactNode;
@@ -21,32 +26,30 @@ export interface NavActionsItem {
 type UserProfileProps = {};
 
 const ManageUserScreen = (props: UserProfileProps) => {
-  const username = useAppSelector((state) => state.auth.user.userName);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { hash: UrLHash } = location;
-  const activeNavItem = UrLHash.substring(1).toString() ?? "Profile";
+  const username = useAppSelector(selectCurrentAuthUsername);
+  const dispatch = useAppDispatch()
+  const activeNavItem = useAppSelector(ManageUserActiveNavigationTab)
 
   const sideNavActions: NavActionsItem[] = [
     {
       icon: <Icon iconName="User" />,
       name: "Profile",
-      onPressAction: () => navigate("/manage#Profile"),
+      onPressAction: () => dispatch(updateActiveManageUserNavigationTab('Profile')),
     },
     {
       icon: <Icon iconName="CalendarOutline" />,
       name: "Events",
-      onPressAction: () => navigate("/manage#Events"),
+      onPressAction: () => dispatch(updateActiveManageUserNavigationTab('Events')),
     },
     {
       icon: <Icon iconName="CarOutline" />,
       name: "Vehicles",
-      onPressAction: () => navigate("/manage#Vehicles"),
+      onPressAction: () => dispatch(updateActiveManageUserNavigationTab('Vehicles')),
     },
     {
       icon: <Icon iconName="LinkAddOutline" />,
       name: "Links",
-      onPressAction: () => navigate("/manage#Links"),
+      onPressAction: () => dispatch(updateActiveManageUserNavigationTab('Links')),
     },
   ];
 
@@ -60,17 +63,13 @@ const ManageUserScreen = (props: UserProfileProps) => {
       leftContent={
         <ManageUserSideNavActions
           sideNavActions={sideNavActions}
-          activeNavItem={activeNavItem !== "" ? activeNavItem : "Profile"}
+          activeNavItem={activeNavItem}
         />
       }
       username={username}
     >
       <ManagaeUserScreenContent
-        activeNavItem={
-          activeNavItem !== ""
-            ? (activeNavItem as "Links" | "Vehicles" | "Events" | "Profile")
-            : "Profile"
-        }
+        activeNavItem={activeNavItem}
       />
     </AppLayout>
   );
