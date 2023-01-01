@@ -13,6 +13,7 @@ import NavRoutes from "./routes";
 function App() {
   const dispatch = useAppDispatch();
   dispatch(authIsLoading(true));
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties

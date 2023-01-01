@@ -6,16 +6,16 @@ import {
 } from "@simplimods/layout";
 import {
   ManageUserActiveNavigationTab,
-  selectCurrentAuthUsername,
+  selectCurrentAuthUser,
+  setManageUserIsMobileDrawerOpen,
   updateActiveManageUserNavigationTab,
   useAppDispatch,
-  useAppSelector
+  useAppSelector,
 } from "@simplimods/redux";
-import { ManagaeUserScreenContent } from "@simplimods/screens";
+import { ManageUserScreenContent } from "@simplimods/screens";
 import type { ManageUserNavigationTabItems } from "@simplimods/types";
-import React from "react";
-
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
+import { IsMobileView } from "@simplimods/utils";
 
 export interface NavActionsItem {
   icon: ReactNode;
@@ -26,36 +26,45 @@ export interface NavActionsItem {
 type UserProfileProps = {};
 
 const ManageUserScreen = (props: UserProfileProps) => {
-  const username = useAppSelector(selectCurrentAuthUsername);
-  const dispatch = useAppDispatch()
-  const activeNavItem = useAppSelector(ManageUserActiveNavigationTab)
+  const isMobile = IsMobileView();
+  const currentUser = useAppSelector(selectCurrentAuthUser);
+  const dispatch = useAppDispatch();
+  const activeNavItem = useAppSelector(ManageUserActiveNavigationTab);
+
+  const updateActiveNavTabHandler = (navItem: ManageUserNavigationTabItems) => {
+    if (isMobile) {
+      dispatch(setManageUserIsMobileDrawerOpen(false));
+    }
+    // dispatch and update state with selected item
+    dispatch(updateActiveManageUserNavigationTab(navItem));
+  };
 
   const sideNavActions: NavActionsItem[] = [
     {
       icon: <Icon iconName="User" />,
       name: "Profile",
-      onPressAction: () => dispatch(updateActiveManageUserNavigationTab('Profile')),
+      onPressAction: () => updateActiveNavTabHandler("Profile"),
     },
     {
       icon: <Icon iconName="CalendarOutline" />,
       name: "Events",
-      onPressAction: () => dispatch(updateActiveManageUserNavigationTab('Events')),
+      onPressAction: () => updateActiveNavTabHandler("Events"),
     },
     {
       icon: <Icon iconName="CarOutline" />,
       name: "Vehicles",
-      onPressAction: () => dispatch(updateActiveManageUserNavigationTab('Vehicles')),
+      onPressAction: () => updateActiveNavTabHandler("Vehicles"),
     },
     {
       icon: <Icon iconName="LinkAddOutline" />,
       name: "Links",
-      onPressAction: () => dispatch(updateActiveManageUserNavigationTab('Links')),
+      onPressAction: () => updateActiveNavTabHandler("Links"),
     },
   ];
 
   return (
     <AppLayout
-      breadcrumps={[
+      breadcrumbs={[
         { label: "Home", link: "/" },
         { label: "Manage", link: "/manage" },
       ]}
@@ -66,10 +75,11 @@ const ManageUserScreen = (props: UserProfileProps) => {
           activeNavItem={activeNavItem}
         />
       }
-      username={username}
+      username={currentUser.userName}
     >
-      <ManagaeUserScreenContent
+      <ManageUserScreenContent
         activeNavItem={activeNavItem}
+        currentUserUid={currentUser.uid ?? ""}
       />
     </AppLayout>
   );

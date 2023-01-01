@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authApi } from "./api/authApi";
 import authReducer from "./slices/authSlice";
 import userInterfaceReducer from "./slices/UserInterfaceSlice";
+import settingsAndPreferencesReducer from "./slices/settingsAndPreferencesSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     userInterface: userInterfaceReducer,
+    settingsAndPreferences: settingsAndPreferencesReducer,
     [authApi.reducerPath]: authApi.reducer,
     // Connect the PostApi reducer to the store
   },

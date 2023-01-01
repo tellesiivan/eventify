@@ -1,13 +1,16 @@
 export type UserContactInformation = {
-    email: string,
-    phoneNumber: string,
-}
+  email: string;
+  phoneNumber: string;
+};
 
 export interface UserSettings {
-    accountType: 'user' | 'business' | 'service',
-    accountVerified:boolean,
-    canCreateEvents:boolean,
-    hasPin:boolean;
-    initialTheme:"dark" | "light",
-    isBusiness:boolean;
+  accountType: "user" | "business" | "service" | null;
+  accountVerified: boolean;
+  canCreateEvents: boolean;
+  hasPin: boolean;
+  isBusiness: boolean;
+}
+
+export interface UserSettingsWithIdRefGraph extends UserSettings {
+  internalId: string | null;
 }

@@ -1,2 +1,2 @@
-export * from "./manage-user/ManageUserScreenContent";
-export * from "./manage-user/ManagerUserProfileContent";
+export * from "./manageUser/ManageUserScreenContent";
+export * from "./manageUser/ManagerUserProfileContent";

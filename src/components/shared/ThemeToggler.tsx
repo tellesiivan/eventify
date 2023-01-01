@@ -17,7 +17,7 @@ export const ThemeToggler: React.FC<ThemeTogglerProps> = () => {
     >
       <Icon
         iconName={colorMode === "dark" ? "LightbulbOutline" : "LightbulbFilled"}
-        color={colorMode === "dark" ? "primary.50" : "wzy.500"}
+        color={colorMode === "dark" ? "primary.50" : "wzy.300"}
         size={6}
       />
     </Button>

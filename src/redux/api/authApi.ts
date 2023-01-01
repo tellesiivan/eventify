@@ -1,11 +1,6 @@
 import { UserSettings } from "@simplimods/types";
-import type {
-  CollectionReference,
-  DocumentData,
-  DocumentReference,
-} from "firebase/firestore";
+import type { DocumentData, DocumentReference } from "firebase/firestore";
 import {
-  addDoc,
   collection,
   doc,
   getDocs,
@@ -51,9 +46,10 @@ export const authApi = baseApiSlice.injectEndpoints({
           "memberGraph",
           user.uid
         );
-        const settingsRef: CollectionReference<DocumentData> = collection(
+        const settingsRef: DocumentReference<DocumentData> = doc(
           usersRef,
-          "settings"
+          "settings",
+          user.uid
         );
 
         try {
@@ -64,7 +60,7 @@ export const authApi = baseApiSlice.injectEndpoints({
           });
 
           // add user default settings collection
-          await addDoc(settingsRef, settings);
+          await setDoc(settingsRef, settings);
 
           const q = query(
             collection(firestoreDb, "memberGraph"),
@@ -74,7 +70,7 @@ export const authApi = baseApiSlice.injectEndpoints({
           const querySnapshot = await getDocs(q);
 
           querySnapshot.forEach(
-            async (document) =>
+            (document) =>
               (data = {
                 internalId: document.id,
                 ...document.data(),
@@ -102,6 +98,7 @@ export const authApi = baseApiSlice.injectEndpoints({
               ...doc.data(),
             };
           });
+          console.log(queryData);
           return {
             data: queryData,
           };

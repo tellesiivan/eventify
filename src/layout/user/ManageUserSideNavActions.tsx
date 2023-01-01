@@ -31,14 +31,15 @@ export const ManageUserSideNavActions = ({
     <Stack align="stretch" m={2}>
       {sideNavActions.map((navItem: NavActionsItem) => (
         <StackItem
+          rounded="md"
           flexDirection="row"
           px="4"
           py="3"
-          bg={activeNavItem === navItem.name ? "wzy.500" : undefined}
+          bg={activeNavItem === navItem.name ? "wzy.300" : undefined}
           _hover={{
             bg: activeNavItem !== navItem.name ? navItemBgHover : undefined,
           }}
-          color={activeNavItem === navItem.name ? "secondary.900" : undefined}
+          color={activeNavItem === navItem.name ? "wzy.900" : undefined}
           cursor="pointer"
           onClick={navItem.onPressAction}
           key={navItem.name}
@@ -67,4 +68,3 @@ export const ManageUserSideNavActions = ({
     </Stack>
   );
 };
-

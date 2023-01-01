@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {RootState} from "../store";
+import {authApi} from "@simplimods/redux";
 
 // types
 type User = {
@@ -23,7 +24,7 @@ const initialState: AuthState = {
 };
 
 export const authSlice = createSlice({
-  name: "app",
+  name: "auth",
   initialState,
   reducers: {
     addAuthUser: (state, action: PayloadAction<User>) => {
@@ -37,7 +38,13 @@ export const authSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    // builder.addMatcher();
+    builder.addMatcher(
+      authApi.endpoints.getUser.matchFulfilled,
+      (state, action) => {
+        const getUserSettings = async () => {};
+        state.user.email = action.payload.email;
+      }
+    );
   },
 });
 
@@ -45,6 +52,7 @@ export const { addAuthUser, authIsLoading, resetAuthState } = authSlice.actions;
 
 // selectors =
 export const selectCurrentAuthUser = (state: RootState) => state.auth.user;
-export const selectCurrentAuthUsername = (state: RootState) => state.auth.user.userName;
+export const selectCurrentAuthUsername = (state: RootState) =>
+  state.auth.user.userName;
 
 export default authSlice.reducer;

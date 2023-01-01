@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 
 import { Box, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
-import { Modal } from "@simplimods/components";
+import { ShareDrawer } from "@simplimods/components";
 import { Breadcrumps, LeftContentNavigation } from "@simplimods/layout";
 import {
-  ManageUserIsMobileModalOpen,
-  setManageUserIsMobileModalOpen,
+  ManageUserIsMobileDrawerOpen,
+  setManageUserIsMobileDrawerOpen,
   useAppDispatch,
   useAppSelector,
 } from "@simplimods/redux";
@@ -24,7 +24,7 @@ interface AppLayoutProps {
   leftContent?: React.ReactNode;
   layoutType?: LayoutType;
   username?: string;
-  breadcrumps?: {
+  breadcrumbs?: {
     label: string;
     link: string;
   }[];
@@ -36,27 +36,27 @@ interface AppLayoutProps {
  * @variation Two_ROW : Will take children and use that component on the right section, while other section will be leftContent component: Think side nav dashboard
  * @variation Three_ROW : Will take two side components (leftContent | rightContent) => and the children wrapped will be displayed center
  * @param LayoutTypes Layout variation
- * @param breadcrumps An array that will required to pass a label and a link for each item
+ * @param breadcrumbs An array that will require to pass a label and a link for each item
  * @interface AppLayoutProps
  */
 export const AppLayout = ({
   children,
   leftContent,
   layoutType = LayoutType.One_ROW,
-  breadcrumps,
+  breadcrumbs,
   username,
 }: AppLayoutProps) => {
-  const isMobile = !!IsMobileView();
+  const isMobile = IsMobileView();
   const navigate = useNavigate();
-  const modalHanler = useDisclosure();
+  const modalHandler = useDisclosure();
   const location = useLocation();
   const dispatch = useAppDispatch();
   const handleUserProfileNavigation = () => navigate(`/${username}`);
-  const isNagivationModalOpen = useAppSelector(ManageUserIsMobileModalOpen);
+  const isNavigationModalOpen = useAppSelector(ManageUserIsMobileDrawerOpen);
 
   useEffect(() => {
-    modalHanler.onClose();
-  }, [location, modalHanler]);
+    modalHandler.onClose();
+  }, [location, modalHandler]);
 
   switch (layoutType) {
     case LayoutType.Two_ROW:
@@ -69,6 +69,8 @@ export const AppLayout = ({
             templateColumns="repeat(5, 1fr)"
           >
             <GridItem
+              position="fixed"
+              left={0}
               borderRight="1px"
               borderColor={ThemeColorModeComponents("borderColor")}
               minWidth={72}
@@ -80,18 +82,18 @@ export const AppLayout = ({
               {leftContent}
             </GridItem>
             <GridItem
-              rowSpan={4}
-              colSpan={{ base: 5, md: 4 }}
+              ml={{ base: 0, md: 72 }}
+              colSpan={{ base: 5 }}
               height="full"
               position="relative"
             >
-              {breadcrumps && <Breadcrumps breadcrumps={breadcrumps} />}
+              {breadcrumbs && <Breadcrumps breadcrumps={breadcrumbs} />}
               {children}
               {username !== undefined && (
                 <LeftContentNavigation
                   onClickAction={
                     isMobile
-                      ? () => dispatch(setManageUserIsMobileModalOpen(true))
+                      ? () => dispatch(setManageUserIsMobileDrawerOpen(true))
                       : handleUserProfileNavigation
                   }
                   label={isMobile ? "Dashboard Menu" : "View Public Profile"}
@@ -99,15 +101,17 @@ export const AppLayout = ({
               )}
             </GridItem>
           </Grid>
-          {leftContent && (
-            <Modal
-              size="full"
-              isOpen={isNagivationModalOpen}
-              onClose={() => dispatch(setManageUserIsMobileModalOpen(false))}
+          {leftContent && isMobile && (
+            <ShareDrawer
+              size="xs"
+              isFullHeight={false}
+              placement={"bottom"}
+              isOpen={isNavigationModalOpen}
+              onClose={() => dispatch(setManageUserIsMobileDrawerOpen(false))}
               title={"Dashboard Menu"}
             >
               {leftContent}
-            </Modal>
+            </ShareDrawer>
           )}
         </React.Fragment>
       );
@@ -120,7 +124,7 @@ export const AppLayout = ({
             md: 4,
           }}
         >
-          {breadcrumps && <Breadcrumps breadcrumps={breadcrumps} />}
+          {breadcrumbs && <Breadcrumps breadcrumps={breadcrumbs} />}
           {children}
         </Box>
       );

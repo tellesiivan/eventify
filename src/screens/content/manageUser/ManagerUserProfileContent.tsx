@@ -2,6 +2,7 @@ import { HStack, VStack } from "@chakra-ui/react";
 import {
   Card,
   InputWithSubmitButton,
+  PrivatePinInputWithSubmitButton,
   Skeleton,
   TextHeader,
 } from "@simplimods/components";
@@ -17,18 +18,22 @@ import {
 import { formatDate } from "@simplimods/utils";
 import { convertTimestamp } from "convert-firebase-timestamp";
 import React, { useState } from "react";
+import { UserSettingsWithIdRefGraph } from "@simplimods/types";
 
-interface ManagerUserProfileContentProps {}
+interface ManageUserProfileContentProps {
+  settings: UserSettingsWithIdRefGraph;
+}
 
-export const ManagerUserProfileContent = (
-  props: ManagerUserProfileContentProps
-) => {
+export const ManageUserProfileContent = ({
+  settings,
+}: ManageUserProfileContentProps) => {
   const [zipcodeInputValue, setZipcodeInputValue] = useState<string>("");
   const authUser = useAppSelector(selectCurrentAuthUser);
   const { isError, isLoading, data } = useGetUserQuery({
     by: "email",
     user: authUser.email ?? undefined,
   });
+
   const imageSrc =
     "https://www.automoblog.net/wp-content/uploads/2022/05/2023-Porsche-911-Sport-Classic-1.jpg";
 
@@ -116,8 +121,35 @@ export const ManagerUserProfileContent = (
           inputType="number"
         />
       </Card>
+
+      {/* ==== USER PIN | Needed if user wants to view other users contact info or create events ==== */}
+
+      <Card
+        rounded="md"
+        p={{
+          base: 4,
+          md: 6,
+        }}
+        responsiveFlexCard={true}
+      >
+        <TextHeader
+          maxWidth={{
+            base: "full",
+            lg: "64",
+          }}
+          my={2}
+          title="Private Pin"
+          description={
+            settings.hasPin
+              ? "Here you can update your private pin."
+              : "Add a private pin to be able to view other users contact information and to be able to create events."
+          }
+          mb={{ base: 8, lg: 0 }}
+        />
+        <PrivatePinInputWithSubmitButton />
+      </Card>
     </VStack>
   );
 };
 
-export default ManagerUserProfileContent;
+export default ManageUserProfileContent;
