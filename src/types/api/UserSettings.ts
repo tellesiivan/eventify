@@ -1,6 +1,6 @@
 export type UserContactInformation = {
-  email: string;
-  phoneNumber: string;
+  email: string | null;
+  phoneNumber: string | null;
 };
 
 export interface UserSettings {

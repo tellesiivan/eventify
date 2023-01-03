@@ -18,7 +18,7 @@ import {
   Link,
   Spinner,
   useColorModeValue,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { ThemeColorModeComponents } from "@simplimods/theme";
@@ -28,7 +28,7 @@ import { auth } from "@simplimods/firebase";
 import {
   resetAuthState,
   useAppDispatch,
-  useAppSelector
+  useAppSelector,
 } from "@simplimods/redux";
 import { signOut } from "firebase/auth";
 import { Link as ReachLink, Outlet, useNavigate } from "react-router-dom";
@@ -107,8 +107,8 @@ const BaseNav = (props: Props) => {
                 <Avatar
                   name={authUser}
                   size="sm"
-                  bg="wzy.400"
-                  color="secondary.900"
+                  bg="wzp.400"
+                  color="primary.50"
                   cursor="pointer"
                   // src={user.picture}
                   onClick={onOpen}

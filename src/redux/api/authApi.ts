@@ -1,4 +1,9 @@
-import { UserSettings } from "@simplimods/types";
+import {
+  CombineUserProfileInformation,
+  UserAdminProfile,
+  UserPublicProfile,
+  UserSettings,
+} from "@simplimods/types";
 import type { DocumentData, DocumentReference } from "firebase/firestore";
 import {
   collection,
@@ -10,7 +15,7 @@ import {
   where,
 } from "firebase/firestore";
 import { firestoreDb } from "../../firebase/firebase.config";
-import { baseApiSlice } from "./baseApi";
+import { baseApiSlice } from "@simplimods/redux/api/baseApi";
 
 interface newUser {
   user: {
@@ -19,6 +24,8 @@ interface newUser {
     uid: string;
   };
   settings: UserSettings;
+  publicProfile: UserPublicProfile;
+  adminProfile: UserAdminProfile;
 }
 
 interface user {
@@ -39,6 +46,14 @@ export const authApi = baseApiSlice.injectEndpoints({
         let data: any = {};
         const user = newUser.user;
         const settings = newUser.settings;
+        const publicProfile = newUser.publicProfile;
+        const adminProfile = newUser.adminProfile;
+
+        // create an object that includes an overview of a user admin/private info
+        const userProfileData: CombineUserProfileInformation = {
+          admin: adminProfile,
+          public: publicProfile,
+        };
 
         // doc + collection references
         const usersRef: DocumentReference<DocumentData> = doc(
@@ -46,9 +61,15 @@ export const authApi = baseApiSlice.injectEndpoints({
           "memberGraph",
           user.uid
         );
+        // user settings ref
         const settingsRef: DocumentReference<DocumentData> = doc(
           usersRef,
           "settings",
+          user.uid
+        ); // user profile ref
+        const profileRef: DocumentReference<DocumentData> = doc(
+          usersRef,
+          "profile",
           user.uid
         );
 
@@ -61,6 +82,9 @@ export const authApi = baseApiSlice.injectEndpoints({
 
           // add user default settings collection
           await setDoc(settingsRef, settings);
+
+          // add user default settings collection
+          await setDoc(profileRef, userProfileData);
 
           const q = query(
             collection(firestoreDb, "memberGraph"),
@@ -98,7 +122,6 @@ export const authApi = baseApiSlice.injectEndpoints({
               ...doc.data(),
             };
           });
-          console.log(queryData);
           return {
             data: queryData,
           };

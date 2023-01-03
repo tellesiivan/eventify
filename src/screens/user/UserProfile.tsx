@@ -1,12 +1,10 @@
 import React from "react";
 
 import { Box } from "@chakra-ui/react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useParams } from "react-router-dom";
-import { Skeleton } from "../../components/shared";
-import { auth } from "../../firebase/firebase.config";
-import AppLayout from "../../layout/AppLayout";
-import { useGetUserQuery } from "../../redux/api/authApi";
+import { Skeleton } from "@simplimods/components";
+import { AppLayout } from "@simplimods/layout";
+import { useGetUserQuery } from "@simplimods/redux";
 
 type UserProfileProps = {};
 
@@ -14,7 +12,6 @@ const UserProfile = (props: UserProfileProps) => {
   const { username } = useParams();
   const navigate = useNavigate();
 
-  const [user, loading, error] = useAuthState(auth);
   const { isError, isLoading, data } = useGetUserQuery({
     by: "username",
     user: username,
@@ -24,7 +21,7 @@ const UserProfile = (props: UserProfileProps) => {
     return <Box>isError</Box>;
   }
 
-  if (isLoading || loading) {
+  if (isLoading || isLoading) {
     return <Skeleton height={96} />;
   }
 
@@ -37,7 +34,7 @@ const UserProfile = (props: UserProfileProps) => {
       <Box>
         <Box h={48} w="full" bg="red.600" />
         <Box>
-          {user?.email === data?.email
+          {data?.username === username
             ? "is able to edit - owns this profile - sunday"
             : "not able to edit"}
           {}

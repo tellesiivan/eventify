@@ -17,15 +17,22 @@ import { auth } from "@simplimods/firebase";
 import {
   addAuthUser,
   authIsLoading,
+  selectAuthLoading,
   useAddUserMutation,
   useAppDispatch,
   useAppSelector,
 } from "@simplimods/redux";
 import { SignUpSchema } from "@simplimods/schemas";
 import { ThemeColorModeComponents } from "@simplimods/theme";
-import { ExtractNameFromEmail, InitialSettingsConfig } from "@simplimods/utils";
+import {
+  ExtractNameFromEmail,
+  InitialAdminProfileConfig,
+  InitialPublicProfileConfig,
+  InitialSettingsConfig,
+} from "@simplimods/utils";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { UserPublicProfile } from "@simplimods/types";
 
 type InitialValues = {
   email: string;
@@ -41,9 +48,7 @@ export default function SignUpForm() {
     password: "",
     verifyPassword: "",
   };
-  const logginUserInLoadingState = useAppSelector(
-    (state) => state.auth.isAuthLoading
-  );
+  const loginUserInLoadingState = useAppSelector(selectAuthLoading);
 
   // RTK
   const [addUserDoc, { isError, isLoading }] = useAddUserMutation();
@@ -59,7 +64,6 @@ export default function SignUpForm() {
         values.email,
         values.password
       );
-
       await updateProfile(registerUser.user, {
         displayName: username,
       });
@@ -71,6 +75,16 @@ export default function SignUpForm() {
       } = registerUser.user;
 
       if (authUserName && authEmail && uid) {
+        // add user defaults(settings, profile etc...)
+        const publicProfileData: UserPublicProfile = {
+          ...InitialPublicProfileConfig,
+          username: authUserName,
+          memberSinceTimestamp: Date.now(),
+          contactInformation: {
+            email: authEmail,
+            phoneNumber: null,
+          },
+        };
         await addUserDoc({
           user: {
             email: authEmail,
@@ -78,7 +92,10 @@ export default function SignUpForm() {
             uid,
           },
           settings: InitialSettingsConfig,
+          publicProfile: publicProfileData,
+          adminProfile: InitialAdminProfileConfig,
         });
+
         dispatch(
           addAuthUser({
             userName: authUserName,
@@ -170,8 +187,8 @@ export default function SignUpForm() {
 
               <Box width="full" pt={2}>
                 <Button
-                  isLoading={logginUserInLoadingState || isLoading}
-                  disabled={!(isValid || logginUserInLoadingState)}
+                  isLoading={loginUserInLoadingState || isLoading}
+                  disabled={!(isValid || loginUserInLoadingState)}
                   type="submit"
                   onClick={() => handleSubmit()}
                   variant="secondary"

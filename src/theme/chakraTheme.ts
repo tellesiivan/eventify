@@ -1,8 +1,8 @@
-import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
-import { appColors } from "./palette";
-import { styles } from "./styles.config";
+import {mode, StyleFunctionProps} from "@chakra-ui/theme-tools";
+import {appColors} from "./palette";
+import {styles} from "./styles.config";
 
-import { extendTheme, StyleConfig, type ThemeConfig } from "@chakra-ui/react";
+import {extendTheme, StyleConfig, type ThemeConfig} from "@chakra-ui/react";
 
 // 2. Call `extendTheme` and pass your custom values
 // 2. Add your color mode config
@@ -26,7 +26,7 @@ const components: Record<string, StyleConfig> = {
 
       s1: (props: StyleFunctionProps | Record<string, any>) => ({
         fontSize: "md",
-        fontWeight: "semibold",
+        fontWeight: "bold",
         color: mode("secondary.400", "primary.800")(props),
       }),
       p1: (props: StyleFunctionProps | Record<string, any>) => ({
@@ -35,13 +35,13 @@ const components: Record<string, StyleConfig> = {
         color: mode("secondary.800", "primary.800")(props),
       }),
       s2: (props: StyleFunctionProps | Record<string, any>) => ({
-        fontSize: "sm",
-        fontWeight: "regular",
+        fontSize: "md",
+        fontWeight: "semibold",
         color: mode("secondary.600", "secondary.200")(props),
       }),
 
       s3: (props: StyleFunctionProps | Record<string, any>) => ({
-        fontSize: "xs",
+        fontSize: "sm",
         fontWeight: "regular",
         color: mode("secondary.600", "secondary.200")(props),
       }),

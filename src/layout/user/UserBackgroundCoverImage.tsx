@@ -12,7 +12,7 @@ import { useSelectFile } from "@simplimods/hooks";
 interface UserBackgroundCoverImageProps {
   canManage: boolean;
   isLoading: boolean;
-  imageSrc: string | undefined;
+  imageSrc: string | null;
 }
 
 export const UserBackgroundCoverImage = ({
@@ -31,21 +31,28 @@ export const UserBackgroundCoverImage = ({
   return (
     <>
       <Box width="full" height={60} position="relative" overflow="hidden">
-        <Image
-          rounded="md"
-          src={
-            imageSrc
-              ? imageSrc
-              : "https://images.unsplash.com/photo-1605906457463-5eb60f753738?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1330&q=80"
-          }
-          position="absolute"
-          top={0}
-          objectFit="cover"
-          objectPosition="center"
-          height="full"
-          width="full"
-          bgImage="cover"
-        />
+        {imageSrc ? (
+          <Image
+            rounded="md"
+            src={imageSrc}
+            position="absolute"
+            top={0}
+            objectFit="cover"
+            objectPosition="center"
+            height="full"
+            width="full"
+            bgImage="cover"
+          />
+        ) : (
+          <Box
+            position="absolute"
+            h="full"
+            bgGradient="linear(to-l, wzp.900, wzp.600)"
+            rounded="md"
+            inset={0}
+          />
+        )}
+
         {canManage && (
           <Button
             variant="iconButton"

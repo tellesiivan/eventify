@@ -30,7 +30,7 @@ export const InputWithSubmitButton = ({
         lg: 96,
       }}
       py={2}
-      bg={ThemeColorModeComponents("baseBg")}
+      bg={ThemeColorModeComponents("accentThemeBgDos")}
       rounded="xl"
       display="flex"
       alignItems="center"

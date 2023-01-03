@@ -32,10 +32,12 @@ export const LeftContentNavigation = ({
         rounded="full"
         px={5}
         py={2}
-        bg="wzy.300"
+        bg="wzp.50"
+        border="1px"
+        borderColor="wzp.100"
         onClick={onClickAction}
       >
-        <Text variant="p1" color="wzy.800">
+        <Text variant="p1" color="wzp.800">
           {label}
         </Text>
       </HStack>

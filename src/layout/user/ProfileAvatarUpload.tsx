@@ -1,10 +1,10 @@
-import { Avatar, Input, useDisclosure, VStack } from "@chakra-ui/react";
+import { Avatar, Box, Input, useDisclosure, VStack } from "@chakra-ui/react";
 import { ImageUploadWithPreview, Modal } from "@simplimods/components";
 import { useSelectFile } from "@simplimods/hooks";
 import React, { useEffect, useRef } from "react";
 
 interface ProfileAvatarUploadProps {
-  userAvatar: string;
+  userAvatar: string | null;
 }
 
 export const ProfileAvatarUpload = ({
@@ -14,7 +14,7 @@ export const ProfileAvatarUpload = ({
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { selectedFile, setSelectedFile, onSelectedFile } = useSelectFile();
 
-  // TODO: Fix bug when deleting an uploaded image and reuploading the same image previously uploaded does not show
+  // TODO: Fix bug when deleting an uploaded image and re-uploading the same image previously uploaded does not show
   const onDeleteImageHandler = () => {
     setSelectedFile("");
     onClose();
@@ -28,17 +28,29 @@ export const ProfileAvatarUpload = ({
 
   return (
     <VStack>
-      <Avatar
-        bg="wzy.600"
-        name="Oshigaki Kisame"
-        src={userAvatar ? userAvatar : ""}
-        size="xl"
-        _hover={{
-          opacity: 0.76,
-        }}
-        cursor="pointer"
-        onClick={() => avatarUploadRefBtn.current?.click()}
-      />
+      {userAvatar ? (
+        <Avatar
+          src={userAvatar}
+          size="xl"
+          _hover={{
+            opacity: 0.76,
+          }}
+          cursor="pointer"
+          onClick={() => avatarUploadRefBtn.current?.click()}
+        />
+      ) : (
+        <Box
+          h={24}
+          w={24}
+          _hover={{
+            opacity: 0.76,
+          }}
+          cursor="pointer"
+          bgGradient="linear(to-l, wzp.800, wzp.400)"
+          rounded="full"
+          onClick={() => avatarUploadRefBtn.current?.click()}
+        />
+      )}
       <Input
         onChange={(event) => onSelectedFile(event)}
         hidden
