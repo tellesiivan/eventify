@@ -5,7 +5,7 @@ import {
   FormLabel,
   Input,
   Text,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ErrorMessage, Formik, FormikProps } from "formik";
@@ -33,7 +33,6 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<string | null>(null);
 
@@ -52,14 +51,14 @@ export default function LoginForm() {
 
       const userName = loginUser.user.displayName;
       const userEmail = loginUser.user.email;
-      const userUid = loginUser.user.displayName;
+      const userUid = loginUser.user.uid;
 
       if (userName && userEmail) {
         dispatch(
           addAuthUser({
             email: userEmail,
             userName,
-            uid:userUid
+            uid: userUid,
           })
         );
         navigate(`/${userName}`, { replace: true });

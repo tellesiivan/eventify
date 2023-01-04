@@ -29,16 +29,14 @@ export const ManageUserScreenContent = ({
     uid: currentUserUid,
   });
 
-  if (settingsData) {
-    const manageUserContent: ManageUserContentSections = {
-      Profile: <ManageUserProfileContent settings={settingsData} />,
-      Events: <Text variant="s1">MANAGE PAGE FOR : Events</Text>,
-      Links: <Text variant="s1">MANAGE PAGE FOR : Links</Text>,
-      Vehicles: <Text variant="base">MANAGE PAGE FOR : Vehicles</Text>,
-    };
+  const manageUserContent: ManageUserContentSections = {
+    Profile: <ManageUserProfileContent />,
+    Events: <Text variant="s1">MANAGE PAGE FOR : Events</Text>,
+    Links: <Text variant="s1">MANAGE PAGE FOR : Links</Text>,
+    Vehicles: <Text variant="base">MANAGE PAGE FOR : Vehicles</Text>,
+  };
 
-    return manageUserContent[`${activeNavItem}`];
-  } else return <></>;
+  return manageUserContent[`${activeNavItem}`];
 };
 
 export default ManageUserScreenContent;

@@ -14,5 +14,3 @@ export const formatDate = (
       return format(date, "MMM dd yyyy");
   }
 };
-
-export default formatDate;

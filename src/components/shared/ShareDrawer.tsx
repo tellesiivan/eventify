@@ -27,7 +27,7 @@ export const ShareDrawer = ({
   return (
     <Drawer placement={placement} onClose={onClose} isOpen={isOpen} {...props}>
       <DrawerOverlay />
-      <DrawerContent>
+      <DrawerContent borderTopRadius="2xl">
         <DrawerHeader borderBottomWidth="1px">{title}</DrawerHeader>
         <DrawerBody>{children}</DrawerBody>
       </DrawerContent>

@@ -19,7 +19,7 @@ const NavRoutes = (props: Props) => {
   const isAuthStateLoading = useAppSelector(
     (state) => state.auth.isAuthLoading
   );
-  const isLoggedIn = isAuthUser !== null && !isAuthStateLoading;
+  const isLoggedIn = !!isAuthUser && !isAuthStateLoading;
 
   return (
     <Routes>

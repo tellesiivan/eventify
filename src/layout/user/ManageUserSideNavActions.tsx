@@ -36,7 +36,11 @@ export const ManageUserSideNavActions = ({
           flexDirection="row"
           px="4"
           py="3"
-          bg={activeNavItem === navItem.name ? "wzp.400" : undefined}
+          bgGradient={
+            activeNavItem === navItem.name
+              ? "linear(to-l, wzp.900, wzp.600)"
+              : undefined
+          }
           _hover={{
             bg: activeNavItem !== navItem.name ? navItemBgHover : undefined,
           }}

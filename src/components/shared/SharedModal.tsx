@@ -35,6 +35,11 @@ export const SharedModal = ({
       onClose={onClose}
       isCentered
       motionPreset="slideInBottom"
+      closeOnEsc={true}
+      size={{
+        base: "sm",
+        lg: "md",
+      }}
       {...props}
     >
       <ModalOverlay />

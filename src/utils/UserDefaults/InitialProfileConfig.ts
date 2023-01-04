@@ -5,14 +5,19 @@ export const InitialPublicProfileConfig: UserPublicProfile = {
   avatarImageSrc: null,
   vehicles: null,
   events: null,
+  followersAndFollowing: null,
   socialMedia: null,
   username: "",
-  contactInformation:{
-    phoneNumber:null,
-    email:null
-  }
+  contactInformation: {
+    phoneNumber: null,
+    email: null,
+  },
+  location: {
+    zipcode: null,
+    lat: null,
+    long: null,
+  },
 };
 export const InitialAdminProfileConfig: UserAdminProfile = {
   pin: null,
-  zipcode: null,
 };

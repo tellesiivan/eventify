@@ -21,8 +21,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { ThemeColorModeComponents } from "@simplimods/theme";
-
 import { ThemeToggler } from "@simplimods/components/shared";
 import { auth } from "@simplimods/firebase";
 import {
@@ -70,6 +68,7 @@ const BaseNav = (props: Props) => {
     onClose();
   };
   const bg = useColorModeValue("secondary.900", "secondary.900");
+  const borderColor = useColorModeValue("transparent", "secondary.800");
 
   return (
     <>
@@ -82,7 +81,7 @@ const BaseNav = (props: Props) => {
         position="fixed"
         top="0"
         borderBottom="1px"
-        borderColor={ThemeColorModeComponents("borderColor")}
+        borderColor={borderColor}
       >
         <HStack
           as="div"

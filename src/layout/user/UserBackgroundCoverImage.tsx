@@ -52,7 +52,6 @@ export const UserBackgroundCoverImage = ({
             inset={0}
           />
         )}
-
         {canManage && (
           <Button
             variant="iconButton"

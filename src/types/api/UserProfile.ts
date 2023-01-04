@@ -1,4 +1,8 @@
-import { SocialMediaLinks, UserContactInformation } from "@simplimods/types";
+import {
+  SocialMediaLinks,
+  UserContactInformation,
+  UserLocation,
+} from "@simplimods/types";
 
 export interface UserPreviewEvents {
   eventId: number;
@@ -12,23 +16,33 @@ export interface UserPreviewVehicles {
   modificationCount: number;
 }
 
+export interface UserProfileOverview {
+  profileAvatarSrc: string;
+  username: string;
+  vehicleCount: number;
+}
+
+export interface UserFollowing extends UserProfileOverview {
+  type: "Follower" | "Following";
+}
+
 export interface UserPublicProfile {
   coverImageSrc: string | null;
   avatarImageSrc: string | null;
-  generalLocation?: string;
+  location: UserLocation;
   firstName?: string;
   lastName?: string;
   username: string;
   vehicles: UserPreviewVehicles[] | null;
   events: UserPreviewEvents[] | null;
   socialMedia: SocialMediaLinks[] | null;
+  followersAndFollowing: UserFollowing[] | null;
   contactInformation: UserContactInformation;
   memberSinceTimestamp?: number;
 }
 
 export interface UserAdminProfile {
   pin: number | null;
-  zipcode: string | null;
 }
 
 export type CombineUserProfileInformation = {

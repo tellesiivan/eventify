@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { Box, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import { ShareDrawer } from "@simplimods/components";
 import { Breadcrumps, LeftContentNavigation } from "@simplimods/layout";
 import {
@@ -11,7 +11,7 @@ import {
 } from "@simplimods/redux";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 import { IsMobileView } from "@simplimods/utils";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export enum LayoutType {
   One_ROW = "1ROW",
@@ -48,26 +48,15 @@ export const AppLayout = ({
 }: AppLayoutProps) => {
   const isMobile = IsMobileView();
   const navigate = useNavigate();
-  const modalHandler = useDisclosure();
-  const location = useLocation();
   const dispatch = useAppDispatch();
   const handleUserProfileNavigation = () => navigate(`/${username}`);
   const isNavigationModalOpen = useAppSelector(ManageUserIsMobileDrawerOpen);
-
-  useEffect(() => {
-    modalHandler.onClose();
-  }, [location, modalHandler]);
 
   switch (layoutType) {
     case LayoutType.Two_ROW:
       return (
         <React.Fragment>
-          <Grid
-            minH="100vh"
-            width="full"
-            templateRows="repeat(2, 1fr)"
-            templateColumns="repeat(5, 1fr)"
-          >
+          <Grid minH="100vh" width="full">
             <GridItem
               position="fixed"
               left={0}
@@ -86,6 +75,7 @@ export const AppLayout = ({
               colSpan={{ base: 5 }}
               height="full"
               position="relative"
+              pb={16}
             >
               {breadcrumbs && <Breadcrumps breadcrumps={breadcrumbs} />}
               {children}
