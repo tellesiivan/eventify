@@ -3,7 +3,7 @@ import {
   BaseProfileCategories,
   ProfileInterestListItem,
 } from "@simplimods/types";
-import { Flex, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
+import { Button, Flex, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 import {
   selectCurrentAuthUser,
@@ -88,13 +88,28 @@ export const ManageUserProfileInterestSelectionTags = () => {
   ];
 
   return (
-    <Flex flexWrap="wrap">
-      {profileInterestArray.map((interestTag) => (
-        <ManageUserProfileInterestSelectionTag
-          interestTag={interestTag}
-          key={interestTag.interestName}
-        />
-      ))}
+    <Flex
+      flexWrap="wrap"
+      justifyContent={{
+        base: "unset",
+        lg: "space-between",
+      }}
+      flexDirection={{
+        base: "column",
+        lg: "row",
+      }}
+    >
+      <Flex flexWrap="wrap" mb={{ base: 10, lg: 0 }}>
+        {profileInterestArray.map((interestTag) => (
+          <ManageUserProfileInterestSelectionTag
+            interestTag={interestTag}
+            key={interestTag.interestName}
+          />
+        ))}
+      </Flex>
+      <Button rounded="full" variant="ghost" maxWidth="fit-content" ml="auto">
+        Submit
+      </Button>
     </Flex>
   );
 };

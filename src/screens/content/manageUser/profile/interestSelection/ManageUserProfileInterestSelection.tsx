@@ -26,7 +26,7 @@ export const ManageUserProfileInterestSelection = (
           my={2}
           title="Interest"
           description="Select and update your interests, helps us show you listings, events, and modifications related to your interest selection. "
-          mb={{ base: 8, lg: 4 }}
+          mb={{ base: 4 }}
         />
         <ManageUserProfileInterestSelectionTags />
       </Flex>
