@@ -30,7 +30,15 @@ export const UserBackgroundCoverImage = ({
 
   return (
     <>
-      <Box width="full" height={60} position="relative" overflow="hidden">
+      <Box
+        width="full"
+        height={{
+          base: 36,
+          lg: 60,
+        }}
+        position="relative"
+        overflow="hidden"
+      >
         {imageSrc ? (
           <Image
             rounded="md"

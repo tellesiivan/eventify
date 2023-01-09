@@ -1,5 +1,6 @@
 import {
   CombineUserProfileInformation,
+  UserAdminProfile,
   UserPublicProfile,
   UserSettings,
 } from "@simplimods/types";
@@ -47,6 +48,31 @@ export const profileApi = baseApiSlice.injectEndpoints({
       },
       providesTags: ["Membergraph"],
     }),
+    getUserAdminProfile: build.query<UserAdminProfile, UserUid>({
+      async queryFn({ uid }): Promise<any> {
+        try {
+          let queryData;
+          const userPublicProfileRef = collection(
+            firestoreDb,
+            "memberGraph",
+            uid,
+            "profile"
+          );
+          const querySnapshot = await getDocs(userPublicProfileRef);
+          querySnapshot.forEach((doc): UserAdminProfile => {
+            const combinedProfileData =
+              doc.data() as CombineUserProfileInformation;
+            return (queryData = combinedProfileData.admin);
+          });
+          return {
+            data: queryData,
+          };
+        } catch (error) {
+          return error;
+        }
+      },
+      providesTags: ["Membergraph"],
+    }),
     getUserCombineProfileInformation: build.query<
       CombineUserProfileInformation,
       UserUid
@@ -83,4 +109,6 @@ export const profileApi = baseApiSlice.injectEndpoints({
 export const {
   useGetUserPublicProfileQuery,
   useGetUserCombineProfileInformationQuery,
+  useLazyGetUserAdminProfileQuery,
+  useGetUserAdminProfileQuery,
 } = profileApi;

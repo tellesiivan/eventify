@@ -1,8 +1,11 @@
 import {
+  CombinedProfileCategories,
+  ForSalePartsPreview,
   SocialMediaLinks,
   UserContactInformation,
   UserLocation,
 } from "@simplimods/types";
+import { UserInterestCategories } from "@simplimods/types/api/UserInterestCategories";
 
 export interface UserPreviewEvents {
   eventId: number;
@@ -11,6 +14,7 @@ export interface UserPreviewEvents {
 }
 
 export interface UserPreviewVehicles {
+  vehicleCoverImgUrl: string;
   vehicleId: number;
   title: string;
   modificationCount: number;
@@ -38,11 +42,14 @@ export interface UserPublicProfile {
   socialMedia: SocialMediaLinks[] | null;
   followersAndFollowing: UserFollowing[] | null;
   contactInformation: UserContactInformation;
-  memberSinceTimestamp?: number;
+  partsForSale: ForSalePartsPreview[] | null;
+  profileCategory: CombinedProfileCategories;
+  memberSinceTimestamp: number | null;
 }
 
 export interface UserAdminProfile {
   pin: number | null;
+  userCategoryInterest: UserInterestCategories;
 }
 
 export type CombineUserProfileInformation = {

@@ -23,7 +23,6 @@ const components: Record<string, StyleConfig> = {
       }),
 
       //
-
       s1: (props: StyleFunctionProps | Record<string, any>) => ({
         fontSize: "md",
         fontWeight: "bold",
@@ -105,6 +104,24 @@ const components: Record<string, StyleConfig> = {
         rounded: "full",
         _hover: {
           bg: mode("wzp.200", "wzg.400")(props),
+        },
+      }),
+
+      /** Button variant that handles the styling of a button the floats/isSticky throughout the app */
+      float: (props: StyleFunctionProps | Record<string, any>) => ({
+        bg: mode("wzp.900", "secondary.700")(props),
+        color: mode("primary.100", "primary.400")(props),
+        mx: "auto",
+        px: 5,
+        py: 2,
+        letterSpacing: "sm",
+        fontSize: "sm",
+        boxShadow: "2xl",
+        dropShadow: "xl",
+        fontWeight: "semibold",
+        rounded: "full",
+        _hover: {
+          opacity: 0.85,
         },
       }),
     },
@@ -200,6 +217,29 @@ const components: Record<string, StyleConfig> = {
     },
     defaultProps: {
       variant: undefined, // null here
+    },
+  },
+  Tooltip: {
+    variants: {
+      t1: (props: StyleFunctionProps | Record<string, any>) => ({
+        bg: mode("primary.50", "secondary.800")(props),
+        color: mode("secondary.900", "primary.100")(props),
+        fontSize: "sm",
+        py: 2,
+        px: 3,
+        rounded: "sm",
+        dropShadow: "2xl",
+      }),
+    },
+  },
+  Tag: {
+    variants: {
+      clickable: (props: StyleFunctionProps | Record<string, any>) => ({
+        fontSize: "sm",
+        py: 2,
+        px: 3,
+        rounded: "full",
+      }),
     },
   },
 };

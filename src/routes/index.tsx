@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AuthLayout } from "../layout";
 import BaseNav from "../layout/BaseNav";
-import { useAppSelector } from "../redux/reduxHooks";
+import { useAppSelector } from "@simplimods/redux";
 
 import { LoginScreen, SignupScreen } from "../screens";
 import Feed from "../screens/feed/Feed";
@@ -23,7 +23,7 @@ const NavRoutes = (props: Props) => {
 
   return (
     <Routes>
-      {/* BaseNav: add a route below to include prelogin layout*/}
+      {/* BaseNav: add a route below to include pre login layout*/}
       <Route path="/" element={<BaseNav />}>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="/auth/login" element={<LoginScreen />} />

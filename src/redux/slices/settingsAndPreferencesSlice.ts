@@ -11,6 +11,7 @@ const initialState: SettingsAndPreferences = {
     isBusiness: false,
     canCreateEvents: false,
     internalId: null,
+    defaultToMobileLinkView: false,
   },
 };
 

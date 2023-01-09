@@ -61,14 +61,14 @@ const BaseNav = (props: Props) => {
     },
   ];
 
-  const logout = () => {
-    signOut(auth);
+  const logoutHandler = async () => {
+    await signOut(auth);
     dispatch(resetAuthState());
     navigate("/home");
     onClose();
   };
   const bg = useColorModeValue("secondary.900", "secondary.900");
-  const borderColor = useColorModeValue("transparent", "secondary.800");
+  const borderColor = useColorModeValue("transparent", "secondary.700");
 
   return (
     <>
@@ -134,7 +134,7 @@ const BaseNav = (props: Props) => {
         <Outlet />
       </Box>
 
-      {/* Will handle navigation + auth and quick profile settings */}
+      {/* TODO: Will handle navigation + auth and quick profile settings */}
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent bg={bg}>
@@ -149,7 +149,7 @@ const BaseNav = (props: Props) => {
             <Button
               variant="primary"
               mr={3}
-              onClick={logout}
+              onClick={logoutHandler}
               color="white"
               rounded="full"
             >

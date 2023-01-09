@@ -6,4 +6,5 @@ export const InitialSettingsConfig: UserSettings = {
   accountVerified: false,
   isBusiness: false,
   canCreateEvents: false,
+  defaultToMobileLinkView: false,
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Box,
@@ -6,6 +6,8 @@ import {
   FormControl,
   FormLabel,
   Input,
+  InputGroup,
+  InputRightElement,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -48,6 +50,8 @@ export default function SignUpForm() {
     password: "",
     verifyPassword: "",
   };
+  const [showPassword, setShowPassWord] = useState<boolean>(false);
+  const [showVerifyPassword, setShowVerifyPassWord] = useState<boolean>(false);
   const loginUserInLoadingState = useAppSelector(selectAuthLoading);
 
   // RTK
@@ -150,16 +154,32 @@ export default function SignUpForm() {
                 <FormLabel htmlFor="password" variant="base">
                   Password
                 </FormLabel>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  variant="v1"
-                  placeholder="Password..."
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.password}
-                />
+                <InputGroup
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    variant="v1"
+                    placeholder="Password..."
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password}
+                  />
+                  <InputRightElement width="4.5rem" h="full">
+                    <Button
+                      variant="unstyled"
+                      h="1.75rem"
+                      size="sm"
+                      onClick={() => setShowPassWord((prev) => !prev)}
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
 
                 <Text color="red.500" pt={1} ml={2} fontSize="sm">
                   <ErrorMessage name="password" />
@@ -169,17 +189,32 @@ export default function SignUpForm() {
                 <FormLabel htmlFor="verifyPassword" variant="base">
                   Verify Password
                 </FormLabel>
-                <Input
-                  id="verifyPassword"
-                  name="verifyPassword"
-                  type="password"
-                  variant="v1"
-                  placeholder="Verify Password..."
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.verifyPassword}
-                />
-
+                <InputGroup
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Input
+                    id="verifyPassword"
+                    name="verifyPassword"
+                    type={showVerifyPassword ? "text" : "password"}
+                    variant="v1"
+                    placeholder="Verify Password..."
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.verifyPassword}
+                  />
+                  <InputRightElement width="4.5rem" h="full">
+                    <Button
+                      variant="unstyled"
+                      h="1.75rem"
+                      size="sm"
+                      onClick={() => setShowVerifyPassWord((prev) => !prev)}
+                    >
+                      {showVerifyPassword ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
                 <Text color="red.500" pt={1} ml={2} fontSize="sm">
                   <ErrorMessage name="verifyPassword" />
                 </Text>

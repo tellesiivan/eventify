@@ -9,6 +9,7 @@ export interface UserSettings {
   canCreateEvents: boolean;
   hasPin: boolean;
   isBusiness: boolean;
+  defaultToMobileLinkView: boolean;
 }
 
 export interface UserSettingsWithIdRefGraph extends UserSettings {

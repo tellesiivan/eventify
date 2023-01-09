@@ -1,4 +1,8 @@
-import { UserAdminProfile, UserPublicProfile } from "@simplimods/types";
+import {
+  UndeclaredProfileCategories,
+  UserAdminProfile,
+  UserPublicProfile,
+} from "@simplimods/types";
 
 export const InitialPublicProfileConfig: UserPublicProfile = {
   coverImageSrc: null,
@@ -8,6 +12,9 @@ export const InitialPublicProfileConfig: UserPublicProfile = {
   followersAndFollowing: null,
   socialMedia: null,
   username: "",
+  partsForSale: null,
+  memberSinceTimestamp: null,
+  profileCategory: UndeclaredProfileCategories.NC,
   contactInformation: {
     phoneNumber: null,
     email: null,
@@ -20,4 +27,7 @@ export const InitialPublicProfileConfig: UserPublicProfile = {
 };
 export const InitialAdminProfileConfig: UserAdminProfile = {
   pin: null,
+  userCategoryInterest: {
+    interestList: [],
+  },
 };

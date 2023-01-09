@@ -4,6 +4,8 @@ import {
   FormControl,
   FormLabel,
   Input,
+  InputGroup,
+  InputRightElement,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -34,6 +36,7 @@ export default function LoginForm() {
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassWord] = useState<boolean>(false);
   const [isError, setIsError] = useState<string | null>(null);
 
   const initialValues: InitialValues = {
@@ -47,7 +50,7 @@ export default function LoginForm() {
       setIsLoading(true);
       const loginUser = await signInWithEmailAndPassword(auth, email, password);
 
-      if (!loginUser) throw new Error("Not able to login user");
+      if (!loginUser) new Error("Not able to login user");
 
       const userName = loginUser.user.displayName;
       const userEmail = loginUser.user.email;
@@ -126,18 +129,34 @@ export default function LoginForm() {
                 <FormLabel htmlFor="password" variant="base">
                   Password
                 </FormLabel>
-                <Input
-                  variant="v1"
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Password..."
-                  onChange={(event) =>
-                    handleInputChange("password", event.target.value)
-                  }
-                  onBlur={handleBlur}
-                  value={props.values.password}
-                />
+                <InputGroup
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Input
+                    variant="v1"
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password..."
+                    onChange={(event) =>
+                      handleInputChange("password", event.target.value)
+                    }
+                    onBlur={handleBlur}
+                    value={props.values.password}
+                  />
+                  <InputRightElement width="4.5rem" h="full">
+                    <Button
+                      variant="unstyled"
+                      h="1.75rem"
+                      size="sm"
+                      onClick={() => setShowPassWord((prev) => !prev)}
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
                 {errors.password && touched.password && (
                   <Text color="red.500" pt={1} ml={2} fontSize="sm">
                     <ErrorMessage name="password" />

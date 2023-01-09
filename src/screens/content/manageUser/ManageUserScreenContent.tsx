@@ -30,9 +30,9 @@ export const ManageUserScreenContent = ({
   });
 
   const manageUserContent: ManageUserContentSections = {
-    Profile: <ManageUserProfileContent />,
     Events: <Text variant="s1">MANAGE PAGE FOR : Events</Text>,
     Links: <Text variant="s1">MANAGE PAGE FOR : Links</Text>,
+    Profile: <ManageUserProfileContent />,
     Vehicles: <Text variant="base">MANAGE PAGE FOR : Vehicles</Text>,
   };
 

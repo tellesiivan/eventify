@@ -16,6 +16,7 @@ import {
   useGetUserCombineProfileInformationQuery,
 } from "@simplimods/redux";
 import React, { useState } from "react";
+import { ManageUserProfileInterestSelection } from "@simplimods/screens";
 
 interface ManageUserProfileContentProps {}
 
@@ -39,12 +40,7 @@ export const ManageUserProfileContent = (
     return <Skeleton h={60} />;
   }
 
-  // const formattedUserCreatedDate = userCreatedDate
-  //   ? formatDate(new Date(userCreatedDate as Date))
-  //   : null;
-
   if (!data) {
-    console.log("test");
     return <Skeleton h={60} />;
   }
 
@@ -53,7 +49,10 @@ export const ManageUserProfileContent = (
   const adminProfileData = data.admin;
   const userUID = data.uid;
 
-  console.log(data);
+  // console.log(
+  //   publicProfileData.memberSinceTimestamp &&
+  //     formatDate(new Date(publicProfileData.memberSinceTimestamp), "month-year")
+  // );
 
   // handle user zipcode update
   const zipcodeUpdateHandler = () => console.log(zipcodeInputValue);
@@ -161,6 +160,10 @@ export const ManageUserProfileContent = (
           }
         />
       </Card>
+
+      {/* ==== USER INTEREST SELECTION | Will be used to show user interest related content  ==== */}
+
+      <ManageUserProfileInterestSelection />
     </VStack>
   );
 };

@@ -1,4 +1,4 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import React from "react";
 
 interface LeftContentNavigationProps {
@@ -23,26 +23,9 @@ export const LeftContentNavigation = ({
       width="full"
       justifyContent="center"
     >
-      <HStack
-        _hover={{
-          opacity: 0.85,
-        }}
-        mx="auto"
-        cursor="pointer"
-        rounded="full"
-        px={5}
-        py={2}
-        bg="wzp.50"
-        border="1px"
-        borderColor="wzp.100"
-        onClick={onClickAction}
-      >
-        <Text variant="p1" color="wzp.800">
-          {label}
-        </Text>
-      </HStack>
+      <Button variant="float" onClick={onClickAction}>
+        {label}
+      </Button>
     </Box>
   );
 };
-
-export default LeftContentNavigation;
