@@ -17,7 +17,7 @@ export const TextHeader = ({
   return (
     <Flex
       flexDirection="column"
-      spacing={description ? 2 : 0}
+      spacing={description ? 3 : 0}
       {...props}
       width="full"
     >

@@ -9,9 +9,9 @@ import chakraTheme from "./theme/chakraTheme";
 
 import "@fontsource/space-grotesk";
 
-// TODO: Fix type env
+// TODO: Fix type .env
 const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID as string;
+const clientId = process.env.PUBLIC_URL;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

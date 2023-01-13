@@ -1,5 +1,5 @@
-import { BaseProfileCategories } from "@simplimods/types";
+import { MemberProfileCategoryInterestTag } from "@simplimods/types";
 
 export interface UserInterestCategories {
-  interestList: BaseProfileCategories[] | [];
+  interestList: MemberProfileCategoryInterestTag[] | [];
 }

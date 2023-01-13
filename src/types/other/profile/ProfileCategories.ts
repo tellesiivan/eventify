@@ -1,3 +1,5 @@
+import { MemberProfileCategoryInterestTag } from "@simplimods/types";
+
 export enum BaseProfileCategories {
   OFFROAD = "Off-Road",
   STREET = "Street",
@@ -27,11 +29,6 @@ export type CombinedProfileCategories =
   | ProfileInterestCategories["MOTORBIKE"];
 
 export type ProfileInterestListItem = {
-  interestName: BaseProfileCategories;
+  categoryTag: MemberProfileCategoryInterestTag;
   colorScheme: "wzp" | "wzy" | "wzb" | "wzg";
-  isSelected: boolean;
-  onSelectionHandler: (
-    value: BaseProfileCategories,
-    isSelected: boolean
-  ) => void;
 };

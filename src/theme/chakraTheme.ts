@@ -228,14 +228,13 @@ const components: Record<string, StyleConfig> = {
         py: 2,
         px: 3,
         rounded: "sm",
-        dropShadow: "2xl",
       }),
     },
   },
   Tag: {
     variants: {
       clickable: (props: StyleFunctionProps | Record<string, any>) => ({
-        fontSize: "sm",
+        fontSize: "xs",
         py: 2,
         px: 3,
         rounded: "full",

@@ -43,7 +43,10 @@ export const SharedModal = ({
       {...props}
     >
       <ModalOverlay />
-      <ModalContent bg={ThemeColorModeComponents("baseBg")} rounded="lg">
+      <ModalContent
+        bg={ThemeColorModeComponents("accentThemeBgDos")}
+        rounded="lg"
+      >
         <ModalHeader pb={0} fontSize="medium">
           {title}
         </ModalHeader>

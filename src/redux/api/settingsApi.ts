@@ -1,6 +1,6 @@
 import { UserSettings } from "@simplimods/types";
 import { collection, getDocs } from "firebase/firestore";
-import { firestoreDb } from "../../firebase/firebase.config";
+import { firestoreDb } from "@simplimods/firebase";
 import { baseApiSlice } from "@simplimods/redux/api/baseApi";
 
 interface GetUserBy {

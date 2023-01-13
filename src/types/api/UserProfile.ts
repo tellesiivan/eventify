@@ -1,6 +1,6 @@
 import {
-  CombinedProfileCategories,
   ForSalePartsPreview,
+  MemberProfileCategoryInterestTag,
   SocialMediaLinks,
   UserContactInformation,
   UserLocation,
@@ -31,20 +31,20 @@ export interface UserFollowing extends UserProfileOverview {
 }
 
 export interface UserPublicProfile {
-  coverImageSrc: string | null;
   avatarImageSrc: string | null;
-  location: UserLocation;
+  contactInformation: UserContactInformation;
+  coverImageSrc: string | null;
+  events: UserPreviewEvents[] | null;
   firstName?: string;
+  followersAndFollowing: UserFollowing[] | null;
   lastName?: string;
+  location: UserLocation;
+  memberSinceTimestamp: number | null;
+  partsForSale: ForSalePartsPreview[] | null;
+  profileCategory: MemberProfileCategoryInterestTag;
+  socialMedia: SocialMediaLinks[] | null;
   username: string;
   vehicles: UserPreviewVehicles[] | null;
-  events: UserPreviewEvents[] | null;
-  socialMedia: SocialMediaLinks[] | null;
-  followersAndFollowing: UserFollowing[] | null;
-  contactInformation: UserContactInformation;
-  partsForSale: ForSalePartsPreview[] | null;
-  profileCategory: CombinedProfileCategories;
-  memberSinceTimestamp: number | null;
 }
 
 export interface UserAdminProfile {

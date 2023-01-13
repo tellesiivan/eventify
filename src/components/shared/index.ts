@@ -9,3 +9,4 @@ export * from "./Skeleton";
 export * from "./TextHeader";
 export * from "./ThemeToggler";
 export * from "./ShareDrawer";
+export * from "./CustomToastCard";

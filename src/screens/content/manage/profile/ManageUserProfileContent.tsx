@@ -14,9 +14,12 @@ import {
   selectCurrentAuthUser,
   useAppSelector,
   useGetUserCombineProfileInformationQuery,
+  useLazyGetUserLocationByZipcodeQuery,
+  useUpdateUserLocationMutation,
 } from "@simplimods/redux";
+import { ManageUserProfileInterestAndCategorySelection } from "@simplimods/screens";
 import React, { useState } from "react";
-import { ManageUserProfileInterestSelection } from "@simplimods/screens";
+import { BaseApiRoutes } from "@simplimods/types";
 
 interface ManageUserProfileContentProps {}
 
@@ -26,18 +29,28 @@ export const ManageUserProfileContent = (
   const [zipcodeInputValue, setZipcodeInputValue] = useState<string>("");
   const authUser = useAppSelector(selectCurrentAuthUser);
 
+  // RTK === User profile information
   const { data, isError, isLoading } = useGetUserCombineProfileInformationQuery(
     {
-      uid: authUser.uid ?? "",
+      uid: authUser.uid ? authUser.uid : "",
     }
   );
+
+  // RTK === User location
+  const [searchUserLocation, { isLoading: isUserLocationRequestLoading }] =
+    useLazyGetUserLocationByZipcodeQuery();
+
+  const [
+    updateUsersLocation,
+    { isError: isUpdateLocationError, isLoading: isUpdateLocationIsLoading },
+  ] = useUpdateUserLocationMutation();
 
   if (isError) {
     return <Skeleton h={60} />;
   }
 
   if (isLoading) {
-    return <Skeleton h={60} />;
+    return <Skeleton screenToMock={"ManageUserProfile"} />;
   }
 
   if (!data) {
@@ -49,13 +62,26 @@ export const ManageUserProfileContent = (
   const adminProfileData = data.admin;
   const userUID = data.uid;
 
-  // console.log(
-  //   publicProfileData.memberSinceTimestamp &&
-  //     formatDate(new Date(publicProfileData.memberSinceTimestamp), "month-year")
-  // );
-
   // handle user zipcode update
-  const zipcodeUpdateHandler = () => console.log(zipcodeInputValue);
+  const zipcodeUpdateHandler = async () => {
+    try {
+      const locationSearchResponse = await searchUserLocation({
+        baseApiRoute: BaseApiRoutes.ZIPPOPOTAM,
+        zipcode: +zipcodeInputValue,
+        country: "us",
+      }).unwrap();
+      if (userUID) {
+        await updateUsersLocation({
+          userUid: userUID,
+          locationData: locationSearchResponse,
+          existingData: publicProfileData,
+        });
+      }
+      setZipcodeInputValue("");
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <VStack p={2} width="full" spacing={4} maxWidth="container.xl" mx="auto">
@@ -119,10 +145,12 @@ export const ManageUserProfileContent = (
         />
         <InputWithSubmitButton
           placeholder={
-            publicProfileData.location.zipcode
-              ? `Edit Zipcode ${publicProfileData.location.zipcode}...`
+            publicProfileData.location.city &&
+            publicProfileData.location.stateAbbreviation
+              ? `${publicProfileData.location.city}, ${publicProfileData.location.stateAbbreviation}`
               : "Zipcode..."
           }
+          isLoading={isUpdateLocationIsLoading || isUserLocationRequestLoading}
           onSubmitClick={zipcodeUpdateHandler}
           setInputValue={setZipcodeInputValue}
           inputValue={zipcodeInputValue}
@@ -161,9 +189,11 @@ export const ManageUserProfileContent = (
         />
       </Card>
 
+      {/* ==== USER PROFILE CATEGORY SELECTION | User selects what time of category they identify with  ==== */}
       {/* ==== USER INTEREST SELECTION | Will be used to show user interest related content  ==== */}
-
-      <ManageUserProfileInterestSelection />
+      <ManageUserProfileInterestAndCategorySelection
+        currentProfileCategory={publicProfileData.profileCategory}
+      />
     </VStack>
   );
 };

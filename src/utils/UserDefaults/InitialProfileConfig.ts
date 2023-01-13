@@ -14,7 +14,10 @@ export const InitialPublicProfileConfig: UserPublicProfile = {
   username: "",
   partsForSale: null,
   memberSinceTimestamp: null,
-  profileCategory: UndeclaredProfileCategories.NC,
+  profileCategory: {
+    name: UndeclaredProfileCategories.NC,
+    status: "inactive",
+  },
   contactInformation: {
     phoneNumber: null,
     email: null,

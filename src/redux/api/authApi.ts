@@ -14,7 +14,7 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { firestoreDb } from "../../firebase/firebase.config";
+import { firestoreDb } from "@simplimods/firebase";
 import { baseApiSlice } from "@simplimods/redux/api/baseApi";
 
 interface newUser {

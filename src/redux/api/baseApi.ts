@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 
 export const baseApiSlice = createApi({
-  tagTypes: ["Settings", "Membergraph"],
-  baseQuery: fakeBaseQuery(),
+  tagTypes: ["Settings", "Membergraph", "Location"],
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https:",
 
-  endpoints: () => ({}),
+  }),
+
+  endpoints: (build) => ({}),
 });

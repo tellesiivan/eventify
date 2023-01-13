@@ -7,6 +7,7 @@ import {
   DrawerProps,
 } from "@chakra-ui/react";
 import React from "react";
+import { ThemeColorModeComponents } from "@simplimods/theme";
 
 interface ShareDrawerProps extends DrawerProps {
   title: string;
@@ -27,7 +28,10 @@ export const ShareDrawer = ({
   return (
     <Drawer placement={placement} onClose={onClose} isOpen={isOpen} {...props}>
       <DrawerOverlay />
-      <DrawerContent borderTopRadius="2xl">
+      <DrawerContent
+        borderTopRadius="2xl"
+        backgroundColor={ThemeColorModeComponents("accentThemeBg")}
+      >
         <DrawerHeader borderBottomWidth="1px">{title}</DrawerHeader>
         <DrawerBody>{children}</DrawerBody>
       </DrawerContent>
