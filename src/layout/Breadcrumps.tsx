@@ -29,6 +29,7 @@ export const Breadcrumps = ({ breadcrumps }: BreadcrumpsProps) => {
       px={2}
       borderBottom="1px"
       py={3}
+      backgroundColor={ThemeColorModeComponents("baseBg")}
       borderColor={ThemeColorModeComponents("borderColor")}
     >
       {breadcrumps.map((breadcrump) => (

@@ -4,7 +4,6 @@ import {
   UserLocation,
   UserLocationSearchResult,
   userProfile,
-  UserPublicProfile,
 } from "@simplimods/types";
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -27,17 +26,16 @@ export const locationApi = baseApiSlice.injectEndpoints({
         stateAbbreviation: data.places[0]["state abbreviation"],
       }),
 
-      providesTags: ["Location", "Membergraph"],
+      providesTags: ["Location", "MemberGraph"],
     }),
     updateUserLocation: build.mutation<
       string,
       {
         userUid: string;
         locationData: UserLocation;
-        existingData: UserPublicProfile;
       }
     >({
-      async queryFn({ userUid, locationData, existingData }): Promise<any> {
+      async queryFn({ userUid, locationData }): Promise<any> {
         let data: string = "";
         const userProfileRef = doc(
           userProfile,
@@ -46,10 +44,8 @@ export const locationApi = baseApiSlice.injectEndpoints({
 
         try {
           await updateDoc(userProfileRef, {
-            public: {
-              ...existingData,
-              location: locationData,
-            },
+            // @ts-ignore
+            "public.location": locationData,
           });
           data = "success";
 
@@ -60,7 +56,7 @@ export const locationApi = baseApiSlice.injectEndpoints({
           return { error: err };
         }
       },
-      invalidatesTags: ["Location", "Membergraph"],
+      invalidatesTags: ["Location", "MemberGraph"],
     }),
   }),
   overrideExisting: false,

@@ -3,6 +3,7 @@ import { authApi } from "./api/authApi";
 import authReducer from "./slices/authSlice";
 import userInterfaceReducer from "./slices/UserInterfaceSlice";
 import settingsAndPreferencesReducer from "./slices/settingsAndPreferencesSlice";
+import { baseApiSlice } from "@simplimods/redux/api/baseApi";
 
 export const store = configureStore({
   reducer: {
@@ -16,10 +17,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat([
-      // Add the authApi middleware to the store
-      authApi.middleware,
-    ]),
+    }).concat([baseApiSlice.middleware]),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,6 +1,6 @@
 import { ThemeColorModeComponents } from "@simplimods/theme";
 import React, { useState } from "react";
-import { Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
+import { Avatar, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
 import {
   MemberProfileCategoryInterestTag,
   ProfileInterestListItem,
@@ -49,6 +49,17 @@ export const ManageUserProfileSelectionTagItem = ({
       backgroundColor={isSelected ? `${tagData.colorScheme}.100` : activeTagBg}
       color={isSelected ? `${tagData.colorScheme}.900` : activeTagColor}
     >
+      {isSelected && (
+        <Avatar
+          backgroundColor={`${tagData.colorScheme}.50`}
+          color={"secondary.900"}
+          mr={1.5}
+          variant="nameBase"
+          ml={-2}
+          size="xs"
+          name={tagData.categoryTag.name}
+        />
+      )}
       <TagLabel>{tagData.categoryTag.name}</TagLabel>
       {isSelected && <TagCloseButton />}
     </Tag>

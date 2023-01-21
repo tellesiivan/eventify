@@ -30,6 +30,7 @@ export const InitialPublicProfileConfig: UserPublicProfile = {
 };
 export const InitialAdminProfileConfig: UserAdminProfile = {
   pin: null,
+  assetsReference: [],
   userCategoryInterest: {
     interestList: [],
   },

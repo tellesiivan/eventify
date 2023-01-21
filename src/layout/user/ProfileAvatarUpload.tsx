@@ -1,6 +1,11 @@
-import { Avatar, Box, Input, useDisclosure, VStack } from "@chakra-ui/react";
+import { Box, Img, Input, useDisclosure } from "@chakra-ui/react";
 import { ImageUploadWithPreview, Modal } from "@simplimods/components";
 import { useSelectFile } from "@simplimods/hooks";
+import {
+  selectCurrentAuthUserUid,
+  useAppSelector,
+  useUploadProfileAvatarImageMutation,
+} from "@simplimods/redux";
 import React, { useEffect, useRef } from "react";
 
 interface ProfileAvatarUploadProps {
@@ -14,6 +19,13 @@ export const ProfileAvatarUpload = ({
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { selectedFile, setSelectedFile, onSelectedFile } = useSelectFile();
 
+  // Selectors
+  const userUid = useAppSelector(selectCurrentAuthUserUid);
+
+  // RTK: Upload Profile avatar image
+  const [uploadAvatarImage, { isLoading }] =
+    useUploadProfileAvatarImageMutation();
+
   // TODO: Fix bug when deleting an uploaded image and re-uploading the same image previously uploaded does not show
   const onDeleteImageHandler = () => {
     setSelectedFile("");
@@ -26,12 +38,29 @@ export const ProfileAvatarUpload = ({
     }
   }, [onOpen, selectedFile]);
 
+  const handleUserProfileAvatarUpload = async () => {
+    try {
+      if (userUid) {
+        await uploadAvatarImage({
+          userUid,
+          imageDataUrl: selectedFile,
+        });
+      }
+      onClose();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
-    <VStack>
+    <React.Fragment>
       {userAvatar ? (
-        <Avatar
+        <Img
           src={userAvatar}
-          size="xl"
+          h={24}
+          w={24}
+          rounded="full"
+          loading="lazy"
           _hover={{
             opacity: 0.76,
           }}
@@ -62,13 +91,15 @@ export const ProfileAvatarUpload = ({
       />
       <Modal isOpen={isOpen} onClose={onClose} title="Update your avatar">
         <ImageUploadWithPreview
-          onUploadSubmit={() => console.log("Upload")}
+          onUploadSubmit={handleUserProfileAvatarUpload}
           selectedImageUrl={selectedFile}
           onDeleteClick={onDeleteImageHandler}
           onUploadChange={onSelectedFile}
+          isCircular={true}
+          isLoading={isLoading}
         />
       </Modal>
-    </VStack>
+    </React.Fragment>
   );
 };
 

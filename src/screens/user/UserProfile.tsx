@@ -9,10 +9,10 @@ import { useGetUserQuery } from "@simplimods/redux";
 type UserProfileProps = {};
 
 const UserProfile = (props: UserProfileProps) => {
-  const { username } = useParams();
+  const {username} = useParams();
   const navigate = useNavigate();
 
-  const { isError, isLoading, data } = useGetUserQuery({
+  const {isError, isLoading, data} = useGetUserQuery({
     by: "username",
     user: username,
   });
@@ -22,25 +22,27 @@ const UserProfile = (props: UserProfileProps) => {
   }
 
   if (isLoading || isLoading) {
-    return <Skeleton height={96} />;
+    return <Skeleton height={96}/>;
   }
 
   if (!data && !isLoading) {
     return <Box>no user found</Box>;
   }
 
+  console.log(data)
+
   return (
-    <AppLayout>
-      <Box>
-        <Box h={48} w="full" bg="red.600" />
+      <AppLayout>
         <Box>
-          {data?.username === username
-            ? "is able to edit - owns this profile - sunday"
-            : "not able to edit"}
-          {}
+          <Box h={48} w="full" bg="red.600"/>
+          <Box>
+            {data?.username === username
+                ? "is able to edit - owns this profile - sunday"
+                : "not able to edit"}
+            {}
+          </Box>
         </Box>
-      </Box>
-    </AppLayout>
+      </AppLayout>
   );
 };
 

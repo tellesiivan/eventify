@@ -1,4 +1,9 @@
 import { Button, HStack, PinInput, PinInputField } from "@chakra-ui/react";
+import {
+  selectCurrentAuthUserUid,
+  useAppSelector,
+  useUpdateUsersPrivatePinMutation,
+} from "@simplimods/redux";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 import React, { useState } from "react";
 
@@ -16,6 +21,13 @@ export const PrivatePinInputWithSubmitButton = ({
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [pin, setIPin] = useState<string>(initialPin ?? "");
 
+  // RTK: User Private Pin mutation
+  const [addUsersPrivatePin, { isLoading, isError }] =
+    useUpdateUsersPrivatePinMutation();
+
+  // selectors
+  const userUid = useAppSelector(selectCurrentAuthUserUid);
+
   const handlePinResetOrClose = () => {
     if (initialPin) {
       setIPin(initialPin);
@@ -24,20 +36,28 @@ export const PrivatePinInputWithSubmitButton = ({
     }
     setIsDisabled(true);
   };
-  const handlePinSubmission = () => {
-    console.log(pin);
+  const handlePinSubmission = async () => {
+    try {
+      await addUsersPrivatePin({
+        userUid: userUid ?? "",
+        privatePin: Number(pin),
+        hasPin: true,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <HStack
       width={{
         base: "100%",
-        md: "auto",
+        lg: "auto",
       }}
       spacing={4}
       justifyContent={{
         base: "space-between",
-        md: "unset",
+        lg: "unset",
       }}
     >
       <HStack>
@@ -66,7 +86,12 @@ export const PrivatePinInputWithSubmitButton = ({
       </HStack>
       <HStack spacing={2}>
         {pin.length === 4 && pin !== initialPin ? (
-          <Button my="auto" onClick={handlePinSubmission} variant="unstyled">
+          <Button
+            my="auto"
+            onClick={handlePinSubmission}
+            variant="ghostOne"
+            isLoading={isLoading}
+          >
             Save
           </Button>
         ) : (
@@ -76,7 +101,7 @@ export const PrivatePinInputWithSubmitButton = ({
                 ? setIsDisabled((prev) => !prev)
                 : handlePinResetOrClose()
             }
-            variant="unstyled"
+            variant="ghostOne"
             color={ThemeColorModeComponents("reverseBaseBg")}
           >
             {isDisabled ? "Edit" : initialPin ? "Close" : "Reset"}

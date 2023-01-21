@@ -18,8 +18,8 @@ export const ThemeColorModeComponents = (
   const toastBg = useColorModeValue("primary.300", "secondary.700");
   const reverseBaseBg = useColorModeValue("secondary.900", "primary.50");
   const borderColor = useColorModeValue("primary.500", "secondary.700");
-  const accentThemeBg = useColorModeValue("primary.400", "secondary.800");
-  const accentThemeBgDos = useColorModeValue("primary.500", "secondary.700");
+  const accentThemeBg = useColorModeValue("primary.100", "secondary.800");
+  const accentThemeBgDos = useColorModeValue("primary.400", "secondary.700");
   const highlight = useColorModeValue("wzp.700", "wzp.500");
 
   //

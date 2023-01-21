@@ -4,3 +4,6 @@ export * from "./profile/interestAndCategorySelection/ManageUserProfileInterestA
 export * from "./profile/interestAndCategorySelection/ManageUserProfileInterestSelectionTags";
 export * from "./profile/interestAndCategorySelection/ManageUserProfileSelectionTagItem";
 export * from "./profile/interestAndCategorySelection/ManageUserProfileCategorySelection";
+export * from "./profile/ManageUserProfileLocation";
+export * from "./profile/ManageUserProfilePin";
+export * from "./profile/ManageUserProfileCoverImageUpload";

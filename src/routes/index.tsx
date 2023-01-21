@@ -12,9 +12,7 @@ import ManageUserScreen from "../screens/user/auth/ManageUserScreen";
 import UserProfile from "../screens/user/UserProfile";
 import ProtectedRoute from "./ProtectedRoute";
 
-type Props = {};
-
-const NavRoutes = (props: Props) => {
+const NavRoutes = () => {
   const isAuthUser = useAppSelector((state) => state.auth.user.email);
   const isAuthStateLoading = useAppSelector(
     (state) => state.auth.isAuthLoading
@@ -34,6 +32,9 @@ const NavRoutes = (props: Props) => {
           <Route path="/home" element={<Feed />} />
         </Route>
 
+        <Route path="/:username" element={<UserProfile />} />
+        <Route path="*" element={<Navigate to="/" />} />
+        {/*  Manage user layout */}
         <Route
           path="/manage"
           element={
@@ -43,9 +44,6 @@ const NavRoutes = (props: Props) => {
             />
           }
         />
-
-        <Route path="/:username" element={<UserProfile />} />
-        <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>
   );

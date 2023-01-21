@@ -30,6 +30,12 @@ export interface UserFollowing extends UserProfileOverview {
   type: "Follower" | "Following";
 }
 
+export interface UserProfileSourceReference {
+  bucketReference: string;
+  path: string;
+  type: "avatar" | "coverImage";
+}
+
 export interface UserPublicProfile {
   avatarImageSrc: string | null;
   contactInformation: UserContactInformation;
@@ -49,6 +55,7 @@ export interface UserPublicProfile {
 
 export interface UserAdminProfile {
   pin: number | null;
+  assetsReference: UserProfileSourceReference[] | [];
   userCategoryInterest: UserInterestCategories;
 }
 

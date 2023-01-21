@@ -5,7 +5,7 @@ import {
   DocumentData,
 } from "firebase/firestore";
 import { firestoreDb } from "@simplimods/firebase";
-import { CombineUserProfileInformation } from "@simplimods/types";
+import { CombineUserProfileInformation, UserSettings } from "@simplimods/types";
 
 const createCollection = <T = DocumentData>(initialCollectionName: string) => {
   return collection(
@@ -16,3 +16,4 @@ const createCollection = <T = DocumentData>(initialCollectionName: string) => {
 
 export const userProfile =
   createCollection<CombineUserProfileInformation>("memberGraph");
+export const userSettings = createCollection<UserSettings>("memberGraph");

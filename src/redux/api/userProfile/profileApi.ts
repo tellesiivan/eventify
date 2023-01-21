@@ -2,24 +2,14 @@ import {
   CombineUserProfileInformation,
   UserAdminProfile,
   UserPublicProfile,
-  UserSettings,
 } from "@simplimods/types";
 import { collection, getDocs } from "firebase/firestore";
 import { firestoreDb } from "@simplimods/firebase";
 import { baseApiSlice } from "@simplimods/redux/api/baseApi";
 
-interface GetUserBy {
-  user: string | undefined;
-  by: "email" | "username";
-}
-
 type UserUid = {
   uid: string;
 };
-
-interface UserSettingsGraph extends UserSettings {
-  internalId: string;
-}
 
 export const profileApi = baseApiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -46,7 +36,7 @@ export const profileApi = baseApiSlice.injectEndpoints({
           return error;
         }
       },
-      providesTags: ["Membergraph"],
+      providesTags: ["MemberGraph"],
     }),
     getUserAdminProfile: build.query<UserAdminProfile, UserUid>({
       async queryFn({ uid }): Promise<any> {
@@ -71,7 +61,7 @@ export const profileApi = baseApiSlice.injectEndpoints({
           return error;
         }
       },
-      providesTags: ["Membergraph"],
+      providesTags: ["MemberGraph"],
     }),
     getUserCombineProfileInformation: build.query<
       CombineUserProfileInformation,
@@ -102,7 +92,7 @@ export const profileApi = baseApiSlice.injectEndpoints({
           return error;
         }
       },
-      providesTags: ["Membergraph"],
+      providesTags: ["MemberGraph"],
     }),
   }),
 });

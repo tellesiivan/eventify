@@ -15,7 +15,9 @@ interface ImageUploadWithPreviewProps {
   onUploadChange: (event: { target: HTMLInputElement }) => void;
   onDeleteClick: React.Dispatch<React.SetStateAction<string>>;
   size?: number;
-  onUploadSubmit: () => void;
+  onUploadSubmit?: (imageSrc: string) => Promise<void>;
+  isCircular?: boolean;
+  isLoading?: boolean;
 }
 
 export const ImageUploadWithPreview = ({
@@ -24,26 +26,29 @@ export const ImageUploadWithPreview = ({
   onUploadSubmit,
   onDeleteClick,
   size,
+  isCircular = false,
+  isLoading = false,
 }: ImageUploadWithPreviewProps) => {
   return (
     <VStack width="full">
       <Flex
-        width="full"
+        width={isCircular ? 48 : "full"}
         justifyContent="center"
         alignItems="center"
         border="1px"
         borderColor={ThemeColorModeComponents("borderColor")}
-        minHeight={size ?? 48}
+        minHeight={isCircular ? 48 : size ?? 48}
         bg={ThemeColorModeComponents("accentThemeBg")}
         _hover={{
           opacity: selectedImageUrl ? 1 : 0.7,
         }}
-        rounded="lg"
+        rounded={isCircular ? "full" : "lg"}
         position="relative"
         overflow="hidden"
       >
         {selectedImageUrl ? (
           <Image
+            loading="lazy"
             src={selectedImageUrl}
             position="absolute"
             top={0}
@@ -72,10 +77,22 @@ export const ImageUploadWithPreview = ({
       </Flex>
       {selectedImageUrl && (
         <HStack width="full" spacing={2} pt={4}>
-          <Button flex={1} variant="solid" onClick={() => onDeleteClick("")}>
+          <Button
+            flex={1}
+            variant="solid"
+            onClick={() => onDeleteClick("")}
+            disabled={isLoading}
+          >
             Delete
           </Button>
-          <Button flex={1} variant="solid" onClick={onUploadSubmit}>
+          <Button
+            flex={1}
+            variant="solid"
+            onClick={() =>
+              onUploadSubmit ? onUploadSubmit(selectedImageUrl) : undefined
+            }
+            isLoading={isLoading}
+          >
             Upload
           </Button>
         </HStack>

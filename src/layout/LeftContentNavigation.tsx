@@ -17,7 +17,7 @@ export const LeftContentNavigation = ({
       right={0}
       left={{
         base: 0,
-        md: 36,
+        md: 20,
       }}
       display="flex"
       width="full"

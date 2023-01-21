@@ -41,22 +41,22 @@ const ManageUserScreen = (props: UserProfileProps) => {
 
   const sideNavActions: NavActionsItem[] = [
     {
-      icon: <Icon iconName="User" />,
+      icon: <Icon iconName="User" h={5} w={5} />,
       name: "Profile",
       onPressAction: () => updateActiveNavTabHandler("Profile"),
     },
     {
-      icon: <Icon iconName="CalendarOutline" />,
+      icon: <Icon iconName="CalendarOutline" h={5} w={5} />,
       name: "Events",
       onPressAction: () => updateActiveNavTabHandler("Events"),
     },
     {
-      icon: <Icon iconName="CarOutline" />,
+      icon: <Icon iconName="CarOutline" h={5} w={5} />,
       name: "Vehicles",
       onPressAction: () => updateActiveNavTabHandler("Vehicles"),
     },
     {
-      icon: <Icon iconName="LinkAddOutline" />,
+      icon: <Icon iconName="LinkAddOutline" h={5} w={5} />,
       name: "Links",
       onPressAction: () => updateActiveNavTabHandler("Links"),
     },

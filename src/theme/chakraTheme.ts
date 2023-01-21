@@ -85,7 +85,15 @@ const components: Record<string, StyleConfig> = {
       base: (props: StyleFunctionProps | Record<string, any>) => ({
         bg: mode("primary", "turquoise")(props),
       }),
+      ghostOne: (props: StyleFunctionProps | Record<string, any>) => ({
+        rounded: "full",
+        fontSize: "sm",
+        color: mode("secondary.600", "secondary.50")(props),
 
+        _hover: {
+          bg: mode("primary.50", "secondary.900")(props),
+        },
+      }),
       secondary: (props: StyleFunctionProps | Record<string, any>) => ({
         bg: mode("secondary.900", "primary.100")(props),
         color: mode("primary.100", "secondary.600")(props),
@@ -212,6 +220,19 @@ const components: Record<string, StyleConfig> = {
     variants: {
       base: (props: StyleFunctionProps | Record<string, any>) => ({
         color: mode("secondary.200", "primary.400")(props),
+        fontSize: { base: "sm", lg: "xs" },
+      }),
+    },
+    defaultProps: {
+      variant: undefined, // null here
+    },
+  },
+  Avatar: {
+    sizes: {},
+    variants: {
+      nameBase: (props: StyleFunctionProps | Record<string, any>) => ({
+        color: mode("secondary.900", "primary.100")(props),
+        backgroundColor: mode("primary.100", "secondary.900")(props),
         fontSize: { base: "sm", lg: "xs" },
       }),
     },

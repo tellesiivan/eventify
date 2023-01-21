@@ -55,6 +55,9 @@ export const selectCurrentAuthUser = (state: RootState): User =>
   state.auth.user;
 export const selectCurrentAuthUsername = (state: RootState) =>
   state.auth.user.userName;
+
+export const selectCurrentAuthUserUid = (state: RootState) =>
+  state.auth.user.uid;
 export const selectAuthLoading = (state: RootState) => state.auth.isAuthLoading;
 
 export default authSlice.reducer;

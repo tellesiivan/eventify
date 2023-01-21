@@ -26,7 +26,7 @@ export const Skeleton = ({
           <SkeletonText
             rounded="full"
             maxWidth={72}
-            skeletonHeight="4"
+            skeletonHeight="3"
             noOfLines={2}
             startColor={ThemeColorModeComponents("accentThemeBg")}
             endColor={ThemeColorModeComponents("accentThemeBgDos")}
@@ -36,7 +36,7 @@ export const Skeleton = ({
               key={item}
               rounded="xl"
               width="full"
-              h={item === 1 ? 60 : 36}
+              h={item === 1 ? 48 : 36}
               speed={0.9}
               startColor={ThemeColorModeComponents("accentThemeBg")}
               endColor={ThemeColorModeComponents("accentThemeBgDos")}

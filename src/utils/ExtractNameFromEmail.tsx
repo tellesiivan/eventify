@@ -10,4 +10,3 @@ export const ExtractNameFromEmail = ({ email }: ExtractNameFromEmailProps) => {
 
   return username;
 };
-export default ExtractNameFromEmail;

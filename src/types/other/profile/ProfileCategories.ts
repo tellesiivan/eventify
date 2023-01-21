@@ -30,5 +30,5 @@ export type CombinedProfileCategories =
 
 export type ProfileInterestListItem = {
   categoryTag: MemberProfileCategoryInterestTag;
-  colorScheme: "wzp" | "wzy" | "wzb" | "wzg";
+  colorScheme: "wzp" | "wzy" | "wzb" | "wzg" | "warning";
 };

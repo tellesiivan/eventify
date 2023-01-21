@@ -1,5 +1,5 @@
 import type { StyleProps } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 import React from "react";
 
@@ -15,7 +15,7 @@ export const Card = ({
 }: CardProps) => {
   if (responsiveFlexCard && children) {
     return (
-      <Box
+      <Stack
         width="full"
         p={2}
         bg={ThemeColorModeComponents("accentThemeBg")}
@@ -33,13 +33,13 @@ export const Card = ({
       >
         {children[0 as keyof typeof children]}
         {children[1 as keyof typeof children]}
-      </Box>
+      </Stack>
     );
   }
   return (
-    <Box p={2} bg={ThemeColorModeComponents("accentThemeBg")} {...props}>
+    <Stack p={2} bg={ThemeColorModeComponents("accentThemeBg")} {...props}>
       {children}
-    </Box>
+    </Stack>
   );
 };
 

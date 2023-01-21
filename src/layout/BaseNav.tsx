@@ -16,7 +16,7 @@ import {
   Image,
   Input,
   Link,
-  Spinner,
+  SkeletonText,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -25,8 +25,10 @@ import { ThemeToggler } from "@simplimods/components/shared";
 import { auth } from "@simplimods/firebase";
 import {
   resetAuthState,
+  selectCurrentAuthUser,
   useAppDispatch,
   useAppSelector,
+  useGetUserPublicProfileQuery,
 } from "@simplimods/redux";
 import { signOut } from "firebase/auth";
 import { Link as ReachLink, Outlet, useNavigate } from "react-router-dom";
@@ -37,9 +39,13 @@ const BaseNav = (props: Props) => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isAuthLoading = useAppSelector((state) => state.auth.isAuthLoading);
-  const authUser = useAppSelector((state) => state.auth.user.email);
+  const authUser = useAppSelector(selectCurrentAuthUser);
 
   const dispatch = useAppDispatch();
+
+  const { data, isLoading } = useGetUserPublicProfileQuery({
+    uid: authUser.uid ?? "",
+  });
 
   type NavLink = {
     label: string;
@@ -67,7 +73,7 @@ const BaseNav = (props: Props) => {
     navigate("/home");
     onClose();
   };
-  const bg = useColorModeValue("secondary.900", "secondary.900");
+  const bg = useColorModeValue("secondary.800", "secondary.800");
   const borderColor = useColorModeValue("transparent", "secondary.700");
 
   return (
@@ -98,18 +104,18 @@ const BaseNav = (props: Props) => {
             src="https://www.simplimods.app/_next/image?url=%2Flogo-512.png&w=48&q=75"
           />
           <Flex alignItems="center" justifyItems="center" gap={3}>
-            {isAuthLoading ? (
-              <Spinner size="md" color="wzp.500" />
+            {isAuthLoading || isLoading ? (
+              <SkeletonText />
             ) : authUser ? (
               <>
                 <ThemeToggler />
                 <Avatar
-                  name={authUser}
+                  name={authUser.userName}
                   size="sm"
                   bg="wzp.400"
                   color="primary.50"
                   cursor="pointer"
-                  // src={user.picture}
+                  src={data?.avatarImageSrc ?? undefined}
                   onClick={onOpen}
                 />
               </>

@@ -62,7 +62,7 @@ export const AppLayout = ({
               left={0}
               borderRight="1px"
               borderColor={ThemeColorModeComponents("borderColor")}
-              minWidth={72}
+              minWidth={24}
               display={{ base: "none", md: "block" }}
               rowSpan={4}
               colSpan={1}
@@ -71,7 +71,7 @@ export const AppLayout = ({
               {leftContent}
             </GridItem>
             <GridItem
-              ml={{ base: 0, md: 72 }}
+              ml={{ base: 0, md: 24 }}
               colSpan={{ base: 5 }}
               height="full"
               position="relative"

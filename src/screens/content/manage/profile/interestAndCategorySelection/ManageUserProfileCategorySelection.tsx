@@ -1,43 +1,58 @@
 import React, { useState } from "react";
 import { Card, TextHeader } from "@simplimods/components";
-import { Button, Flex, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
+import { Avatar, Button, Flex, Tag, TagLabel } from "@chakra-ui/react";
 import {
   CombinedProfileCategories,
   MemberProfileCategoryInterestTag,
-  ProfileInterestListItem,
   UndeclaredProfileCategories,
 } from "@simplimods/types";
 import { ThemeColorModeComponents } from "@simplimods/theme";
 import { useCustomToast } from "@simplimods/hooks";
+import { profileCategoryInterestArray } from "@simplimods/utils";
+import {
+  selectCurrentAuthUserUid,
+  useAppSelector,
+  useUpdateUsersProfileCategoryMutation,
+} from "@simplimods/redux";
 
 interface ManageUserProfileCategorySelectionProps {
   currentProfileCategory: MemberProfileCategoryInterestTag;
-  profileCategoriesArray: ProfileInterestListItem[];
 }
 
 export const ManageUserProfileCategorySelection = ({
   currentProfileCategory,
-  profileCategoriesArray,
 }: ManageUserProfileCategorySelectionProps) => {
   const bottomBorderColor = ThemeColorModeComponents("borderColor");
   const activeTagBg = ThemeColorModeComponents("accentThemeBgDos");
   const activeTagColor = ThemeColorModeComponents("reverseBaseBg");
 
-  // Custom Toast Hook
-  const { neutralToast } = useCustomToast({ position: "bottom-left" });
+  const userUid = useAppSelector(selectCurrentAuthUserUid);
 
+  // Custom Toast Hook
+  const { successToast, errorToast } = useCustomToast({
+    position: "bottom-left",
+  });
+
+  // RTK: Update users profile category
+  const [updateUsersProfileCategory, { isLoading, isError }] =
+    useUpdateUsersProfileCategoryMutation();
+
+  // check if profile category is set to UndeclaredProfileCategories.NC {{ No Category }}
   const hasNoCategory =
     currentProfileCategory.name === UndeclaredProfileCategories.NC;
 
+  // Local State
   const [selectedCategory, setSelectedCategory] =
     useState<MemberProfileCategoryInterestTag | null>(
       hasNoCategory ? null : currentProfileCategory
     );
 
+  /** Checks if initial profile category matches any existing categories */
   const isCategoryInitiallySelected = (
     categoryTag: MemberProfileCategoryInterestTag
   ): boolean => currentProfileCategory.name === categoryTag.name;
 
+  // Update local state on profile category selection
   const onCategoryTagSelectionHandler = (
     categoryTag: MemberProfileCategoryInterestTag,
     isSelected: boolean
@@ -45,11 +60,28 @@ export const ManageUserProfileCategorySelection = ({
     setSelectedCategory({ name: categoryTag.name, status: "active" });
   };
 
-  const onSaveProfileCategoryHandler = () => {
-    console.log(selectedCategory);
+  // Submits category
+  const saveProfileCategoryHandler = async () => {
+    try {
+      if (selectedCategory && userUid) {
+        await updateUsersProfileCategory({
+          category: selectedCategory,
+          userUid: userUid,
+        });
+      }
+      successToast(
+        "Profile Category",
+        `You have updated your profile category to ${selectedCategory?.name}`
+      );
+    } catch (e) {
+      console.log("error", e);
+      errorToast(
+        "Profile Category",
+        `Unable to update your profile category at this time.`
+      );
+    }
   };
-
-  // checkd if tag is already selected
+  // checks if profile category tag is already selected
   const isSelected = (profileCategoryName: CombinedProfileCategories) =>
     selectedCategory?.name === profileCategoryName;
 
@@ -96,7 +128,7 @@ export const ManageUserProfileCategorySelection = ({
             borderBottom="1px"
             borderColor={bottomBorderColor}
           >
-            {profileCategoriesArray.map((category) => (
+            {profileCategoryInterestArray.map((category) => (
               <Tag
                 _hover={{
                   opacity: 0.8,
@@ -126,22 +158,33 @@ export const ManageUserProfileCategorySelection = ({
                     : activeTagColor
                 }
               >
+                {isSelected(category.categoryTag.name) && (
+                  <Avatar
+                    backgroundColor={`${category.colorScheme}.50`}
+                    color={"secondary.900"}
+                    mr={1.5}
+                    variant="nameBase"
+                    ml={-2}
+                    size="xs"
+                    name={category.categoryTag.name}
+                  />
+                )}
                 <TagLabel>{category.categoryTag.name}</TagLabel>
-                {isSelected(category.categoryTag.name) && <TagCloseButton />}
               </Tag>
             ))}
           </Flex>
           <Button
             isDisabled={
-              selectedCategory
+              hasNoCategory || selectedCategory
                 ? isCategoryInitiallySelected(
                     selectedCategory || currentProfileCategory
                   )
                 : false
             }
-            onClick={onSaveProfileCategoryHandler}
+            isLoading={isLoading}
+            onClick={saveProfileCategoryHandler}
             rounded="full"
-            variant="ghost"
+            variant="ghostOne"
             maxWidth="fit-content"
             ml="auto"
             mt={4}

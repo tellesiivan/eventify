@@ -105,7 +105,7 @@ export const authApi = baseApiSlice.injectEndpoints({
           return { error: err };
         }
       },
-      invalidatesTags: ["Membergraph"],
+      invalidatesTags: ["MemberGraph"],
     }),
 
     //***************SINGLE USER FETCHING*************** */
